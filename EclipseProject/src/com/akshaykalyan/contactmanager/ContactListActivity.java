@@ -2,8 +2,6 @@ package com.akshaykalyan.contactmanager;
 
 import java.util.Locale;
 
-
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
@@ -24,65 +22,56 @@ import android.widget.TextView;
 
 public class ContactListActivity extends Activity {
 
-	private String[] mTitles;
+	private String[] mSortOptions;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	
-	private CharSequence mTitle;
-
-	
 	private ActionBarDrawerToggle mDrawerToggle;
 	
-	
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
 		
-		mTitles = getResources().getStringArray(R.array.sort_options_array);
+		
+		mSortOptions = getResources().getStringArray(R.array.sort_options_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		
+		
+		// create sort options header
 		View header = View.inflate(this, R.layout.sort_options_header, null);
-	    mDrawerList.addHeaderView(header, null, false);
+		mDrawerList.addHeaderView(header, null, false);
 		
+		// populate sort options list
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mTitles));
+				R.layout.drawer_list_item, mSortOptions));
 		
-		
+		// enable listening
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-		
-
-		
-		mTitle = getTitle();
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		// this, drawlayout, drawer icon (using same as launcher here)
+				
 		mDrawerToggle = new ActionBarDrawerToggle(this,  mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 			
 			/** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-            
             
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-            
 		};
             
 		
+		// enable launcher icon as button to toggle drawer
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 		
+        // set to default fragment -- contact list sorted by first name
         selectItem(1);
 	}
 
@@ -115,12 +104,9 @@ public class ContactListActivity extends Activity {
             
             // changing the fragment
             String sortType = getResources().getStringArray(R.array.sort_options_array)[i];
-
-            
             TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
             tv.setText(sortType);
             
-
             return rootView;
 		
 		}
@@ -142,28 +128,10 @@ public class ContactListActivity extends Activity {
 	                   .replace(R.id.content_frame, fragment)
 	                   .commit();
 		
-	    // Highlight the selected item, update the title, and close the drawer
+	    // Highlight the selected item and close the drawer
 	    mDrawerList.setItemChecked(position, true);
-//	    setTitle(mTitles[position]);
-	    mDrawerLayout.closeDrawer(mDrawerList);
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+	    mDrawerLayout.closeDrawer(mDrawerList);   
 	}	
-	
-	public void setTitle(CharSequence title) {
-		
-		mTitle = title;
-		getActionBar().setTitle(mTitle);
-		
-		
-	}
-	
-	
 	
 	/* Called whenever we call invalidateOptionsMenu() */
     @Override
@@ -201,8 +169,4 @@ public class ContactListActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-	
-	
-	
-	
 }
