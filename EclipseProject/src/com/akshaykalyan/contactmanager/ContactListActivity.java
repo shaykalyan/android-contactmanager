@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -72,7 +73,9 @@ public class ContactListActivity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
 		
         // set to default fragment -- contact list sorted by first name
-        selectItem(1);
+
+ 		selectItem(1);
+ 		
 	}
 
 	@Override
@@ -169,4 +172,13 @@ public class ContactListActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+    
+    
+    public void startSomething(View view){
+    	Intent intent = new Intent(this, ListViewExampleActivity.class);
+    	startActivity(intent);
+    }
+    
+    
 }
+

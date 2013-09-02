@@ -12,6 +12,15 @@
         <item>Phone Number</item>
     </string-array>
     
+    
+    <string-array name="people_array">
+        <item>Bob Smith</item>
+        <item>Terry Longbottom</item>
+        <item>Nadia Wilkinson</item>
+    </string-array>
+    
+    
+    
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     
@@ -25,4 +34,7 @@
     <color name="color_font_grey">#999999</color>
     <color name="color_font_white">#FFFFFF</color>
 
+    <!-- accessibility -->
+    <string name="accessibility_contactphoto">Contact Photo</string>
+    <string name="accessibility_contactname">Contact Name</string>
 </resources>
