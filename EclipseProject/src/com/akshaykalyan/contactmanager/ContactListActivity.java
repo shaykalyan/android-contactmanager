@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ContactListActivity extends Activity {
 
@@ -42,12 +44,21 @@ public class ContactListActivity extends Activity {
 		
 		
 		// create sort options header
-		View header = View.inflate(this, R.layout.sort_options_header, null);
+		View header = View.inflate(this, R.layout.listview_header_sort_options, null);
+		
 		mDrawerList.addHeaderView(header, null, false);
+		
+		// sets header font to roboto
+		setFontRobotoRegular();
 		
 		// populate sort options list
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mSortOptions));
+				R.layout.list_item_drawer, mSortOptions));
+		
+		
+		
+
+		
 		
 		// enable listening
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -73,7 +84,7 @@ public class ContactListActivity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
 		
         // set to default fragment -- contact list sorted by first name
-
+        
  		selectItem(1);
  		
 	}
@@ -110,6 +121,7 @@ public class ContactListActivity extends Activity {
             TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
             tv.setText(sortType);
             
+            
             return rootView;
 		
 		}
@@ -133,7 +145,8 @@ public class ContactListActivity extends Activity {
 		
 	    // Highlight the selected item and close the drawer
 	    mDrawerList.setItemChecked(position, true);
-	    mDrawerLayout.closeDrawer(mDrawerList);   
+	    mDrawerLayout.closeDrawer(mDrawerList);  
+	    
 	}	
 	
 	/* Called whenever we call invalidateOptionsMenu() */
@@ -179,6 +192,18 @@ public class ContactListActivity extends Activity {
     	startActivity(intent);
     }
     
+    public void setFontRobotoRegular() {
+
+    		TextView tView = (TextView)findViewById(R.id.sort_options_header);
+//    		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+    		Typeface tf = FontRobotoRegular.getTypeface(this);
+        	tView.setTypeface(tf);    	
+    }
     
+    public void setFontRobotoThin() {
+		TextView tView = (TextView)findViewById(R.id.sort_options_header);
+		Typeface tf = FontRobotoThin.getTypeface(this);
+    	tView.setTypeface(tf);    	
+}
 }
 

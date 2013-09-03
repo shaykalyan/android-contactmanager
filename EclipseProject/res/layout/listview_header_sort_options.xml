@@ -15,6 +15,7 @@
 	    android:paddingLeft="10dp"
 	    android:gravity="left"
 	    android:textStyle="bold"
+	    android:textColor="@color/color_font_grey"
 	    android:text="@string/sort_options_stringheading"
 	    />
     

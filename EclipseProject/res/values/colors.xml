@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="pressed_mylightactionbarstyle">#CCD6D6D6</color>
+    
+    <color name="color_background_grey">#EBEBEB</color>
+    <color name="color_background_white">#FFFFFF</color>
+    
+    <color name="color_font_cyan_light">#00DDFF</color>
+    <color name="color_font_cyan_med">#33B5E5</color>
+    <color name="color_font_cyan_dark">#0099CC</color>
+    <color name="color_font_grey">#999999</color>
+    <color name="color_font_white">#FFFFFF</color> 
+</resources>
