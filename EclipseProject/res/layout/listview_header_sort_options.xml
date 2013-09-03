@@ -16,7 +16,7 @@
 	    android:gravity="left"
 	    android:textStyle="bold"
 	    android:textColor="@color/color_font_grey"
-	    android:text="@string/sort_options_stringheading"
+	    android:text="@string/text_sortoptions"
 	    />
     
 </LinearLayout>
