@@ -54,11 +54,10 @@
 		        <TextView
 		            android:id="@+id/textview_contactinfo_name"
 		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-					android:textColor="@color/color_font_grey_dark"
-		            
+		            android:layout_height="wrap_content"		            
 		            android:background="@drawable/bg_card"
-		            android:text="@string/text_firstname" 
+		            android:text="@string/text_firstname"
+		            style="@style/Text_DarkGrey" 
 		        />
 		        
 		        

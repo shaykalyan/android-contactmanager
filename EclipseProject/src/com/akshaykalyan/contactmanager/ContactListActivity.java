@@ -50,7 +50,9 @@ public class ContactListActivity extends Activity {
 		mDrawerList.addHeaderView(header, null, false);
 		
 		// sets header font to roboto
-		setFontRobotoRegular();
+		TextView tView = (TextView)findViewById(R.id.sort_options_header);
+		Typeface tf = FontRobotoRegular.getTypeface(this);
+    	tView.setTypeface(tf);    
 		
 		// populate sort options list
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
@@ -209,18 +211,5 @@ public class ContactListActivity extends Activity {
     	Intent intent = new Intent(this, ContactInformationActivity.class);
     	startActivity(intent);
     }
-    
-    public void setFontRobotoRegular() {
-
-    		TextView tView = (TextView)findViewById(R.id.sort_options_header);
-    		Typeface tf = FontRobotoRegular.getTypeface(this);
-        	tView.setTypeface(tf);    	
-    }
-    
-    public void setFontRobotoThin() {
-		TextView tView = (TextView)findViewById(R.id.sort_options_header);
-		Typeface tf = FontRobotoLight.getTypeface(this);
-    	tView.setTypeface(tf);    	
-}
 }
 

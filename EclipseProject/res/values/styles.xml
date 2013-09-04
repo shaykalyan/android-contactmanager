@@ -31,6 +31,7 @@
     
     <style name="Text_DarkGrey">
         <item name="android:textColor">@color/color_font_grey_dark</item>
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>
 

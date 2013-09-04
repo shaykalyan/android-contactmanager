@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     
-
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/color_background_grey"
     tools:context=".ContactEditActivity"
+    
+    
     >
 
     <LinearLayout 
@@ -18,6 +19,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin">
         
+        <!-- ImageView -->
 	    <RelativeLayout 
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content">
@@ -32,39 +34,60 @@
 	        android:src="@drawable/ic_launcher"
 	        />
 	        
-	        
-	        <LinearLayout 
-	            android:layout_height="wrap_content"
-	            android:layout_width="fill_parent"
-	            android:orientation="vertical"
+	        <Button 
+	            android:layout_width="wrap_content"
+	            android:layout_height="35dp"
 	            android:layout_toRightOf="@id/image_contactedit_contact_image"
-	            android:paddingLeft="20dp"
 	            android:layout_centerVertical="true"
-	            >
-	            
-	            <TextView
-		            android:id="@+id/label_contactedit_name"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            
-		            
-		            android:text="@string/text_name" 
-		            style="@style/Label_Blue"/>
-	           	 
-		        <EditText
-		            android:id="@+id/textview_contactedit_name"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-					android:textColor="@color/color_font_grey_dark"
-		            android:background="@drawable/nine_patch_edittextview"
-		            android:hint="@string/text_firstname" 
-		            android:textSize="15sp"
-		        />
-
-		        
-	        
-	        </LinearLayout>
+	            android:layout_marginLeft="40dp"
+	            android:drawableLeft="@drawable/ic_gallery"
+	            android:drawablePadding="0dp"
+	            android:padding="5dp"
+	            android:background="@drawable/button_cardstyle"
+	            android:textSize="12sp"
+	            android:text="@string/action_selectphoto"   /> 
 	    </RelativeLayout>
+	    
+	    <!-- Names -->
+	    <!-- To stop auto focus on edit text, parent has been given focus -->
+        <LinearLayout 
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            
+            android:layout_marginTop="20dp"          
+            android:descendantFocusability="beforeDescendants"
+   			android:focusableInTouchMode="true"
+            >
+            
+            <TextView
+	            android:id="@+id/label_contactedit_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+
+	            android:text="@string/text_name" 
+	            style="@style/Label_Blue"/>
+           	 
+	        <EditText
+	            android:id="@+id/textview_contactedit_firstname"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+
+	            android:hint="@string/text_firstname" 
+	            android:inputType="textCapWords"
+	            style="@style/Text_DarkGrey"/>
+	        <EditText
+	            android:id="@+id/textview_contactedit_lastname"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:inputType="textCapWords"
+	            android:hint="@string/text_lastname" 
+	            style="@style/Text_DarkGrey"/>
+
+	        
+        
+        </LinearLayout>
 	
 	    <!-- Mobile -->
 	    <RelativeLayout 
@@ -79,14 +102,15 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_phone_mobile"
 		        style="@style/Label_Blue"/>
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_phone_mobile"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactedit_phone_mobile"
-		        android:background="@drawable/bg_card"
-		        android:text="@string/text_phone_mobile"
+		        android:inputType="phone"
+		        android:hint="@string/text_phone_mobile"
+		        android:textSize="15sp"
 		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
@@ -104,14 +128,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_phone_home"
 		        style="@style/Label_Blue"/>
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_phone_home"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactedit_phone_home"
-		        android:background="@drawable/bg_card"
-		        android:text="@string/text_phone_home"
+		        android:inputType="phone"
+		        android:hint="@string/text_phone_home"
 		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
@@ -129,14 +153,15 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_phone_work"
 		        style="@style/Label_Blue"/>
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_phone_work"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactedit_phone_work"
-		        android:background="@drawable/bg_card"
-		        android:text="@string/text_phone_work"
+		        android:inputType="phone"
+		        android:hint="@string/text_phone_work"
+		        android:textSize="15sp"
 		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
@@ -154,14 +179,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_email"
 		        style="@style/Label_Blue"/>
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_email"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactedit_email"
-		        android:background="@drawable/bg_card"
-		        android:text="@string/text_email"
+		        android:inputType="textEmailAddress"
+		        android:hint="@string/text_email"
 		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
@@ -180,14 +205,14 @@
 		        android:text="@string/text_birthday"
 		        style="@style/Label_Blue"/>
 		    
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_birthday"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactedit_birthday"
-		        android:background="@drawable/bg_card"
-		        android:text="@string/text_birthday"
+		        android:inputType="date"
+		        android:hint="@string/text_birthday"
 		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
@@ -211,24 +236,26 @@
 	        <LinearLayout
 	            android:layout_height="wrap_content"
 	            android:layout_width="fill_parent"
-	            android:background="@drawable/bg_card"
+	            
 	            android:layout_below="@id/label_contactedit_address"
 	            android:orientation="vertical"
 	            >
 	            
 	        		    
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_addressline1"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_addressline1"
+		        android:hint="@string/text_addressline1"
+		        android:inputType="textPostalAddress"
 		        style="@style/Text_DarkGrey"
 		        />
-		    <TextView 
+		    <EditText 
 		        android:id="@+id/textview_contactedit_addressline2"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_addressline2"
+		        android:hint="@string/text_addressline2"
+		        android:inputType="textPostalAddress"
 		        style="@style/Text_DarkGrey"
 		        />
 		    
