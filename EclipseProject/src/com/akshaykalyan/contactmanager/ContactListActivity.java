@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -87,6 +88,10 @@ public class ContactListActivity extends Activity {
         
  		selectItem(1);
  		
+ 		
+ 		
+
+ 		
 	}
 
 	@Override
@@ -121,6 +126,19 @@ public class ContactListActivity extends Activity {
             TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
             tv.setText(sortType);
             
+     		// BUTTON --------------
+     		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ContactInformation.class);
+                	startActivity(intent);
+                	
+                	Toast.makeText(v.getContext(), "Changing Screens!", 10).show();
+                }
+
+
+    		});
             
             return rootView;
 		
@@ -188,14 +206,13 @@ public class ContactListActivity extends Activity {
     
     
     public void startSomething(View view){
-    	Intent intent = new Intent(this, ListViewExampleActivity.class);
+    	Intent intent = new Intent(this, ContactInformation.class);
     	startActivity(intent);
     }
     
     public void setFontRobotoRegular() {
 
     		TextView tView = (TextView)findViewById(R.id.sort_options_header);
-//    		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
     		Typeface tf = FontRobotoRegular.getTypeface(this);
         	tView.setTypeface(tf);    	
     }

@@ -29,7 +29,9 @@
     <string name="text_addressline2">Address Line 2</string>
     <string name="text_email">Email</string>
     <string name="text_birthday">Birthday</string>
+    <string name="text_name">Name</string>
     <string name="text_firstname">First Name</string>
     <string name="text_lastname">Last Name</string>
+    
 
 </resources>

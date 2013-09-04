@@ -36,6 +36,12 @@
         android:textSize="16sp" />
 
 	</RelativeLayout>
-
+	
+    <Button 
+        android:id="@+id/my_fragment_editbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_edit"
+        />
 
 </LinearLayout>
