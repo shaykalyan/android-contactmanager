@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    
+
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/color_background_grey"
@@ -14,7 +14,9 @@
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
         
 	    <RelativeLayout 
 		    android:layout_width="fill_parent"
@@ -31,30 +33,37 @@
 	        />
 	        
 	        
-	        
-	        <TextView
-	            android:id="@+id/textview_contactinfo_name"
-	            android:layout_width="150dp"
+	        <LinearLayout 
 	            android:layout_height="wrap_content"
-	            android:layout_centerVertical="true"
-	            android:layout_marginLeft="20dp"
+	            android:layout_width="fill_parent"
+	            android:orientation="vertical"
 	            android:layout_toRightOf="@+id/image_contactinfo_contact_image"
-	            android:background="@drawable/bg_card"
-	            android:text="@string/text_firstname" 
-	        />
-	        
-	        <TextView
-	            android:id="@+id/label_contactinfo_name"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/image_contactinfo_contact_image"
-				android:layout_alignTop="@id/image_contactinfo_contact_image" 
+	            android:paddingLeft="20dp"
+	            android:layout_centerVertical="true"
+	            >
 	            
-	            android:layout_marginLeft="20dp"
-	            android:layout_marginTop="15dp"
+	            <TextView
+		            android:id="@+id/label_contactinfo_name"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            
+		            
+		            android:text="@string/text_name" 
+		            style="@style/Label_Blue"/>
 	            
-	            android:text="@string/text_name" />
+		        <TextView
+		            android:id="@+id/textview_contactinfo_name"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+					android:textColor="@color/color_font_grey_dark"
+		            
+		            android:background="@drawable/bg_card"
+		            android:text="@string/text_firstname" 
+		        />
+		        
+		        
 	        
+	        </LinearLayout>
 	    </RelativeLayout>
 	
 	    <!-- Mobile -->
@@ -68,7 +77,8 @@
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_phone_mobile"/>
+		        android:text="@string/text_phone_mobile"
+		        style="@style/Label_Blue"/>
 		    <TextView 
 		        android:id="@+id/textview_contactinfo_phone_mobile"
 		        
@@ -77,6 +87,7 @@
 		        android:layout_below="@id/label_contactinfo_phone_mobile"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_phone_mobile"
+		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
 	    
@@ -91,7 +102,8 @@
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_phone_home"/>
+		        android:text="@string/text_phone_home"
+		        style="@style/Label_Blue"/>
 		    <TextView 
 		        android:id="@+id/textview_contactinfo_phone_home"
 		        
@@ -100,6 +112,7 @@
 		        android:layout_below="@id/label_contactinfo_phone_home"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_phone_home"
+		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
 	    
@@ -114,7 +127,8 @@
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_phone_work"/>
+		        android:text="@string/text_phone_work"
+		        style="@style/Label_Blue"/>
 		    <TextView 
 		        android:id="@+id/textview_contactinfo_phone_work"
 		        
@@ -123,6 +137,7 @@
 		        android:layout_below="@id/label_contactinfo_phone_work"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_phone_work"
+		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
 	    
@@ -137,7 +152,8 @@
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_email"/>
+		        android:text="@string/text_email"
+		        style="@style/Label_Blue"/>
 		    <TextView 
 		        android:id="@+id/textview_contactinfo_email"
 		        
@@ -145,7 +161,8 @@
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactinfo_email"
 		        android:background="@drawable/bg_card"
-		        android:text="@string/text_birthday"
+		        android:text="@string/text_email"
+		        style="@style/Text_DarkGrey"
 		        />
 	    </RelativeLayout>
 	    
@@ -160,7 +177,8 @@
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/text_birthday"/>
+		        android:text="@string/text_birthday"
+		        style="@style/Label_Blue"/>
 		    
 		    <TextView 
 		        android:id="@+id/textview_contactinfo_birthday"
@@ -169,8 +187,52 @@
 		        android:layout_height="wrap_content"
 		        android:layout_below="@id/label_contactinfo_birthday"
 		        android:background="@drawable/bg_card"
-		        android:text="@string/text_email"
+		        android:text="@string/text_birthday"
+		        style="@style/Text_DarkGrey"
 		        />
+	    </RelativeLayout>
+	    
+	    
+	    <!-- Address -->
+	    <RelativeLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp">
+		    
+	        <TextView 
+		        android:id="@+id/label_contactinfo_address"
+		        
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        
+		        android:text="@string/text_address"
+		        style="@style/Label_Blue"/>
+	        
+	        <LinearLayout
+	            android:layout_height="wrap_content"
+	            android:layout_width="fill_parent"
+	            android:background="@drawable/bg_card"
+	            android:layout_below="@id/label_contactinfo_address"
+	            android:orientation="vertical"
+	            >
+	            
+	        		    
+		    <TextView 
+		        android:id="@+id/textview_contactinfo_addressline1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/text_addressline1"
+		        style="@style/Text_DarkGrey"
+		        />
+		    <TextView 
+		        android:id="@+id/textview_contactinfo_addressline2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/text_addressline2"
+		        style="@style/Text_DarkGrey"
+		        />
+		    
+		    </LinearLayout>
 	    </RelativeLayout>
 	    
     </LinearLayout>

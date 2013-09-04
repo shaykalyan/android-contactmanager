@@ -219,7 +219,7 @@ public class ContactListActivity extends Activity {
     
     public void setFontRobotoThin() {
 		TextView tView = (TextView)findViewById(R.id.sort_options_header);
-		Typeface tf = FontRobotoThin.getTypeface(this);
+		Typeface tf = FontRobotoLight.getTypeface(this);
     	tView.setTypeface(tf);    	
 }
 }

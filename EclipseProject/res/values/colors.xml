@@ -9,6 +9,7 @@
     <color name="color_font_cyan_light">#00DDFF</color>
     <color name="color_font_cyan_med">#33B5E5</color>
     <color name="color_font_cyan_dark">#0099CC</color>
-    <color name="color_font_grey">#999999</color>
+    <color name="color_font_grey_light">#999999</color>
+    <color name="color_font_grey_dark">#554B50</color>
     <color name="color_font_white">#FFFFFF</color> 
 </resources>

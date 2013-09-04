@@ -1,12 +1,19 @@
 package com.akshaykalyan.contactmanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class ContactInformation extends Activity {
+
+	private List<TextView> labelList = new ArrayList<TextView>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +21,21 @@ public class ContactInformation extends Activity {
 		setContentView(R.layout.activity_contact_information);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_name));
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_birthday));
+		labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
+		
+		for (TextView textView : labelList) {
+			Typeface tf = FontRobotoLight.getTypeface(this);
+	    	textView.setTypeface(tf); 
+		}
+		
 	}
 
 	/**
