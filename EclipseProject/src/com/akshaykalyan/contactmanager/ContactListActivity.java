@@ -131,7 +131,7 @@ public class ContactListActivity extends Activity {
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ContactInformation.class);
+                    Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
                 	startActivity(intent);
                 	
                 	Toast.makeText(v.getContext(), "Changing Screens!", 10).show();
@@ -206,7 +206,7 @@ public class ContactListActivity extends Activity {
     
     
     public void startSomething(View view){
-    	Intent intent = new Intent(this, ContactInformation.class);
+    	Intent intent = new Intent(this, ContactInformationActivity.class);
     	startActivity(intent);
     }
     

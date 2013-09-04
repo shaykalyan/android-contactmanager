@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/color_background_grey"
-    tools:context=".ContactInformationActivity"
+    tools:context=".ContactEditActivity"
     >
 
     <LinearLayout 
@@ -23,7 +23,7 @@
 		    android:layout_height="wrap_content">
 	        
 	        <ImageView
-	            android:id="@+id/image_contactinfo_contact_image"
+	            android:id="@+id/image_contactedit_contact_image"
 	        android:layout_width="100dp"
 	        android:layout_height="100dp"
 	        android:layout_marginRight="6dip"
@@ -37,30 +37,30 @@
 	            android:layout_height="wrap_content"
 	            android:layout_width="fill_parent"
 	            android:orientation="vertical"
-	            android:layout_toRightOf="@+id/image_contactinfo_contact_image"
+	            android:layout_toRightOf="@id/image_contactedit_contact_image"
 	            android:paddingLeft="20dp"
 	            android:layout_centerVertical="true"
 	            >
 	            
 	            <TextView
-		            android:id="@+id/label_contactinfo_name"
+		            android:id="@+id/label_contactedit_name"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            
 		            
 		            android:text="@string/text_name" 
 		            style="@style/Label_Blue"/>
-	            
-		        <TextView
-		            android:id="@+id/textview_contactinfo_name"
+	           	 
+		        <EditText
+		            android:id="@+id/textview_contactedit_name"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 					android:textColor="@color/color_font_grey_dark"
-		            
-		            android:background="@drawable/bg_card"
-		            android:text="@string/text_firstname" 
+		            android:background="@drawable/nine_patch_edittextview"
+		            android:hint="@string/text_firstname" 
+		            android:textSize="15sp"
 		        />
-		        
+
 		        
 	        
 	        </LinearLayout>
@@ -73,18 +73,18 @@
 	        android:layout_marginTop="20dp">
 		    
 		    <TextView 
-		        android:id="@+id/label_contactinfo_phone_mobile"
+		        android:id="@+id/label_contactedit_phone_mobile"
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_phone_mobile"
 		        style="@style/Label_Blue"/>
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_phone_mobile"
+		        android:id="@+id/textview_contactedit_phone_mobile"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@id/label_contactinfo_phone_mobile"
+		        android:layout_below="@id/label_contactedit_phone_mobile"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_phone_mobile"
 		        style="@style/Text_DarkGrey"
@@ -98,18 +98,18 @@
 	        android:layout_marginTop="10dp">
 		    
 		    <TextView 
-		        android:id="@+id/label_contactinfo_phone_home"
+		        android:id="@+id/label_contactedit_phone_home"
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_phone_home"
 		        style="@style/Label_Blue"/>
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_phone_home"
+		        android:id="@+id/textview_contactedit_phone_home"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@id/label_contactinfo_phone_home"
+		        android:layout_below="@id/label_contactedit_phone_home"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_phone_home"
 		        style="@style/Text_DarkGrey"
@@ -123,18 +123,18 @@
 	        android:layout_marginTop="10dp">
 		    
 		    <TextView 
-		        android:id="@+id/label_contactinfo_phone_work"
+		        android:id="@+id/label_contactedit_phone_work"
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_phone_work"
 		        style="@style/Label_Blue"/>
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_phone_work"
+		        android:id="@+id/textview_contactedit_phone_work"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@id/label_contactinfo_phone_work"
+		        android:layout_below="@id/label_contactedit_phone_work"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_phone_work"
 		        style="@style/Text_DarkGrey"
@@ -148,18 +148,18 @@
 	        android:layout_marginTop="10dp">
 		    
 		    <TextView 
-		        android:id="@+id/label_contactinfo_email"
+		        android:id="@+id/label_contactedit_email"
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_email"
 		        style="@style/Label_Blue"/>
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_email"
+		        android:id="@+id/textview_contactedit_email"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@id/label_contactinfo_email"
+		        android:layout_below="@id/label_contactedit_email"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_email"
 		        style="@style/Text_DarkGrey"
@@ -173,7 +173,7 @@
 	        android:layout_marginTop="10dp">
 		    
 		    <TextView 
-		        android:id="@+id/label_contactinfo_birthday"
+		        android:id="@+id/label_contactedit_birthday"
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -181,11 +181,11 @@
 		        style="@style/Label_Blue"/>
 		    
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_birthday"
+		        android:id="@+id/textview_contactedit_birthday"
 		        
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_below="@id/label_contactinfo_birthday"
+		        android:layout_below="@id/label_contactedit_birthday"
 		        android:background="@drawable/bg_card"
 		        android:text="@string/text_birthday"
 		        style="@style/Text_DarkGrey"
@@ -200,7 +200,7 @@
 	        android:layout_marginTop="10dp">
 		    
 	        <TextView 
-		        android:id="@+id/label_contactinfo_address"
+		        android:id="@+id/label_contactedit_address"
 		        
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -212,20 +212,20 @@
 	            android:layout_height="wrap_content"
 	            android:layout_width="fill_parent"
 	            android:background="@drawable/bg_card"
-	            android:layout_below="@id/label_contactinfo_address"
+	            android:layout_below="@id/label_contactedit_address"
 	            android:orientation="vertical"
 	            >
 	            
 	        		    
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_addressline1"
+		        android:id="@+id/textview_contactedit_addressline1"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_addressline1"
 		        style="@style/Text_DarkGrey"
 		        />
 		    <TextView 
-		        android:id="@+id/textview_contactinfo_addressline2"
+		        android:id="@+id/textview_contactedit_addressline2"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="@string/text_addressline2"
@@ -238,3 +238,4 @@
     </LinearLayout>
     
 </ScrollView>
+

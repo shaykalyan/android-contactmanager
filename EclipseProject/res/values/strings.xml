@@ -11,15 +11,15 @@
     <string name="accessibility_contactphoto">Contact Photo</string>
     <string name="accessibility_contactname">Contact Name</string>
     <string name="title_activity_contact_information">Contact Information</string>
-    
+
     <!-- Actions -->
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
     <string name="action_selectphoto">Select Photo</string>
-    
+
     <!-- Sort Options -->
-	<string name="text_sortoptions">Sort Options</string>        
-    
+    <string name="text_sortoptions">Sort Options</string>
+
     <!-- Contact Information -->
     <string name="text_phone_mobile">Mobile</string>
     <string name="text_phone_work">Work</string>
@@ -32,6 +32,6 @@
     <string name="text_name">Name</string>
     <string name="text_firstname">First Name</string>
     <string name="text_lastname">Last Name</string>
-    
+    <string name="title_activity_contact_edit">ContactEditActivity</string>
 
 </resources>

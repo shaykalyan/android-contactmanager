@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
-public class ContactInformation extends Activity {
+public class ContactInformationActivity extends Activity {
 
 	private List<TextView> labelList = new ArrayList<TextView>();
 
