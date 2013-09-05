@@ -18,19 +18,9 @@
 	    android:id="@+id/dialog_label_about"
 	    android:layout_height="wrap_content"
 	    android:layout_width="match_parent"
-	    android:paddingRight="10dp"
-	    android:paddingTop="2dp"
-	    android:paddingBottom="2dp"
-	    android:shadowRadius="3"
-	    android:shadowDx="1"
-	    android:shadowDy="1"
-	    android:shadowColor="@color/black"
 	    android:layout_gravity="bottom"
-	    android:gravity="right"
-	    android:background="#80000000"
 	    android:text="@string/action_about"
-	    android:textColor="@color/color_font_white"
-	    android:textSize="20sp"/>
+	    style="@style/TextView_ImageOverlay_OpaqueBg"/>
     </FrameLayout>
 
 	<RelativeLayout

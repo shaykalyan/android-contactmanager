@@ -134,16 +134,22 @@ public class ContactListActivity extends Activity {
             
      		// BUTTON --------------
      		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
-
             editButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
                 	startActivity(intent);
-                	
-                	Toast.makeText(v.getContext(), "Changing Screens!", 10).show();
+
                 }
+    		});
+            
+         // BUTTON --------------
+     		Button contactInfoButton = (Button)rootView.findViewById(R.id.my_fragment_contactinfobutton);
+     		contactInfoButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
+                	startActivity(intent);
 
-
+                }
     		});
             
             return rootView;

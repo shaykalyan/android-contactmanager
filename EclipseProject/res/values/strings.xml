@@ -12,6 +12,7 @@
     <string name="accessibility_contactphoto">Contact Photo</string>
     <string name="accessibility_contactname">Contact Name</string>
     <string name="title_activity_contact_information">Contact Information</string>
+    <string name="accessibility_editsdiscarded">Edits Discarded</string>
 
     <!-- Actions -->
     <string name="action_edit">Edit</string>
@@ -42,5 +43,8 @@
     
     <!-- About Dialog -->
     <string name="text_about_by">By Akshay Kalyan</string>
+    
+    <!-- Toast Messages -->
+    <string name="toast_editsdiscarded">Edits Discarded</string>
     
 </resources>

@@ -281,7 +281,7 @@
            android:background="?android:attr/dividerVertical"
            android:layout_alignParentTop="true"/>
         <View
-            android:id="@+id/ViewColorPickerHelper"
+            android:id="@+id/editcontact_button_divider_vertical"
             android:layout_width="1dip"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -293,18 +293,18 @@
             android:layout_centerHorizontal="true"/>
         <Button
             android:paddingRight="5dp"
-            android:id="@+id/BtnColorPickerCancel"
+            android:id="@+id/button_editactivity_discardedit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@id/ViewColorPickerHelper"
+            android:layout_toLeftOf="@id/editcontact_button_divider_vertical"
             android:background="?android:attr/selectableItemBackground"
             android:drawableRight="@drawable/ic_cancel_x"
             android:layout_alignParentBottom="true"/>
         <Button
   	        android:paddingRight="5dp"        
-            android:id="@+id/BtnColorPickerOk"
+            android:id="@+id/button_editactivity_acceptedit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -312,7 +312,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:drawableRight="@drawable/ic_accept_tick"
             android:layout_alignParentBottom="true" 
-            android:layout_toRightOf="@id/ViewColorPickerHelper"/>
+            android:layout_toRightOf="@id/editcontact_button_divider_vertical"/>
 	        
     </RelativeLayout>
 </RelativeLayout>

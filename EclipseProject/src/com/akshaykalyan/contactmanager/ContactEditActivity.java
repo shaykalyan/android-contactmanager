@@ -2,11 +2,18 @@ package com.akshaykalyan.contactmanager;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ContactEditActivity extends Activity {
+	private Button acceptEditButton, discardEditButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +21,28 @@ public class ContactEditActivity extends Activity {
 		setContentView(R.layout.activity_contact_edit);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		acceptEditButton = (Button)findViewById(R.id.button_editactivity_acceptedit);
+		discardEditButton = (Button)findViewById(R.id.button_editactivity_discardedit);
+		
+		discardEditButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	
+            	LayoutInflater inflater = getLayoutInflater();
+            	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
+                Toast toast = new Toast(getApplicationContext());
+                toast.setView(view);
+                toast.show();
+            	
+            	finish();
+            }
+		});
+		
+		acceptEditButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
+            }
+		});
 	}
 
 	/**
