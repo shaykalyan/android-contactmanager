@@ -4,8 +4,12 @@ import java.util.Locale;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
@@ -176,7 +180,7 @@ public class ContactListActivity extends Activity {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         
         // to hide the menus items etc
-        
+//        menu.findItem(R.id.action_add_contact).setVisible(!drawerOpen);
 //        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -201,6 +205,18 @@ public class ContactListActivity extends Activity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
           return true;
         }
+        
+        switch (item.getItemId()) {
+        case R.id.action_about:
+        	DialogFragment aboutDialogFragment = new AboutDialog();
+        	aboutDialogFragment.show(getFragmentManager(), "About");
+        	break;
+        case R.id.action_add_contact:
+        	Toast.makeText(getApplicationContext(), "Add Contact -- Coming Soon!", Toast.LENGTH_SHORT).show();
+        	break;
+       	default:
+       		break;
+        }
         // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
@@ -210,6 +226,28 @@ public class ContactListActivity extends Activity {
     public void startSomething(View view){
     	Intent intent = new Intent(this, ContactInformationActivity.class);
     	startActivity(intent);
+    }
+    
+    
+    public static class AboutDialog extends DialogFragment {
+    	@Override
+    	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    		
+    		// Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            // get the layout inflater
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            
+            builder.setView(inflater.inflate(R.layout.diaglog_about, null))
+                   .setPositiveButton(R.string.action_okay, new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           dismiss();
+                       }
+                   });
+            // Create the AlertDialog object and return it
+            return builder.create();
+    		
+    	}
     }
 }
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<FrameLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="64dp">
+	<ImageView 
+	    android:src="@drawable/ic_launcher"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:scaleType="centerCrop"
+	    android:contentDescription="@string/app_name"/>
+	
+	<TextView 
+	    android:id="@+id/dialog_label_about"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:paddingRight="10dp"
+	    android:paddingTop="2dp"
+	    android:paddingBottom="2dp"
+	    android:shadowRadius="3"
+	    android:shadowDx="1"
+	    android:shadowDy="1"
+	    android:shadowColor="@color/black"
+	    android:layout_gravity="bottom"
+	    android:gravity="right"
+	    android:background="#80000000"
+	    android:text="@string/action_about"
+	    android:textColor="@color/color_font_white"
+	    android:textSize="20sp"/>
+    </FrameLayout>
+
+	<RelativeLayout
+	    android:layout_marginTop="30dp"
+	    android:layout_marginBottom="30dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+
+	    <TextView
+	        android:id="@+id/dialog_about_appname"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:textSize="24sp"
+	        android:text="@string/app_name" />
+
+	    <TextView
+	        android:id="@+id/dialog_about_appversion"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_below="@id/dialog_about_appname"
+	        android:textSize="15sp"
+	        android:text="@string/app_version" />
+
+	    <TextView
+	        android:id="@+id/dialog_about_by"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_below="@id/dialog_about_appversion"
+	        android:textSize="18sp"
+	        android:text="@string/text_about_by" />
+	</RelativeLayout>
+
+</LinearLayout>

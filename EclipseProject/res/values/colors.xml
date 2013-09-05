@@ -3,6 +3,9 @@
     
     <color name="pressed_mylightactionbarstyle">#CCD6D6D6</color>
     
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    
     <color name="color_background_grey">#EBEBEB</color>
     <color name="color_background_white">#FFFFFF</color>
     
