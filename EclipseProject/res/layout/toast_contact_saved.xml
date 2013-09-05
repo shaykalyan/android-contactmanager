@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:id="@+id/toast_edits_discarded"
+  android:background="@android:color/white"
+  android:orientation="horizontal"
+  android:layout_gravity="center_horizontal">
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_save_floppydisk"
+        android:contentDescription="@string/accessibility_editsdiscarded"
+        android:layout_margin="5dp"
+        android:id="@+id/imageView1">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textview_toast_editsdiscraded"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingRight="15dp"
+        android:text="@string/toast_contactsaved"
+        android:textColor="@android:color/black">
+    </TextView>
+
+</LinearLayout>

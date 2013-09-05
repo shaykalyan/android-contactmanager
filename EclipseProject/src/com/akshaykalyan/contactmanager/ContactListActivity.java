@@ -15,6 +15,7 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -220,6 +221,9 @@ public class ContactListActivity extends Activity {
         case R.id.action_add_contact:
         	Toast.makeText(getApplicationContext(), "Add Contact -- Coming Soon!", Toast.LENGTH_SHORT).show();
         	break;
+        case R.id.action_sortoptions:
+        	mDrawerLayout.openDrawer(Gravity.LEFT);
+        	break;
        	default:
        		break;
         }
@@ -252,6 +256,34 @@ public class ContactListActivity extends Activity {
                    });
             // Create the AlertDialog object and return it
             return builder.create();
+    		
+    	}
+    }
+    
+    public static class ConfirmDeleteDialog extends DialogFragment {
+    	@Override
+    	public Dialog onCreateDialog(Bundle saveInstanceState) {
+    		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    		builder.setTitle(R.string.dialog_confirmdelete_title);
+    		builder.setMessage(R.string.dialog_confirmdelete_message)
+    			.setPositiveButton(R.string.action_yes, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub	
+					}
+				})
+				.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+    		return builder.create();
+    		
+    		
     		
     	}
     }
