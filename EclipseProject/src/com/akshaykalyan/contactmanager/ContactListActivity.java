@@ -253,33 +253,5 @@ public class ContactListActivity extends Activity {
     		
     	}
     }
-    
-    public static class ConfirmDeleteDialog extends DialogFragment {
-    	@Override
-    	public Dialog onCreateDialog(Bundle saveInstanceState) {
-    		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    		builder.setTitle(R.string.dialog_confirmdelete_title);
-    		builder.setMessage(R.string.dialog_confirmdelete_message)
-    			.setPositiveButton(R.string.action_yes, new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub	
-					}
-				})
-				.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
-    		return builder.create();
-    		
-    		
-    		
-    	}
-    }
 }
 
