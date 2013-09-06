@@ -231,13 +231,7 @@ public class ContactListActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    
-    
-    public void startSomething(View view){
-    	Intent intent = new Intent(this, ContactInformationActivity.class);
-    	startActivity(intent);
-    }
-    
+
     
     public static class AboutDialog extends DialogFragment {
     	@Override

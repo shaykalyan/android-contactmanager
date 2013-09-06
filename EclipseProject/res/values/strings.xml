@@ -14,6 +14,7 @@
     <string name="accessibility_contactphoto">Contact Photo</string>
     <string name="accessibility_contactname">Contact Name</string>
     <string name="accessibility_editsdiscarded">Edits Discarded</string>
+    <string name="accessibility_showdatepickerdialog">Show Date Picker Dialog</string>
 
     <!-- Actions -->
     <string name="action_edit">Edit</string>
