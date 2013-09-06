@@ -23,7 +23,6 @@ public class ContactInformationActivity extends Activity {
 		setupActionBar();
 
 
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_name));
 		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
 		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
 		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
