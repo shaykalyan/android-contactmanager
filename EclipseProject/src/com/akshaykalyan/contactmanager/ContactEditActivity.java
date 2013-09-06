@@ -110,9 +110,10 @@ public class ContactEditActivity extends Activity {
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			TextView datePickerTextView = (TextView)getActivity().findViewById(R.id.textview_contactedit_birthday);
 			datePickerTextView.setText(new StringBuilder()
+									.append(day).append("-")
 						            // Month is 0 based so add 1
 						            .append(month + 1).append("-")
-						            .append(day).append("-")
+						            
 						            .append(year).append(" "));
 			
 			

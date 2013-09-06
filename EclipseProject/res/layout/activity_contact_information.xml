@@ -1,4 +1,3 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -46,30 +45,48 @@
 	        android:paddingTop="@dimen/activity_vertical_margin"
 	        android:paddingBottom="@dimen/activity_vertical_margin">
 		
+	        
 		    <!-- Mobile -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
+		    <FrameLayout 
 		        android:layout_height="wrap_content"
-		        >
-			    
-			    <TextView 
-			        android:id="@+id/label_contactinfo_phone_mobile"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_phone_mobile"
-			        style="@style/Label_Blue"/>
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_phone_mobile"
-			        
+		        android:layout_width="match_parent">
+			    <RelativeLayout 
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactinfo_phone_mobile"
-			        android:background="@drawable/bg_card"
-			        android:text="@string/text_phone_mobile"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
+			        >
+				    
+				    <TextView 
+				        android:id="@+id/label_contactinfo_phone_mobile"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_phone_mobile"
+				        style="@style/Label_Blue"/>
+				    <TextView 
+				        android:id="@+id/textview_contactinfo_phone_mobile"
+				        android:layout_below="@id/label_contactinfo_phone_mobile"
+				        
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:paddingTop="15dp"
+				        android:paddingBottom="15dp"
+				        android:background="@drawable/bg_card"
+				        android:text="@string/text_fakenumber"
+				        style="@style/Text_DarkGrey"
+				        />
+			    </RelativeLayout>
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_phone"
+				        android:contentDescription="@string/accessibility_callcontact"
+				        android:layout_marginTop="30dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="makePhoneCall"/>
+			    
+			</FrameLayout>
 		    
 		    <!-- Home -->
 		    <RelativeLayout 
@@ -122,29 +139,49 @@
 		    </RelativeLayout>
 		    
 		    <!-- Email -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
+		    <FrameLayout 
 		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactinfo_email"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_email"
-			        style="@style/Label_Blue"/>
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_email"
-			        
+		        android:layout_width="fill_parent">
+		        
+			    <RelativeLayout 
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactinfo_email"
-			        android:background="@drawable/bg_card"
-			        android:text="@string/text_email"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactinfo_email"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_email"
+				        style="@style/Label_Blue"/>
+				    <TextView 
+				        android:id="@+id/textview_contactinfo_email"
+				        android:layout_below="@id/label_contactinfo_email"
+				        
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:paddingTop="15dp"
+				        android:paddingBottom="15dp"
+				        
+				        android:background="@drawable/bg_card"
+				        android:text="@string/text_fakeemail"
+				        android:gravity="center_vertical"
+
+				        style="@style/Text_DarkGrey"
+				        />
+			    </RelativeLayout>
+			    
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_email_envelope"
+				        android:contentDescription="@string/accessibility_sendemailtocontact"
+				        android:layout_marginTop="40dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="makeEmail"/>
+		    </FrameLayout>
 		    
 		    <!-- Birthday -->
 		    <RelativeLayout 
@@ -172,48 +209,75 @@
 			        />
 		    </RelativeLayout>
 		    
-		    
 		    <!-- Address -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-		        <TextView 
-			        android:id="@+id/label_contactinfo_address"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        
-			        android:text="@string/text_address"
-			        style="@style/Label_Blue"/>
-		        
-		        <LinearLayout
+	        <FrameLayout 
 		            android:layout_height="wrap_content"
-		            android:layout_width="fill_parent"
-		            android:background="@drawable/bg_card"
-		            android:layout_below="@id/label_contactinfo_address"
-		            android:orientation="vertical"
-		            >
-		            
-		        		    
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_addressline1"
+		            android:layout_width="fill_parent">
+		                
+			      
+			    <RelativeLayout 
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
-			        android:text="@string/text_addressline1"
-			        style="@style/Text_DarkGrey"
-			        />
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_addressline2"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_addressline2"
-			        style="@style/Text_DarkGrey"
-			        />
-			    
-			    </LinearLayout>
-		    </RelativeLayout>
+			        android:layout_marginTop="10dp">
+				    
+			        <TextView 
+				        android:id="@+id/label_contactinfo_address"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        
+				        android:text="@string/text_address"
+				        style="@style/Label_Blue"/>
+			        
+			        
+			        <LinearLayout
+			            android:layout_height="wrap_content"
+			            android:layout_width="fill_parent"
+			            android:background="@drawable/bg_card"
+			            android:layout_below="@id/label_contactinfo_address"
+			            android:orientation="vertical">
+			            
+					    <TextView 
+					        android:id="@+id/textview_contactinfo_addressline1"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:text="@string/text_fakeaddressline1"
+					        style="@style/Text_DarkGrey"
+					        />
+					    <TextView 
+					        android:id="@+id/textview_contactinfo_addressline2"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:text="@string/text_fakeaddressline2"
+					        style="@style/Text_DarkGrey"
+					        />
+					    <TextView 
+					        android:id="@+id/textview_contactinfo_addressline3"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:text="@string/text_fakeaddressline3"
+					        style="@style/Text_DarkGrey"
+					        />
+					    <TextView 
+					        android:id="@+id/textview_contactinfo_addressline4"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:text="@string/emptystring"
+					        style="@style/Text_DarkGrey"
+					        />
+				    </LinearLayout>  
+			    </RelativeLayout>
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_location_pin"
+				        android:contentDescription="@string/accessibility_searchaddress"
+				        android:layout_marginTop="40dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="makeMapSearch"/>
+		    </FrameLayout> 
 		    
 	    </LinearLayout>
     </ScrollView>

@@ -15,6 +15,9 @@
     <string name="accessibility_contactname">Contact Name</string>
     <string name="accessibility_editsdiscarded">Edits Discarded</string>
     <string name="accessibility_showdatepickerdialog">Show Date Picker Dialog</string>
+    <string name="accessibility_searchaddress">Search Address in Maps</string>
+    <string name="accessibility_sendemailtocontact">Send Email To Contact</string>
+    <string name="accessibility_callcontact">Call Contact</string>
 
     <!-- Actions -->
     <string name="action_edit">Edit</string>
@@ -40,12 +43,26 @@
     <string name="text_address">Address</string>
     <string name="text_addressline1">Address Line 1</string>
     <string name="text_addressline2">Address Line 2</string>
+    <string name="text_addressline3">Address Line 3</string>
+    <string name="text_addressline4">Address Line 4</string>
+    
     <string name="text_email">Email</string>
     <string name="text_birthday">Birthday</string>
     <string name="text_name">Name</string>
     <string name="text_firstname">First Name</string>
     <string name="text_lastname">Last Name</string>
+    
+    
+    <!-- Fake info -->
     <string name="text_fakefullname">John Smith</string>
+    <string name="text_fakenumber">096008333</string>
+    <string name="text_fakeemail">akshaykalyan@outlook.com</string>
+    <string name="text_fakeaddressline1">6 Berkeley Grove</string>
+    <string name="text_fakeaddressline2">Bethlehem</string>
+    <string name="text_fakeaddressline3">Tauranga</string>
+    
+    
+    <string name="emptystring"></string>
     
 
     

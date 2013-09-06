@@ -3,15 +3,20 @@ package com.akshaykalyan.contactmanager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.akshaykalyan.contactmanager.ContactListActivity.AboutDialog;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
@@ -70,12 +75,48 @@ public class ContactInformationActivity extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_delete_contact:
+			DialogFragment confirmDeleteDialogFragment = new ConfirmDeleteDialog();
+        	confirmDeleteDialogFragment.show(getFragmentManager(), "ConfirmDelete");
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	
+	public void makePhoneCall(View v) {
+		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
+		startActivity(callIntent);
+	}
 	
+	public void makeEmail(View v) {
+		TextView emailTextView = (TextView)findViewById(R.id.textview_contactinfo_email);
+		String emailString = emailTextView.getText().toString().trim();
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
+		startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
+		
+	}
+	
+	public void makeMapSearch(View v) {
+		StringBuilder addressStringBuilder = new StringBuilder();
+		List<TextView> addressList = new ArrayList<TextView>();
+		
+		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline1));
+		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline2));
+		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline3));
+		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline4));
+		for (TextView textView : addressList) {
+			String addressLineString = textView.getText().toString().trim();
+			if (!addressLineString.isEmpty()) {
+				addressStringBuilder.append(addressLineString);
+				addressStringBuilder.append("+");
+			}
+		}
+		
+		Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + addressStringBuilder.toString()));
+		startActivity(geoIntent);
+	}
 	
     public static class ConfirmDeleteDialog extends DialogFragment {
     	@Override
@@ -88,6 +129,7 @@ public class ContactInformationActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub	
+						dismiss();
 					}
 				})
 				.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
@@ -95,7 +137,7 @@ public class ContactInformationActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
-						
+						dismiss();
 					}
 				});
     		return builder.create();
