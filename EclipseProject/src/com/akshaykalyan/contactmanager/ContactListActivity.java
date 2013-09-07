@@ -222,7 +222,11 @@ public class ContactListActivity extends Activity {
         	Toast.makeText(getApplicationContext(), "Add Contact -- Coming Soon!", Toast.LENGTH_SHORT).show();
         	break;
         case R.id.action_sortoptions:
-        	mDrawerLayout.openDrawer(Gravity.LEFT);
+        	if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+        		mDrawerLayout.closeDrawer(Gravity.LEFT);
+        	} else {
+        		mDrawerLayout.openDrawer(Gravity.LEFT);
+        	}
         	break;
        	default:
        		break;

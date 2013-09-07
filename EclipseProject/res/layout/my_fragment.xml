@@ -21,14 +21,13 @@
         android:layout_height="@dimen/card_listview_height"
         
         android:contentDescription="@string/accessibility_contactphoto"
-        android:scaleType="centerCrop"
+        android:focusable="true"
+        android:paddingBottom="2dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
-        android:paddingBottom="2dp"
         android:paddingTop="0dp"
-        android:src="@drawable/stockphoto_happy_male" 
-        android:background="@drawable/bg_card"/>
-
+        android:scaleType="centerCrop"
+        android:src="@drawable/stockphoto_happy_male" />
 
     <TextView
         android:id="@+id/testingTextView"

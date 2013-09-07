@@ -34,7 +34,9 @@
 		        android:layout_marginRight="6dip"
 		        android:contentDescription="@string/accessibility_contactphoto"
 		        android:background="@drawable/bg_card"
-		        android:src="@drawable/ic_launcher"
+		        android:src="@drawable/stockphoto_happy_male"
+		        android:scaleType="centerCrop"
+		        android:padding="1dp"
 		        />
 		        
 		        <Button 
