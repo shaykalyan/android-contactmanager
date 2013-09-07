@@ -15,7 +15,7 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="150dp">
 		<ImageView 
-		    android:id="@+id/image_contactinfo_contact_image"
+		    android:id="@+id/image_contactedit_contact_image"
 		    android:src="@drawable/stockphoto_happy_male"
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
@@ -31,7 +31,7 @@
 		    android:layout_gravity="bottom"
 		    android:background="@color/color_black_transparent"
 		    android:clickable="true"
-		    android:onClick="selectFromGallery"
+		    android:onClick="showImageSourceDialog"
 		    />
     </FrameLayout>
     

@@ -13,4 +13,10 @@
         <item>Nadia Wilkinson</item>
     </string-array>
     
+    
+    <!-- Select Image Dialog -->
+    <string-array name="image_sources">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
 </resources>
