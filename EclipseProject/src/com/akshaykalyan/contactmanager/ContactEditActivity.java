@@ -1,14 +1,32 @@
 package com.akshaykalyan.contactmanager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.R.integer;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.AlertDialog.Builder;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +34,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
+
+
 public class ContactEditActivity extends Activity {
+	
+
+	private static final int IMAGE_REQUEST_CODE = 0;
+
+	private static final int REQUEST_CODE_INTENT_CAMERA = 0;
+
+	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
+
 	private Button acceptEditButton, discardEditButton;
 
+	private Uri outputFileUri;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +119,10 @@ public class ContactEditActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getFragmentManager(), "datePicker");
+	}
 	
 	public static class DatePickerFragment extends DialogFragment
 										implements DatePickerDialog.OnDateSetListener {
@@ -121,12 +156,62 @@ public class ContactEditActivity extends Activity {
 		}
 	}
 	
-	public void showDatePickerDialog(View v) {
-		DialogFragment newFragment = new DatePickerFragment();
-		newFragment.show(getFragmentManager(), "datePicker");
+	public void showImageSourceDialog(View v) {
+		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
+		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
+	}
+
+	public static class ImageSelectDialogFragment extends DialogFragment {
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState){
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle(R.string.dialog_selectimage_title);
+			builder.setItems(R.array.image_sources, new DialogInterface.OnClickListener() {
+				
+				
+				public void onClick(DialogInterface dialog, int which) {
+					switch (which) {
+					case 0:
+						Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						getActivity().startActivityForResult(takePicture, REQUEST_CODE_INTENT_GALLERY);
+						break;
+					case 1:
+						Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+						           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+						getActivity().startActivityForResult(pickPhoto , REQUEST_CODE_INTENT_CAMERA);
+						break;
+					default:
+						break;
+					}
+				}
+			});
+			
+			return builder.create();
+		}
+	}
+		
+	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
+		ImageView contactPhotoImageView = (ImageView)findViewById(R.id.image_contactedit_contact_image);
+
+		switch(requestCode) {
+		case 0:
+		    if(resultCode == RESULT_OK){  
+		        Uri selectedImage = imageReturnedIntent.getData();
+		        contactPhotoImageView.setImageURI(selectedImage);
+		    }
+		    break; 
+		case 1:
+		    if(resultCode == RESULT_OK){  
+		        Uri selectedImage = imageReturnedIntent.getData();
+		        contactPhotoImageView.setImageURI(selectedImage);
+		    }
+		    break;
+		}
 	}
 	
-	public void selectFromGallery(View v) {
-		Toast.makeText(getApplicationContext(), "test gallery", Toast.LENGTH_SHORT).show();
-	}
+	
+	
+	
+	
 }

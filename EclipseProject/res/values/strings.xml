@@ -73,6 +73,9 @@
     <string name="dialog_confirmdelete_title">Comfirm Delete</string>
     <string name="dialog_confirmdelete_message">Are you sure you want to permanently remove this contact?</string>
     
+    <!-- Select Image Dialog -->
+    <string name="dialog_selectimage_title">Select Image Source</string>
+
     <!-- Toast Messages -->
     <string name="toast_editsdiscarded">Edits Discarded</string>
     <string name="toast_contactsaved">Contact Saved</string>
