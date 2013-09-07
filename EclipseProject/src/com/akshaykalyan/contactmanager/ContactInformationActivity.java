@@ -90,6 +90,12 @@ public class ContactInformationActivity extends Activity {
 		startActivity(callIntent);
 	}
 	
+	public void makeSMSMessage(View v) {
+		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
+		Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + numberTextView.getText().toString().trim()));
+		startActivity(smsIntent);
+	}
+	
 	public void makeEmail(View v) {
 		TextView emailTextView = (TextView)findViewById(R.id.textview_contactinfo_email);
 		String emailString = emailTextView.getText().toString().trim();

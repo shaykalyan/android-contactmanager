@@ -75,6 +75,66 @@
 				        style="@style/Text_DarkGrey"
 				        />
 			    </RelativeLayout>
+			    <LinearLayout 
+			        android:layout_height="wrap_content"
+			        android:layout_width="fill_parent"
+			        android:orientation="horizontal"
+			        android:gravity="right"
+			        android:layout_marginTop="30dp"
+			        android:paddingRight="10dp">
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_chat_sms"
+				        android:contentDescription="@string/accessibility_sendmessage"
+
+						android:layout_marginRight="20dp"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="makeSMSMessage"
+				        />
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_phone"
+				        android:contentDescription="@string/accessibility_callcontact"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="makePhoneCall"/>
+				</LinearLayout>
+			</FrameLayout>
+		    
+		    
+		    <!-- Home -->
+		    <FrameLayout 
+		        android:layout_height="wrap_content"
+		        android:layout_width="match_parent"
+		        android:layout_marginTop="10dp">
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        >
+				    
+				    <TextView 
+				        android:id="@+id/label_contactinfo_phone_home"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_phone_home"
+				        style="@style/Label_Blue"/>
+				    <TextView 
+				        android:id="@+id/textview_contactinfo_phone_home"
+				        android:layout_below="@id/label_contactinfo_phone_home"
+				        
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:paddingTop="15dp"
+				        android:paddingBottom="15dp"
+				        android:background="@drawable/bg_card"
+				        android:text="@string/text_phone_home"
+				        style="@style/Text_DarkGrey"
+				        />
+			    </RelativeLayout>
 			    <ImageView 
 				        android:layout_height="wrap_content"
 				        android:layout_width="wrap_content"
@@ -83,36 +143,11 @@
 				        android:layout_marginTop="30dp"
 				        android:layout_marginRight="10dp"
 				        android:layout_gravity="right"
-				        android:clickable="true"
-				        android:onClick="makePhoneCall"/>
+				        android:clickable="false"
+				        android:onClick=""/>
 			    
 			</FrameLayout>
-		    
-		    <!-- Home -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactinfo_phone_home"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_phone_home"
-			        style="@style/Label_Blue"/>
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_phone_home"
-			        
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactinfo_phone_home"
-			        android:background="@drawable/bg_card"
-			        android:text="@string/text_phone_home"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
-		    
+
 		    <!-- Work -->
 		    <RelativeLayout 
 		        android:layout_width="fill_parent"

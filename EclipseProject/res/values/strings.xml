@@ -18,6 +18,7 @@
     <string name="accessibility_searchaddress">Search Address in Maps</string>
     <string name="accessibility_sendemailtocontact">Send Email To Contact</string>
     <string name="accessibility_callcontact">Call Contact</string>
+    <string name="accessibility_sendmessage">Send Message</string>
 
     <!-- Actions -->
     <string name="action_edit">Edit</string>
@@ -31,6 +32,8 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_save">Save</string>
     <string name="action_sort">Sort</string>
+    <string name="action_call">Call</string>
+    <string name="action_sendsms">Message</string>
 
     <!-- Sort Options -->
     <string name="text_sortoptions">Sort Options</string>
