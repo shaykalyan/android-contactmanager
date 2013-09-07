@@ -125,4 +125,8 @@ public class ContactEditActivity extends Activity {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
+	
+	public void selectFromGallery(View v) {
+		Toast.makeText(getApplicationContext(), "test gallery", Toast.LENGTH_SHORT).show();
+	}
 }
