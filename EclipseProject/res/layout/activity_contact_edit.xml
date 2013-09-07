@@ -1,13 +1,40 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     
+    
 
     android:background="@color/color_background_grey"
     tools:context=".ContactEditActivity">
-
+	<LinearLayout 
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:orientation="vertical">
+    <FrameLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="150dp">
+		<ImageView 
+		    android:id="@+id/image_contactinfo_contact_image"
+		    android:src="@drawable/stockphoto_happy_male"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:scaleType="centerCrop"
+		    android:contentDescription="@string/accessibility_contactphoto"/>
+		
+		<ImageView 
+		    android:id="@+id/textview_contactinfo_name"
+		    android:src="@drawable/ic_editpen_light"
+		    android:contentDescription="@string/accessibility_contactphoto"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent"
+		    android:layout_gravity="bottom"
+		    android:background="@color/color_black_transparent"
+		    android:clickable="true"
+		    android:onClick="selectFromGallery"
+		    />
+    </FrameLayout>
+    
     <ScrollView 
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -22,37 +49,7 @@
 	        android:paddingTop="@dimen/activity_vertical_margin"
 	        android:paddingBottom="@dimen/activity_vertical_margin">
 	        
-	        <!-- ImageView -->
-		    <RelativeLayout 
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content">
-		        
-		        <ImageView
-		            android:id="@+id/image_contactedit_contact_image"
-		        android:layout_width="100dp"
-		        android:layout_height="100dp"
-		        android:layout_marginRight="6dip"
-		        android:contentDescription="@string/accessibility_contactphoto"
-		        android:background="@drawable/bg_card"
-		        android:src="@drawable/stockphoto_happy_male"
-		        android:scaleType="centerCrop"
-		        android:padding="1dp"
-		        />
-		        
-		        <Button 
-		            android:layout_width="wrap_content"
-		            android:layout_height="35dp"
-		            android:layout_toRightOf="@id/image_contactedit_contact_image"
-		            android:layout_centerVertical="true"
-		            android:layout_marginLeft="40dp"
-		            android:drawableLeft="@drawable/ic_gallery"
-		            android:drawablePadding="0dp"
-		            android:padding="5dp"
-		            android:background="@drawable/button_cardstyle"
-		            android:textSize="12sp"
-		            android:text="@string/action_selectphoto"   /> 
-		    </RelativeLayout>
-		    
+	        
 		    <!-- Names -->
 		    <!-- To stop auto focus on edit text, parent has been given focus -->
 	        <LinearLayout 
@@ -60,7 +57,7 @@
 	            android:layout_width="fill_parent"
 	            android:orientation="vertical"
 	            
-	            android:layout_marginTop="20dp"          
+	            android:layout_marginTop="10dp"          
 	            android:descendantFocusability="beforeDescendants"
 	   			android:focusableInTouchMode="true"
 	            >
@@ -284,7 +281,7 @@
 	    </LinearLayout>
 	    
 	</ScrollView>
-	
+	</LinearLayout>
     <RelativeLayout 
     	android:layout_width="match_parent"
 	    android:layout_height="48dp"
