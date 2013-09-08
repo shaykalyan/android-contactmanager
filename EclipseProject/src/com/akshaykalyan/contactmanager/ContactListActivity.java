@@ -257,5 +257,10 @@ public class ContactListActivity extends Activity {
     		
     	}
     }
+    
+    public void goToContactInfo(View v) {
+    	Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
+    	startActivity(intent);
+    }
 }
 

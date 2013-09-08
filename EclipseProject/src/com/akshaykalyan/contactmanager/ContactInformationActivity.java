@@ -78,6 +78,11 @@ public class ContactInformationActivity extends Activity {
 		case R.id.action_delete_contact:
 			DialogFragment confirmDeleteDialogFragment = new ConfirmDeleteDialog();
         	confirmDeleteDialogFragment.show(getFragmentManager(), "ConfirmDelete");
+        	break;
+		case R.id.action_edit_contact:
+			Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
+        	startActivity(intent);
+        	break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
