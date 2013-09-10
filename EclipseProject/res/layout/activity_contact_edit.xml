@@ -31,7 +31,7 @@
 		    android:layout_gravity="bottom"
 		    android:background="@color/color_black_transparent"
 		    android:clickable="true"
-		    android:onClick="showImageSourceDialog"
+		    android:onClick="onClick_showImageSourceDialog"
 		    />
     </FrameLayout>
     
@@ -206,18 +206,33 @@
 			        android:text="@string/text_birthday"
 			        style="@style/Label_Blue"/>
 			    
-			    <TextView 
+
+			    <TextView
 			        android:id="@+id/textview_contactedit_birthday"
-			        android:layout_width="fill_parent"
+			        style="@style/Text_DarkGrey"
+			        android:layout_width="150dp"
 			        android:layout_height="wrap_content"
 			        android:layout_below="@id/label_contactedit_birthday"
-			        android:hint="@string/text_birthday"
 			        android:background="@drawable/ninepatch_textfield_default_holo_light"
-			        style="@style/Text_DarkGrey"
-			        android:onClick="showDatePickerDialog"
 			        android:clickable="true"
-			        />
+			        android:hint="@string/text_birthday"
+			        android:onClick="onClick_showDatePickerDialog"/>
+			    <ImageView 
+			        android:id="@+id/button_editactivity_deletebirthday"
+			        android:layout_marginLeft="10dp"
+			        android:layout_toRightOf="@id/textview_contactedit_birthday"
+			        android:layout_alignBottom="@id/textview_contactedit_birthday"
+			        android:layout_height="wrap_content"
+			        android:layout_width="wrap_content"
+			        android:src="@drawable/ic_cancel_x"
+			        android:contentDescription="@string/accessibility_clearbirthday"
+			        android:scaleX="0.7"
+			        android:scaleY="0.7"
+			        android:clickable="false"
+			        android:onClick="onClick_deleteBirthdayText"/>
+
 		    </RelativeLayout>
+		    
 		    
 		    
 		    <!-- Address -->
