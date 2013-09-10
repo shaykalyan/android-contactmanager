@@ -116,7 +116,8 @@ public class ContactEditActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void showDatePickerDialog(View v) {
+	public void onClick_showDatePickerDialog(View v) {
+	
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
@@ -126,16 +127,26 @@ public class ContactEditActivity extends Activity {
 		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			// Using current date as default
-			final Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
+			int year, month, day;
 			
-			
+			TextView dateTextView = (TextView)getActivity().findViewById(R.id.textview_contactedit_birthday);
+			String[] birthdayText = dateTextView.getText().toString().split("-");
+			if (birthdayText.length > 1) {
+				day = Integer.parseInt(birthdayText[0].trim());
+				month = Integer.parseInt(birthdayText[1].trim()) - 1;
+				year = Integer.parseInt(birthdayText[2].trim());
+			} else {
+				final Calendar c = Calendar.getInstance();
+				day = c.get(Calendar.DAY_OF_MONTH);
+				month = c.get(Calendar.MONTH);
+				year = c.get(Calendar.YEAR);	
+			}
 			
 			// create new instance of DatePickerDialog and return
-			return new DatePickerDialog(getActivity(), this, year, month, day);
+			
+			Dialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+			return datePickerDialog;
+	
 			
 		}
 		
@@ -153,7 +164,7 @@ public class ContactEditActivity extends Activity {
 		}
 	}
 	
-	public void showImageSourceDialog(View v) {
+	public void onClick_showImageSourceDialog(View v) {
 		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
 		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
 	}
@@ -208,6 +219,10 @@ public class ContactEditActivity extends Activity {
 	}
 	
 	
+	public void onClick_deleteBirthdayText(View v) {
+		TextView birthdayTextView = (TextView)findViewById(R.id.textview_contactedit_birthday);
+		birthdayTextView.setText("");
+	}
 	
 	
 	

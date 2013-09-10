@@ -19,6 +19,7 @@
     <string name="accessibility_sendemailtocontact">Send Email To Contact</string>
     <string name="accessibility_callcontact">Call Contact</string>
     <string name="accessibility_sendmessage">Send Message</string>
+    <string name="accessibility_clearbirthday">Clear Birthday</string>
 
     <!-- Actions -->
     <string name="action_edit">Edit</string>
@@ -63,6 +64,7 @@
     <string name="text_fakeaddressline1">6 Berkeley Grove</string>
     <string name="text_fakeaddressline2">Bethlehem</string>
     <string name="text_fakeaddressline3">Tauranga</string>
+    <string name="text_fakebirthday">25-12-1993</string>
     
     
     <string name="emptystring"></string>
