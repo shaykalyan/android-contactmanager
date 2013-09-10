@@ -45,13 +45,9 @@ public class ContactEditActivity extends Activity {
 	
 
 	private static final int IMAGE_REQUEST_CODE = 0;
-
 	private static final int REQUEST_CODE_INTENT_CAMERA = 0;
-
 	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
-
 	private Button acceptEditButton, discardEditButton;
-
 	private Uri outputFileUri;
 	
 	@Override
@@ -69,6 +65,7 @@ public class ContactEditActivity extends Activity {
 		discardEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	
+            	// Edits discarded Toast
             	LayoutInflater inflater = getLayoutInflater();
             	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
                 Toast toast = new Toast(getApplicationContext());
