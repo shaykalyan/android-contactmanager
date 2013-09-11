@@ -258,9 +258,58 @@ public class ContactListActivity extends Activity {
     	}
     }
     
+    /** on click of first list item */
     public void goToContactInfo(View v) {
     	Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
     	startActivity(intent);
     }
+    
+    
+    public static class ContactListFragment extends ListFragment {
+		public static final String ARG_SORT_TYPE_NUMBER = "sort_number";
+		
+		public ContactListFragment() {
+			// required default constructor
+		}
+		
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+			
+            View rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
+
+            String[] contactsStringArray = getResources().getStringArray(R.array.adobe_products);
+            
+            ListFragment.setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item_contact_card_single, R.id.label_contactinfo_address, contactsStringArray));
+            
+            // changing the fragment
+            String sortType = getResources().getStringArray(R.array.sort_options_array)[i];
+            TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
+            tv.setText(sortType);
+            
+     		// BUTTON --------------
+     		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
+            editButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
+                	startActivity(intent);
+
+                }
+    		});
+            
+         // BUTTON --------------
+     		Button contactInfoButton = (Button)rootView.findViewById(R.id.my_fragment_contactinfobutton);
+     		contactInfoButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
+                	startActivity(intent);
+
+                }
+    		});
+            
+            return rootView;
+		
+		}
+		
+	}
 }
 
