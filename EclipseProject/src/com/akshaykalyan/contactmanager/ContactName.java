@@ -1,13 +1,11 @@
 package com.akshaykalyan.contactmanager;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+
 
 
 public class ContactName {
-	private String firstName, lastName;
+	private String fFirstName, fLastName;
 	
 	public enum SortBy {
 		FirstName(1), LastName(2);
@@ -17,16 +15,17 @@ public class ContactName {
 			case 1:
 				fComparator = new Comparator<ContactName>() {
 					public int compare(ContactName lhs, ContactName rhs) {
-						return lhs.firstName.compareTo(rhs.firstName);
+						return lhs.fFirstName.compareTo(rhs.fFirstName);
 					};
 				};
 				break;
 			case 2:
 				fComparator = new Comparator<ContactName>() {
 					public int compare(ContactName lhs, ContactName rhs) {
-						return lhs.lastName.compareTo(rhs.lastName);
+						return lhs.fLastName.compareTo(rhs.fLastName);
 					};
 				};
+				break;
 			}
 			
 		}
@@ -37,22 +36,30 @@ public class ContactName {
 	}
 	
 	public ContactName(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fFirstName = firstName;
+		this.fLastName = lastName;
 	}
 	
 	@Override
 	public String toString() {
-		String fullNameString = firstName + " " + lastName;
+		String fullNameString = fFirstName + " " + fLastName;
 		return fullNameString;
 	}
 	
 	
 	public String getFirstName() {
-		return firstName;
+		return fFirstName;
 	}
 	
 	public String getLastName() {
-		return lastName;
+		return fLastName;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.fFirstName = firstName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.fLastName = lastName;
 	}
 }

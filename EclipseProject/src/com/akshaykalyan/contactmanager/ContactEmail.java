@@ -1,26 +1,26 @@
 package com.akshaykalyan.contactmanager;
 
 public class ContactEmail {
-	private String emailString;
+	private String fEmailString;
 	
 	public ContactEmail() {
 		new ContactEmail("");
 	}
 	
 	public ContactEmail(String emailString) {
-		this.emailString = emailString;
+		this.fEmailString = emailString;
 	}
 	
 	public String getEmailString() {
-		return emailString;
+		return fEmailString;
 	}
 	
 	public void setEmailString(String emailString) {
-		this.emailString = emailString;
+		this.fEmailString = emailString;
 	}
 	
 	@Override
 	public String toString() {
-		return emailString;
+		return fEmailString;
 	}
 }
