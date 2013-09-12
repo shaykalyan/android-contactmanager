@@ -1,20 +1,26 @@
 package com.akshaykalyan.contactmanager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.os.Bundle;
+import android.R.anim;
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +35,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ContactListActivity extends Activity {
+import android.support.v4.app.FragmentActivity;
+
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
+import android.text.AndroidCharacter;
+
+public class ContactListActivity extends FragmentActivity {
 
 	private String[] mSortOptions;
 	private DrawerLayout mDrawerLayout;
@@ -91,13 +107,26 @@ public class ContactListActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 		
-        // set to default fragment -- contact list sorted by first name
         
- 		selectItem(1);
- 		
- 		
- 		
+       
+        
+        
+        // set to default fragment -- contact list sorted by first name
+// 		selectItem(1);
+        
+//        FragmentManager fm = getSupportFragmentManager();
+//  		ContactListFragment list = new ContactListFragment();
+//  		fm.beginTransaction().add(R.id.content_frame, list).commit();
+//   		
+//        FragmentManager fm = getSupportFragmentManager();
+//		ContactListFragment list = new ContactListFragment();
+//		fm.beginTransaction().replace(R.id.content_frame, list).commit();
+// 		
 
+        FragmentManager fm = getSupportFragmentManager();
+		ContactListFragment list = new ContactListFragment();
+		fm.beginTransaction().add(R.id.content_frame, list).commit();
+ 		
  		
 	}
 
@@ -115,64 +144,72 @@ public class ContactListActivity extends Activity {
 		}
 	}
 	
-	public static class ListFragment extends Fragment {
-		public static final String ARG_SORT_TYPE_NUMBER = "sort_number";
-		
-		public ListFragment() {
-			// required default constructor
-		}
-		
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.my_fragment, container, false);
-            int i = getArguments().getInt(ARG_SORT_TYPE_NUMBER);
-            
-            
-            // changing the fragment
-            String sortType = getResources().getStringArray(R.array.sort_options_array)[i];
-            TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
-            tv.setText(sortType);
-            
-     		// BUTTON --------------
-     		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
-            editButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
-                	startActivity(intent);
-
-                }
-    		});
-            
-         // BUTTON --------------
-     		Button contactInfoButton = (Button)rootView.findViewById(R.id.my_fragment_contactinfobutton);
-     		contactInfoButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-                	startActivity(intent);
-
-                }
-    		});
-            
-            return rootView;
-		
-		}
-		
-	}
+//	public static class ListFragment extends Fragment {
+//		public static final String ARG_SORT_TYPE_NUMBER = "sort_number";
+//		
+//		public ListFragment() {
+//			// required default constructor
+//		}
+//		
+//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                Bundle savedInstanceState) {
+//            View rootView = inflater.inflate(R.layout.my_fragment, container, false);
+//            int i = getArguments().getInt(ARG_SORT_TYPE_NUMBER);
+//            
+//            
+//            // changing the fragment
+//            String sortType = getResources().getStringArray(R.array.sort_options_array)[i];
+//            TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
+//            tv.setText(sortType);
+//            
+//     		// BUTTON --------------
+//     		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
+//            editButton.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
+//                	startActivity(intent);
+//
+//                }
+//    		});
+//            
+//         // BUTTON --------------
+//     		Button contactInfoButton = (Button)rootView.findViewById(R.id.my_fragment_contactinfobutton);
+//     		contactInfoButton.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
+//                	startActivity(intent);
+//
+//                }
+//    		});
+//            
+//            return rootView;
+//		
+//		}
+//		
+//	}
 	
 	/** Swaps fragments in the main content view */
 	private void selectItem(int position) {
-		// Create a new fragment and specify the sort order to show based on position
-		Fragment fragment = new ListFragment();
-		Bundle args = new Bundle();
-		args.putInt(ListFragment.ARG_SORT_TYPE_NUMBER, position-1);
-		fragment.setArguments(args);
+//		// Create a new fragment and specify the sort order to show based on position
+//		Fragment fragment = new ListFragment();
+//		Bundle args = new Bundle();
+//		args.putInt(ListFragment.ARG_SORT_TYPE_NUMBER, position-1);
+//		fragment.setArguments(args);
+//		
+//		// Insert the fragment by replacing any existing fragment
+//		
+//		FragmentManager fragmentManager = getFragmentManager();
+//	    fragmentManager.beginTransaction()
+//	                   .replace(R.id.content_frame, fragment)
+//	                   .commit();
 		
-		// Insert the fragment by replacing any existing fragment
+//		FragmentManager fragmentManager = getFragmentManager();
+//		ContactListFragment listFragment = new ContactListFragment();
+//		fragmentManager.beginTransaction().add(R.id.content_frame, listFragment);
 		
-		FragmentManager fragmentManager = getFragmentManager();
-	    fragmentManager.beginTransaction()
-	                   .replace(R.id.content_frame, fragment)
-	                   .commit();
+		
+		
+		
 		
 	    // Highlight the selected item and close the drawer
 	    mDrawerList.setItemChecked(position, true);
@@ -265,51 +302,205 @@ public class ContactListActivity extends Activity {
     }
     
     
-    public static class ContactListFragment extends ListFragment {
-		public static final String ARG_SORT_TYPE_NUMBER = "sort_number";
+    public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
 		
-		public ContactListFragment() {
-			// required default constructor
-		}
-		
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    	CustomArrayAdapter fAdapter;
+    	
+		// testing stuff 
+    	@Override
+    	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-			
-            View rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
+    		View superView = super.onCreateView(inflater, container, savedInstanceState);
+//            View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
+            ViewGroup parent = (ViewGroup)inflater.inflate(R.layout.fragment_contact_list, container, false);
+            parent.addView(superView,0);
+            return parent;
+    	}
+        // /test
+    	
+    	
+    	@Override
+    	public void onActivityCreated(Bundle savedInstanceState) {
+    		super.onActivityCreated(savedInstanceState);
+    		
+    		// ##### self print check
+    		System.out.println("ContactListFragment.onActivityCreated");
+    		
+    		//Initially there is no data
+    		setEmptyText("No Data Here");
+    		
+    		//Create an empty adapter we will use to display the loaded data
+    		fAdapter = new CustomArrayAdapter(getActivity());
+    		setListAdapter(fAdapter);
+    		
+    		//remove divider line
+    		getListView().setDivider(null);
+    		getListView().setDividerHeight(0);
+    		
+    		//start out with a progress indicator
+    		setListShown(false);
+    		
+    		getLoaderManager().initLoader(0, null, this);
+    	}
+    	
+    	@Override
+    	public void onListItemClick(ListView l, View v, int position, long id) {
+    		// insert desired behaviour here.
+    		Log.i("ContactListFragment", "Item clicked: " + id);
+    		
+    	}
+    	
+    	@Override
+    	public Loader<List<Contact>> onCreateLoader(int arg0, Bundle arg1) {
+    		System.out.println("ContactListFragment.onCreateLoader");
+            return new ContactListLoader(getActivity());
+    	}
 
-            String[] contactsStringArray = getResources().getStringArray(R.array.adobe_products);
-            
-            ListFragment.setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item_contact_card_single, R.id.label_contactinfo_address, contactsStringArray));
-            
-            // changing the fragment
-            String sortType = getResources().getStringArray(R.array.sort_options_array)[i];
-            TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
-            tv.setText(sortType);
-            
-     		// BUTTON --------------
-     		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
-            editButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
-                	startActivity(intent);
-
-                }
-    		});
-            
-         // BUTTON --------------
-     		Button contactInfoButton = (Button)rootView.findViewById(R.id.my_fragment_contactinfobutton);
-     		contactInfoButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-                	startActivity(intent);
-
-                }
-    		});
-            
-            return rootView;
-		
-		}
-		
+    	@Override
+    	public void onLoadFinished(Loader<List<Contact>> arg0, List<Contact> data) {
+    		fAdapter.setData(data);
+    		System.out.println("ContactListFragment.onLoadFinished");
+            //the list should now be shown.
+            if (isResumed()) {
+                setListShown(true);
+            } else {
+                setListShownNoAnimation(true);
+            }
+    	}
+    	
+    	@Override
+    	public void onLoaderReset(Loader<List<Contact>> arg0) {
+    		fAdapter.setData(null);
+    	}
 	}
+    
+    public static class ContactListLoader extends android.support.v4.content.AsyncTaskLoader<List<Contact>> {
+    	List<Contact> fContactsList;
+    	
+    	public ContactListLoader(Context context) {
+    		super(context);
+    	}
+    	
+    	@Override
+    	public List<Contact> loadInBackground() {
+    		System.out.println("ContactListLoader.loadInBackground");
+            
+            // You should perform the heavy task of getting data from 
+            // Internet or database or other source 
+            // Here, we are generating some Sample data
+
+           // Create corresponding array of entries and load with data.
+           List<Contact> entries = new ArrayList<Contact>(15);
+           entries.add(new Contact("Akshay", "Kalyan", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
+
+           return entries;
+    	}
+    	
+    	/**
+         * Called when there is new data to deliver to the client.  The
+         * super class will take care of delivering it; the implementation
+         * here just adds a little more logic.
+         */
+    	@Override
+    	public void deliverResult(List<Contact> listOfData) {
+    		if (isReset()) {
+    			// An async query came in while the loader is stopped.  We
+                // don't need the result.
+                if (listOfData != null) {
+                    onReleaseResources(listOfData);
+                }
+    		}
+    		List<Contact> oldApps = listOfData;
+    		fContactsList = listOfData;
+    		
+    		if (isStarted()) {
+    			// If the Loader is currently started, we can immediately
+                // deliver its results.
+                super.deliverResult(listOfData);
+    		}
+    		
+    		// At this point we can release the resources associated with
+            // 'oldApps' if needed; now that the new result is delivered we
+            // know that it is no longer in use.
+            if (oldApps != null) {
+                onReleaseResources(oldApps);
+            }    		
+    	}
+    	
+    	/**
+         * Handles a request to start the Loader.
+         */
+        @Override protected void onStartLoading() {
+            if (fContactsList != null) {
+                // If we currently have a result available, deliver it
+                // immediately.
+                deliverResult(fContactsList);
+            }
+            
+            if (takeContentChanged() || fContactsList == null) {
+                // If the data has changed since the last time it was loaded
+                // or is not currently available, start a load.
+                forceLoad();
+            }
+        }
+        
+        /**
+         * Handles a request to stop the Loader.
+         */
+        @Override protected void onStopLoading() {
+            // Attempt to cancel the current load task if possible.
+            cancelLoad();
+        }
+        
+        /**
+         * Handles a request to cancel a load.
+         */
+        @Override 
+        public void onCanceled(List<Contact> apps) {
+            super.onCanceled(apps);
+ 
+            // At this point we can release the resources associated with 'apps'
+            // if needed.
+            onReleaseResources(apps);
+        }
+        
+        /**
+         * Handles a request to completely reset the Loader.
+         */
+        @Override 
+        protected void onReset() {
+            super.onReset();
+ 
+            // Ensure the loader is stopped
+            onStopLoading();
+ 
+            // At this point we can release the resources associated with 'apps'
+            // if needed.
+            if (fContactsList != null) {
+                onReleaseResources(fContactsList);
+                fContactsList = null;
+            }
+        }
+        
+        /**
+         * Helper function to take care of releasing resources associated
+         * with an actively loaded data set.
+         */
+        protected void onReleaseResources(List<Contact> apps) {}
+        
+        
+        
+        
+    }
 }
 
