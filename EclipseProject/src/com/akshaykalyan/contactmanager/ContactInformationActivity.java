@@ -18,10 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ContactInformationActivity extends Activity {
 
+	private TextView tvName, tvMobile, tvHome, tvWork, tvEmail, tvBirthday, tvAddressLine1,
+						tvAddressLine2, tvAddressLine3, tvAddressLine4;
+	
 	private List<TextView> labelList = new ArrayList<TextView>();
 
 	@Override
@@ -31,7 +35,32 @@ public class ContactInformationActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 
+		tvName = (TextView)findViewById(R.id.textview_contactinfo_name);
+		tvMobile = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
+		tvHome = (TextView)findViewById(R.id.textview_contactinfo_phone_home);
+		tvWork = (TextView)findViewById(R.id.textview_contactinfo_phone_work);
+		tvEmail = (TextView)findViewById(R.id.textview_contactinfo_email);
+		tvBirthday = (TextView)findViewById(R.id.textview_contactinfo_birthday);
+		tvAddressLine1 = (TextView)findViewById(R.id.textview_contactinfo_addressline1);
+		tvAddressLine2 = (TextView)findViewById(R.id.textview_contactinfo_addressline2);
+		tvAddressLine3 = (TextView)findViewById(R.id.textview_contactinfo_addressline3);
+		tvAddressLine4 = (TextView)findViewById(R.id.textview_contactinfo_addressline4);
+		
+		
+//		if (savedInstanceState == null) {
+//			Toast.makeText(getApplicationContext(), "Bundle is NULL", Toast.LENGTH_SHORT).show();
+//		}
 
+
+		Intent intent = getIntent();
+		
+
+		tvName.setText(intent.getStringExtra("CONTACT_NAME"));
+
+		
+		
+		
+		// set font typeface of labels
 		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
 		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
 		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));

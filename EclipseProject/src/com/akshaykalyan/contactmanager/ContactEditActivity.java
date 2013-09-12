@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,9 @@ public class ContactEditActivity extends Activity {
 	private Button acceptEditButton, discardEditButton;
 	private Uri outputFileUri;
 	
+	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
+						etAddressLine2, etAddressLine3, etAddressLine4;
+	private TextView tvBirthday;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +62,22 @@ public class ContactEditActivity extends Activity {
 		setupActionBar();
 		
 
+		etFirstName = (EditText)findViewById(R.id.textview_contactedit_firstname);
+		etLastName = (EditText)findViewById(R.id.textview_contactedit_lastname);
+		etMobile = (EditText)findViewById(R.id.textview_contactedit_phone_mobile);
+		etHome = (EditText)findViewById(R.id.textview_contactedit_phone_home);
+		etWork = (EditText)findViewById(R.id.textview_contactedit_phone_work);
+		etEmail = (EditText)findViewById(R.id.textview_contactedit_email);
+		etAddressLine1 = (EditText)findViewById(R.id.textview_contactedit_addressline1);
+		etAddressLine2 = (EditText)findViewById(R.id.textview_contactedit_addressline2);
+		etAddressLine3 = (EditText)findViewById(R.id.textview_contactedit_addressline3);
+		etAddressLine4 = (EditText)findViewById(R.id.textview_contactedit_addressline4);
+		
+		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
+
+
+		
+		// save cancel buttons
 		
 		acceptEditButton = (Button)findViewById(R.id.button_editactivity_acceptedit);
 		discardEditButton = (Button)findViewById(R.id.button_editactivity_discardedit);
