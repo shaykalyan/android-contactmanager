@@ -1,6 +1,9 @@
 package com.akshaykalyan.contactmanager;
 
-public class ContactAddress {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ContactAddress implements Parcelable {
 	private String fAddressLine1, fAddressLine2, fAddressLine3, fAddressLine4;
 	
 	public ContactAddress() {
@@ -41,5 +44,42 @@ public class ContactAddress {
 	
 	public void setAddressLine4(String addressLine4) {
 		this.fAddressLine4 = addressLine4;
+	}
+	
+	// Parcelable methods
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeValue(fAddressLine1);
+		dest.writeValue(fAddressLine2);
+		dest.writeValue(fAddressLine3);
+		dest.writeValue(fAddressLine4);
+	}
+	
+	public static final Parcelable.Creator<ContactAddress> CREATOR = new Parcelable.Creator<ContactAddress>() {
+		public ContactAddress createFromParcel(Parcel in) {
+			String addressLine1 = (String)in.readValue(getClass().getClassLoader());
+			String addressLine2 = (String)in.readValue(getClass().getClassLoader());
+			String addressLine3 = (String)in.readValue(getClass().getClassLoader());
+			String addressLine4 = (String)in.readValue(getClass().getClassLoader());
+			
+			return new ContactAddress(addressLine1, addressLine2, addressLine3, addressLine4);
+		}
+		
+		public ContactAddress[] newArray(int size) {
+			return new ContactAddress[size];
+		}
+	};
+	
+	private ContactAddress(Parcel in) {
+		fAddressLine1 = (String)in.readValue(getClass().getClassLoader());
+		fAddressLine2 = (String)in.readValue(getClass().getClassLoader());
+		fAddressLine3 = (String)in.readValue(getClass().getClassLoader());
+		fAddressLine4 = (String)in.readValue(getClass().getClassLoader());
 	}
 }
