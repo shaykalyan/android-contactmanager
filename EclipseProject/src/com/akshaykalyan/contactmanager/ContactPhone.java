@@ -1,6 +1,5 @@
 package com.akshaykalyan.contactmanager;
 
-import java.util.Comparator;
 
 public class ContactPhone {
 	private String fMobilePhone, fHomePhone, fWorkPhone;

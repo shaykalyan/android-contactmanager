@@ -346,7 +346,12 @@ public class ContactListActivity extends FragmentActivity {
     	public void onListItemClick(ListView l, View v, int position, long id) {
     		// insert desired behaviour here.
     		Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-        	startActivity(intent);
+    		
+    		Contact fContact = fAdapter.getItem(position);
+    		
+    		intent.putExtra("CONTACT_NAME", fContact.getfName().toString());
+    		
+    		startActivity(intent);
     		
 //    		Log.i("ContactListFragment", "Item clicked: " + id);
     		

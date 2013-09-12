@@ -1,13 +1,15 @@
 package com.akshaykalyan.contactmanager;
 
 
+
 import java.util.Comparator;
 
-import android.R.integer;
 import android.graphics.Bitmap;
 
 
-public class Contact {
+public class Contact{
+
+	
 	private ContactName fName;
 	private ContactAddress fAddress;
 	private ContactEmail fEmail;

@@ -1,9 +1,5 @@
 package com.akshaykalyan.contactmanager;
 
-import java.util.Comparator;
-
-
-
 public class ContactName {
 	private String fFirstName, fLastName;
 	
