@@ -16,7 +16,7 @@
 	    android:layout_height="150dp">
 		<ImageView 
 		    android:id="@+id/image_contactinfo_contact_image"
-		    android:src="@drawable/stockphoto_happy_male"
+		    android:src="@drawable/ic_default_contactphoto"
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 		    android:scaleType="centerCrop"
