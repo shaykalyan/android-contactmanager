@@ -1,5 +1,6 @@
 package com.akshaykalyan.contactmanager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -14,6 +15,11 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 	
 	public CustomArrayAdapter(Context context) {
 		super(context, android.R.layout.simple_list_item_2);
+		fInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	public CustomArrayAdapter(Context context, List<Contact> list) {
+		super(context, android.R.layout.simple_list_item_2, list);
 		fInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 

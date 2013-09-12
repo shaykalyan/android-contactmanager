@@ -1,10 +1,13 @@
 package com.akshaykalyan.contactmanager;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.R.anim;
 import android.R.integer;
 import android.app.Activity;
@@ -53,7 +56,7 @@ public class ContactListActivity extends FragmentActivity {
 	private ListView mDrawerList;
 	
 	private ActionBarDrawerToggle mDrawerToggle;
-	
+	private ContactListFragment mContactListFragment = new ContactListFragment();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +128,14 @@ public class ContactListActivity extends FragmentActivity {
 // 		
 
         FragmentManager fm = getSupportFragmentManager();
-		ContactListFragment list = new ContactListFragment();
-		fm.beginTransaction().add(R.id.content_frame, list).commit();
+		
+		fm.beginTransaction().add(R.id.content_frame, mContactListFragment).commit();
  		
+		
+		// set to first name order
+		// Highlight the selected item and close the drawer
+		mDrawerList.setItemChecked(1, true);
+
  		
 	}
 
@@ -209,7 +217,23 @@ public class ContactListActivity extends FragmentActivity {
 //		fragmentManager.beginTransaction().add(R.id.content_frame, listFragment);
 		
 		
-		
+		switch (position) {
+		case 1: 
+				mContactListFragment.sortContactsList(Contact.SortBy.FirstName.fComparator);
+				break;
+		case 2:
+			mContactListFragment.sortContactsList(Contact.SortBy.LastName.fComparator);
+			break;
+		case 3:
+			mContactListFragment.sortContactsList(Contact.SortBy.PhoneNumberMobile.fComparator);
+			break;
+		case 4:
+			mContactListFragment.sortContactsList(Contact.SortBy.PhoneNumberHome.fComparator);
+			break;
+		case 5:
+			mContactListFragment.sortContactsList(Contact.SortBy.PhoneNumberWork.fComparator);
+			break;
+		}
 		
 		
 	    // Highlight the selected item and close the drawer
@@ -296,7 +320,7 @@ public class ContactListActivity extends FragmentActivity {
     	}
     }
     
-    /** on click of first list item */
+    /** on click of first list item for myFragment */
     public void goToContactInfo(View v) {
     	Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
     	startActivity(intent);
@@ -304,7 +328,7 @@ public class ContactListActivity extends FragmentActivity {
     
     
     public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
-		
+		List<Contact> contactsList = new ArrayList<Contact>(); 
     	CustomArrayAdapter fAdapter;
     	
     	@Override
@@ -317,7 +341,10 @@ public class ContactListActivity extends FragmentActivity {
             return parent;
     	}
 
-    	
+    	public void sortContactsList(Comparator<Contact> cmp) {
+    		Collections.sort(contactsList, cmp);
+    		fAdapter.notifyDataSetChanged();
+    	}
     	
     	@Override
     	public void onActivityCreated(Bundle savedInstanceState) {
@@ -330,16 +357,39 @@ public class ContactListActivity extends FragmentActivity {
     		setEmptyText("No Data Here");
     		
     		//Create an empty adapter we will use to display the loaded data
-    		fAdapter = new CustomArrayAdapter(getActivity());
+    		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);
     		setListAdapter(fAdapter);
     		
     		//remove divider line
     		getListView().setDivider(null);
     		getListView().setDividerHeight(0);
-    		//start out with a progress indicator
-    		setListShown(false);
+    		
+    		contactsList.add(new Contact("Tony's", "Tyres", "145 Target Road", "Wairau Valley", "North Shore", "Auckland",
+         		   "info@targetroadtyres.co.nz", "0211066077", "096008333", "094432731", "25-12-1993", 
+         		   null));
+         		   
+    		contactsList.add(new Contact("Akshay", "Kalyan", "", "", "", "", "akal881@aucklanduni.ac.nz", "0277276866", "", "","" , null));
+    		contactsList.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
+    		contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
+    		contactsList.add(new Contact("Matthew", "Chiam", "", "", "", "", "mchiam1991@gmail.com", "02102926646", "", "","" , null));
+    		contactsList.add(new Contact("Bert", "Huang", "", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "","" , null));
+            contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+            contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+            contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+            contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
+            contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
+            contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));  
+            
+            
+            
+         // quick hack to select firstname default
+            Collections.sort(contactsList, Contact.SortBy.FirstName.fComparator);
 
-    		getLoaderManager().initLoader(0, null, this);
+            
+            fAdapter.notifyDataSetChanged();
+            
+            
+            
     	}
     	
     	@Override
@@ -354,9 +404,11 @@ public class ContactListActivity extends FragmentActivity {
 //    		intent.putExtra("CONTACT_NAME", fContact.getfName().toString());
     		intent.putExtra("CONTACT_OBJECT", contact);
     		startActivity(intent);
-    		
-
-    		
+    	}
+    	
+    	public void AddItem (View v, Contact c) {
+    		contactsList.add(c);
+    		fAdapter.notifyDataSetChanged();
     	}
     	
     	@Override

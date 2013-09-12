@@ -4,7 +4,9 @@
     <string-array name="sort_options_array">
         <item>First Name</item>
         <item>Last Name</item>
-        <item>Phone Number</item>
+        <item>Mobile Phone Number</item>
+        <item>Home Phone Number</item>
+        <item>Work Phone Number</item>
     </string-array>
         
     <string-array name="people_array">
