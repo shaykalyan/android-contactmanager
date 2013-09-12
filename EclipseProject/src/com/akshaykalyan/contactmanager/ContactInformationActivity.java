@@ -17,6 +17,8 @@ import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
@@ -54,20 +56,92 @@ public class ContactInformationActivity extends Activity {
 
 		Intent intent = getIntent();
 		
-
-		tvName.setText(intent.getStringExtra("CONTACT_NAME"));
-
+		//B
+		Contact contact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
 		
+		//Name
+		if (contact.getfName().toString().length() > 0) {
+			tvName.setText(contact.getfName().toString());
+		} else {
+			tvName.setText("-");
+		}
 		
+		// Mobile Phone
+		if (contact.getfPhone().getMobilePhone().length() > 0) {
+			tvMobile.setText(contact.getfPhone().getMobilePhone());
+			// add to label list for typeface change
+			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
+		} else {
+			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
+			View child = (View)findViewById(R.id.viewgroup_contactinfo_mobile);
+			parent.removeView(child);
+		}
 		
-		// set font typeface of labels
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_birthday));
-		labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
+		// Home Phone
+		if (contact.getfPhone().getHomePhone().length() > 0) {
+			tvHome.setText(contact.getfPhone().getHomePhone());
+			// add to label list for typeface change
+			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
+		} else {
+			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
+			View child = (View)findViewById(R.id.viewgroup_contactinfo_home);
+			parent.removeView(child);
+		}
 		
+		// Work Phone
+		if (contact.getfPhone().getWorkPhone().length() > 0) {
+			tvWork.setText(contact.getfPhone().getWorkPhone());
+			// add to label list for typeface change
+			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
+		} else {
+			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
+			View child = (View)findViewById(R.id.viewgroup_contactinfo_work);
+			parent.removeView(child);
+		}
+		
+		// Email
+		if (contact.getfEmail().getEmailString().length() > 0) {
+			tvEmail.setText(contact.getfEmail().getEmailString());
+			// add to label list for typeface change
+			labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
+		} else {
+			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
+			View child = (View)findViewById(R.id.viewgroup_contactinfo_email);
+			parent.removeView(child);
+		}
+		
+		// Birthday
+		if (contact.getfBirthday().toString().length() > 0) {
+			tvBirthday.setText(contact.getfBirthday().toString());
+			// add to label list for typeface change
+			labelList.add((TextView)findViewById(R.id.label_contactinfo_birthday));
+		} else {
+			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
+			View child = (View)findViewById(R.id.viewgroup_contactinfo_birthday);
+			parent.removeView(child);
+		}
+		
+		// Address
+		if (contact.getfAddress().getAddressLine1().length() > 0 ||
+				contact.getfAddress().getAddressLine2().length() > 0 ||
+				contact.getfAddress().getAddressLine3().length() > 0 ||
+				contact.getfAddress().getAddressLine4().length() > 0) {
+			// add to label list for typeface change
+			labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
+			
+			// update fields
+			tvAddressLine1.setText(contact.getfAddress().getAddressLine1());
+			tvAddressLine2.setText(contact.getfAddress().getAddressLine2());
+			tvAddressLine3.setText(contact.getfAddress().getAddressLine3());
+			tvAddressLine4.setText(contact.getfAddress().getAddressLine4());
+			
+		} else {
+			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
+			View child = (View)findViewById(R.id.viewgroup_contactinfo_address);
+			parent.removeView(child);
+		}
+		
+		// set font typeface of labels		
 		for (TextView textView : labelList) {
 			Typeface tf = FontRobotoLight.getTypeface(this);
 	    	textView.setTypeface(tf); 

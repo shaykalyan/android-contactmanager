@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -335,10 +336,9 @@ public class ContactListActivity extends FragmentActivity {
     		//remove divider line
     		getListView().setDivider(null);
     		getListView().setDividerHeight(0);
-    		
     		//start out with a progress indicator
     		setListShown(false);
-    		
+
     		getLoaderManager().initLoader(0, null, this);
     	}
     	
@@ -347,13 +347,15 @@ public class ContactListActivity extends FragmentActivity {
     		// insert desired behaviour here.
     		Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
     		
-    		Contact fContact = fAdapter.getItem(position);
+    		Contact contact = fAdapter.getItem(position);
     		
-    		intent.putExtra("CONTACT_NAME", fContact.getfName().toString());
     		
+    		// A
+//    		intent.putExtra("CONTACT_NAME", fContact.getfName().toString());
+    		intent.putExtra("CONTACT_OBJECT", contact);
     		startActivity(intent);
     		
-//    		Log.i("ContactListFragment", "Item clicked: " + id);
+
     		
     	}
     	
@@ -398,17 +400,21 @@ public class ContactListActivity extends FragmentActivity {
 
            // Create corresponding array of entries and load with data.
            List<Contact> entries = new ArrayList<Contact>(15);
-           entries.add(new Contact("Akshay", "Kalyan", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "", null));
+           entries.add(new Contact("Tony's", "Tyres", "145 Target Road", "Wairau Valley", "North Shore", "Auckland",
+        		   "info@targetroadtyres.co.nz", "0211066077", "096008333", "094432731", "25-12-1993", 
+        		   null));
+        		   
+           entries.add(new Contact("Akshay", "Kalyan", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
 
            return entries;
     	}

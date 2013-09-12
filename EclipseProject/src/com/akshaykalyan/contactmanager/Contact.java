@@ -5,15 +5,18 @@ package com.akshaykalyan.contactmanager;
 import java.util.Comparator;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 
-public class Contact{
+public class Contact implements Parcelable {
 
 	
 	private ContactName fName;
 	private ContactAddress fAddress;
 	private ContactEmail fEmail;
 	private ContactPhone fPhone;
+	private ContactBirthday fBirthday;
 	private ContactPhoto fPhoto;
 	
 	public enum SortBy {
@@ -67,12 +70,23 @@ public class Contact{
 	
 	public Contact(String firstName, String lastName, String contactAddressLine1, String contactAddressLine2,
 			String contactAddressLine3, String contactAddressLine4, String email, String mobilePhone, String workPhone,
-			String homePhone, Bitmap photo) {
+			String homePhone, String birthday, Bitmap photo) {
 		this.fName = new ContactName(firstName, lastName);
 		this.fAddress = new ContactAddress(contactAddressLine1, contactAddressLine2, contactAddressLine3, contactAddressLine4);
 		this.fEmail = new ContactEmail(email);
 		this.fPhone = new ContactPhone(mobilePhone, homePhone, workPhone);
+		this.fBirthday = new ContactBirthday(birthday);
 		this.fPhoto = new ContactPhoto(photo);
+	}
+	
+	public Contact(ContactName name, ContactPhoto photo, ContactPhone phone, ContactEmail email, ContactBirthday birthday,
+					ContactAddress address) {
+		this.fName = name;
+		this.fPhoto = photo;
+		this.fPhone = phone;
+		this.fEmail = email;
+		this.fBirthday = birthday;
+		this.fAddress = address;
 	}
 	
 	//NAME
@@ -117,6 +131,14 @@ public class Contact{
 		return fPhone;
 	}
 	
+	// BIRTHDAY
+	public void setfBirthday(String birthday) {
+		this.fBirthday.setfBirthday(birthday);
+	}
+	
+	public ContactBirthday getfBirthday() {
+		return fBirthday;
+	}
 	
 	// PHOTO
 	public void setfPhoto(Bitmap photoBitmap) {
@@ -127,4 +149,40 @@ public class Contact{
 		return fPhoto;
 	}
 	
+	// Parcelable methods
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeValue(fPhoto);
+		dest.writeValue(fName);
+		dest.writeValue(fPhone);
+		dest.writeValue(fEmail);
+		dest.writeValue(fBirthday);
+		dest.writeValue(fAddress);
+	}
+	
+	public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {
+		@Override
+		public Contact createFromParcel(Parcel in) {
+			ContactPhoto photo = (ContactPhoto)in.readValue(getClass().getClassLoader());
+			ContactName name = (ContactName)in.readValue(getClass().getClassLoader());
+			ContactPhone phone = (ContactPhone)in.readValue(getClass().getClassLoader());
+			ContactEmail email = (ContactEmail)in.readValue(getClass().getClassLoader());
+			ContactBirthday birthday = (ContactBirthday)in.readValue(getClass().getClassLoader());
+			ContactAddress address = (ContactAddress)in.readValue(getClass().getClassLoader());
+			
+			
+			return new Contact(name, photo, phone, email, birthday, address);
+		}
+		
+		@Override
+		public Contact[] newArray(int size) {
+			return new Contact[size];
+		}
+	};
 }

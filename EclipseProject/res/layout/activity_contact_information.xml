@@ -37,6 +37,7 @@
         android:layout_width="match_parent">
     
 	    <LinearLayout 
+	        android:id="@+id/viewgroupparent_contactinfo"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -48,6 +49,7 @@
 	        
 		    <!-- Mobile -->
 		    <FrameLayout 
+		        android:id="@+id/viewgroup_contactinfo_mobile"
 		        android:layout_height="wrap_content"
 		        android:layout_width="match_parent">
 			    <RelativeLayout 
@@ -107,6 +109,7 @@
 		    
 		    <!-- Home -->
 		    <FrameLayout 
+		        android:id="@+id/viewgroup_contactinfo_home"
 		        android:layout_height="wrap_content"
 		        android:layout_width="match_parent"
 		        android:layout_marginTop="10dp">
@@ -150,6 +153,7 @@
 
 		    <!-- Work -->
 		    <RelativeLayout 
+		        android:id="@+id/viewgroup_contactinfo_work"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp">
@@ -175,6 +179,7 @@
 		    
 		    <!-- Email -->
 		    <FrameLayout 
+		        android:id="@+id/viewgroup_contactinfo_email"
 		        android:layout_height="wrap_content"
 		        android:layout_width="fill_parent">
 		        
@@ -220,6 +225,7 @@
 		    
 		    <!-- Birthday -->
 		    <RelativeLayout 
+		        android:id="@+id/viewgroup_contactinfo_birthday"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp">
@@ -246,8 +252,9 @@
 		    
 		    <!-- Address -->
 	        <FrameLayout 
-		            android:layout_height="wrap_content"
-		            android:layout_width="fill_parent">
+	            android:id="@+id/viewgroup_contactinfo_address"
+	            android:layout_height="wrap_content"
+	            android:layout_width="fill_parent">
 		                
 			      
 			    <RelativeLayout 
