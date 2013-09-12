@@ -68,9 +68,12 @@ public class Contact implements Parcelable {
 		
 	}
 	
-	public Contact(String firstName, String lastName, String contactAddressLine1, String contactAddressLine2,
-			String contactAddressLine3, String contactAddressLine4, String email, String mobilePhone, String workPhone,
-			String homePhone, String birthday, Bitmap photo) {
+	public Contact(String firstName, String lastName, 
+			String contactAddressLine1, String contactAddressLine2, String contactAddressLine3, String contactAddressLine4, 
+			String email, 
+			String mobilePhone, String workPhone, String homePhone, 
+			String birthday, 
+			Bitmap photo) {
 		this.fName = new ContactName(firstName, lastName);
 		this.fAddress = new ContactAddress(contactAddressLine1, contactAddressLine2, contactAddressLine3, contactAddressLine4);
 		this.fEmail = new ContactEmail(email);

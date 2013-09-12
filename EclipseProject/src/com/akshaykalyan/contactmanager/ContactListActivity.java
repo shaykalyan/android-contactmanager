@@ -404,11 +404,11 @@ public class ContactListActivity extends FragmentActivity {
         		   "info@targetroadtyres.co.nz", "0211066077", "096008333", "094432731", "25-12-1993", 
         		   null));
         		   
-           entries.add(new Contact("Akshay", "Kalyan", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Akshay", "Kalyan", "", "", "", "", "akal881@aucklanduni.ac.nz", "0277276866", "", "","" , null));
            entries.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
            entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+           entries.add(new Contact("Matthew", "Chiam", "", "", "", "", "mchiam1991@gmail.com", "02102926646", "", "","" , null));
+           entries.add(new Contact("Bert", "Huang", "", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "","" , null));
            entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
            entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
            entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
