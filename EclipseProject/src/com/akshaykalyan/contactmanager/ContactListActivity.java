@@ -306,7 +306,6 @@ public class ContactListActivity extends FragmentActivity {
 		
     	CustomArrayAdapter fAdapter;
     	
-		// testing stuff 
     	@Override
     	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
@@ -316,7 +315,7 @@ public class ContactListActivity extends FragmentActivity {
             parent.addView(superView,0);
             return parent;
     	}
-        // /test
+
     	
     	
     	@Override
@@ -346,7 +345,10 @@ public class ContactListActivity extends FragmentActivity {
     	@Override
     	public void onListItemClick(ListView l, View v, int position, long id) {
     		// insert desired behaviour here.
-    		Log.i("ContactListFragment", "Item clicked: " + id);
+    		Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
+        	startActivity(intent);
+    		
+//    		Log.i("ContactListFragment", "Item clicked: " + id);
     		
     	}
     	

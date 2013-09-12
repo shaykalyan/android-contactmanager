@@ -9,14 +9,9 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight="1"
-               android:drawSelectorOnTop="true"
+               android:drawSelectorOnTop="false"
                android:divider="@color/color_background_grey"
                android:dividerHeight="0dp"
-               
-               
-               android:clipToPadding="false"
-               android:padding="16dp"        	   
-               
                />
 
      <TextView android:id="@id/android:empty"

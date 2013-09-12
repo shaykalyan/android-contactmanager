@@ -1,6 +1,9 @@
 package com.akshaykalyan.contactmanager;
 
 
+import java.util.Comparator;
+
+import android.R.integer;
 import android.graphics.Bitmap;
 
 
@@ -10,6 +13,55 @@ public class Contact {
 	private ContactEmail fEmail;
 	private ContactPhone fPhone;
 	private ContactPhoto fPhoto;
+	
+	public enum SortBy {
+		FirstName(1), LastName(2), PhoneNumberMobile(3), PhoneNumberHome(4), PhoneNumberWork(5);
+		
+		Comparator<Contact> fComparator;
+		
+		private SortBy(int i) {
+			switch (i) {
+				case 1:
+					fComparator = new Comparator<Contact>() {
+						public int compare(Contact lhs, Contact rhs) {
+							return lhs.fName.getFirstName().compareTo(rhs.fName.getFirstName());
+						};
+					};
+					break;
+				case 2:
+					fComparator = new Comparator<Contact>() {
+						public int compare(Contact lhs, Contact rhs) {
+							return lhs.fName.getLastName().compareTo(rhs.fName.getLastName());
+						};
+					};
+					break;
+				case 3:
+					fComparator = new Comparator<Contact>() {
+						public int compare(Contact lhs, Contact rhs) {
+							return lhs.fPhone.getMobilePhone().compareTo(rhs.fPhone.getMobilePhone());
+						};
+					};
+					break;
+				case 4:
+					fComparator = new Comparator<Contact>() {
+						public int compare(Contact lhs, Contact rhs) {
+							return lhs.fPhone.getHomePhone().compareTo(rhs.fPhone.getHomePhone());
+						};
+					};
+					break;
+				case 5:
+					fComparator = new Comparator<Contact>() {
+						public int compare(Contact lhs, Contact rhs) {
+							return lhs.fPhone.getWorkPhone().compareTo(rhs.fPhone.getWorkPhone());
+						};
+					};
+					break;
+				default:
+					break;
+			}
+		}
+		
+	}
 	
 	public Contact(String firstName, String lastName, String contactAddressLine1, String contactAddressLine2,
 			String contactAddressLine3, String contactAddressLine4, String email, String mobilePhone, String workPhone,

@@ -7,29 +7,6 @@ import java.util.Comparator;
 public class ContactName {
 	private String fFirstName, fLastName;
 	
-	public enum SortBy {
-		FirstName(1), LastName(2);
-		Comparator<ContactName> fComparator;
-		private SortBy(int i) {
-			switch (i) {
-			case 1:
-				fComparator = new Comparator<ContactName>() {
-					public int compare(ContactName lhs, ContactName rhs) {
-						return lhs.fFirstName.compareTo(rhs.fFirstName);
-					};
-				};
-				break;
-			case 2:
-				fComparator = new Comparator<ContactName>() {
-					public int compare(ContactName lhs, ContactName rhs) {
-						return lhs.fLastName.compareTo(rhs.fLastName);
-					};
-				};
-				break;
-			}
-			
-		}
-	}
 	
 	public ContactName() {
 		new ContactName("","");
