@@ -191,8 +191,22 @@ public class ContactInformationActivity extends Activity {
 	}
 
 	
-	public void onClick_makePhoneCall(View v) {
+	public void onClick_makePhoneCallMobile(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
+		startActivity(callIntent);
+	}
+	
+	public void onClick_makePhoneCallHome(View v) {
+		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_home);
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
+		startActivity(callIntent);
+	}
+	
+	public void onClick_makePhoneCallWork(View v) {
+		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_work);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
 		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
 		startActivity(callIntent);

@@ -277,6 +277,10 @@ public class ContactListActivity extends FragmentActivity {
         
         switch (item.getItemId()) {
         case R.id.action_about:
+        	// check if drawer is open, if so close first
+        	if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+        		mDrawerLayout.closeDrawer(Gravity.LEFT);
+        	}
         	DialogFragment aboutDialogFragment = new AboutDialog();
         	aboutDialogFragment.show(getFragmentManager(), "About");
         	break;

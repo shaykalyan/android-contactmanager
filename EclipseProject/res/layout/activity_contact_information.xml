@@ -103,7 +103,7 @@
 				        android:contentDescription="@string/accessibility_callcontact"
 				        android:layout_gravity="right"
 				        android:clickable="true"
-				        android:onClick="onClick_makePhoneCall"/>
+				        android:onClick="onClick_makePhoneCallMobile"/>
 				</LinearLayout>
 			</FrameLayout>
 		    
@@ -147,8 +147,8 @@
 				        android:layout_marginTop="30dp"
 				        android:layout_marginRight="10dp"
 				        android:layout_gravity="right"
-				        android:clickable="false"
-				        android:onClick=""/>
+				        android:clickable="true"
+				        android:onClick="onClick_makePhoneCallHome"/>
 			    
 			</FrameLayout>
 
@@ -191,8 +191,8 @@
 				        android:layout_marginTop="30dp"
 				        android:layout_marginRight="10dp"
 				        android:layout_gravity="right"
-				        android:clickable="false"
-				        android:onClick=""/>
+				        android:clickable="true"
+				        android:onClick="onClick_makePhoneCallWork"/>
 			    
 			</FrameLayout>
 		    

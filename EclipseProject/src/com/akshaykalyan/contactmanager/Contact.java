@@ -18,6 +18,16 @@ public class Contact implements Parcelable {
 	private ContactBirthday fBirthday;
 	private ContactPhoto fPhoto;
 	
+	/**
+	 * SortBy enumeration types returns a Comparator object allowing Contact objects to be sorted in various ways.
+	 * 
+	 * FirstName - Sorts contacts by first name attribute
+	 * LastName - Sorts contacts by last name attribute  
+	 * PhoneNumberMobile - Sorts contacts by the Mobile number attribute of the Phone object composed within a Contact
+	 * PhoneNumberHome - Sorts contacts by the Home number attribute of the Phone object composed within a Contact
+	 * PhoneNumberWork - Sorts contacts by the Work number attribute of the Phone object composed within a Contact
+	 *
+	 */
 	public enum SortBy {
 		FirstName(1), LastName(2), PhoneNumberMobile(3), PhoneNumberHome(4), PhoneNumberWork(5);
 		
@@ -67,6 +77,23 @@ public class Contact implements Parcelable {
 		
 	}
 	
+	/**
+	 * Constructor which creates a new Contact object with respective fields instantiated. 
+	 * Strings and a bitmap object is expected
+	 * 
+	 * @param firstName - contact's first name
+	 * @param lastName - contact's last name
+	 * @param mobilePhone - contact's mobile phone number
+	 * @param workPhone - contact's work phone number
+	 * @param homePhone - contact's home phone number
+	 * @param email - email address 
+	 * @param birthday - date of birthday (Input to be formatted as D(D)-M(M)-YYYY
+	 * @param contactAddressLine1 - address line one 
+	 * @param contactAddressLine2 - address line two
+	 * @param contactAddressLine3 - address line three
+	 * @param contactAddressLine4 - address line four
+	 * @param photo - Bitmap object denoting the contact's photo attribute
+	 */
 	public Contact(String firstName, String lastName, 
 			String mobilePhone, String workPhone, String homePhone, 
 			String email, 
@@ -81,20 +108,15 @@ public class Contact implements Parcelable {
 		this.fPhoto = new ContactPhoto(photo);
 	}
 	
-//	public Contact(String firstName, String lastName, 
-//			String contactAddressLine1, String contactAddressLine2, String contactAddressLine3, String contactAddressLine4, 
-//			String email, 
-//			String mobilePhone, String workPhone, String homePhone, 
-//			String birthday, 
-//			Bitmap photo) {
-//		this.fName = new ContactName(firstName, lastName);
-//		this.fAddress = new ContactAddress(contactAddressLine1, contactAddressLine2, contactAddressLine3, contactAddressLine4);
-//		this.fEmail = new ContactEmail(email);
-//		this.fPhone = new ContactPhone(mobilePhone, homePhone, workPhone);
-//		this.fBirthday = new ContactBirthday(birthday);
-//		this.fPhoto = new ContactPhoto(photo);
-//	}
-	
+	/**
+	 * Constructor which creates a contact object from the various associating Contact attribute objects
+	 * @param name
+	 * @param phone
+	 * @param email
+	 * @param birthday
+	 * @param address
+	 * @param photo
+	 */
 	public Contact(ContactName name, ContactPhone phone, ContactEmail email, ContactBirthday birthday,
 					ContactAddress address, ContactPhoto photo) {
 		this.fName = name;
@@ -165,8 +187,9 @@ public class Contact implements Parcelable {
 		return fPhoto;
 	}
 	
-	// Parcelable methods
 	
+	
+	// Parcelable Interface Methods
 	@Override
 	public int describeContents() {
 		return 0;
