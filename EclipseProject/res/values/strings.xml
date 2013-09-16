@@ -39,7 +39,6 @@
     <!-- Sort Options -->
     <string name="text_sortoptions">Sort Options</string>
 
-
     <!-- Contact Information -->
     <string name="text_phone_mobile">Mobile</string>
     <string name="text_phone_work">Work</string>
@@ -49,14 +48,12 @@
     <string name="text_addressline2">Address Line 2</string>
     <string name="text_addressline3">Address Line 3</string>
     <string name="text_addressline4">Address Line 4</string>
-    
     <string name="text_email">Email</string>
     <string name="text_birthday">Birthday</string>
     <string name="text_name">Name</string>
     <string name="text_firstname">First Name</string>
     <string name="text_lastname">Last Name</string>
-    
-    
+
     <!-- Fake info -->
     <string name="text_fakefullname">John Smith</string>
     <string name="text_fakenumber">096008333</string>
@@ -65,19 +62,15 @@
     <string name="text_fakeaddressline2">Bethlehem</string>
     <string name="text_fakeaddressline3">Tauranga</string>
     <string name="text_fakebirthday">25-12-1993</string>
-    
-    
     <string name="emptystring"></string>
-    
 
-    
     <!-- About Dialog -->
     <string name="text_about_by">By Akshay Kalyan</string>
-    
+
     <!-- Confirm Delete Dialog -->
     <string name="dialog_confirmdelete_title">Comfirm Delete</string>
     <string name="dialog_confirmdelete_message">Are you sure you want to permanently remove this contact?</string>
-    
+
     <!-- Select Image Dialog -->
     <string name="dialog_selectimage_title">Select Image Source</string>
 
@@ -85,5 +78,6 @@
     <string name="toast_editsdiscarded">Edits Discarded</string>
     <string name="toast_contactsaved">Contact Saved</string>
     <string name="toast_contactremoved">Contact Removed</string>
-    
+    <string name="title_activity_contact_add">New Contact</string>
+
 </resources>

@@ -191,20 +191,20 @@ public class ContactInformationActivity extends Activity {
 	}
 
 	
-	public void makePhoneCall(View v) {
+	public void onClick_makePhoneCall(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
 		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
 		startActivity(callIntent);
 	}
 	
-	public void makeSMSMessage(View v) {
+	public void onClick_makeSMSMessage(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
 		Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + numberTextView.getText().toString().trim()));
 		startActivity(smsIntent);
 	}
 	
-	public void makeEmail(View v) {
+	public void onClick_makeEmail(View v) {
 		TextView emailTextView = (TextView)findViewById(R.id.textview_contactinfo_email);
 		String emailString = emailTextView.getText().toString().trim();
 		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));

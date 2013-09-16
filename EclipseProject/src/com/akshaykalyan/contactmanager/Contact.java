@@ -11,7 +11,6 @@ import android.os.Parcelable;
 
 public class Contact implements Parcelable {
 
-	
 	private ContactName fName;
 	private ContactAddress fAddress;
 	private ContactEmail fEmail;
@@ -69,10 +68,10 @@ public class Contact implements Parcelable {
 	}
 	
 	public Contact(String firstName, String lastName, 
-			String contactAddressLine1, String contactAddressLine2, String contactAddressLine3, String contactAddressLine4, 
-			String email, 
 			String mobilePhone, String workPhone, String homePhone, 
-			String birthday, 
+			String email, 
+			String birthday,
+			String contactAddressLine1, String contactAddressLine2, String contactAddressLine3, String contactAddressLine4,  
 			Bitmap photo) {
 		this.fName = new ContactName(firstName, lastName);
 		this.fAddress = new ContactAddress(contactAddressLine1, contactAddressLine2, contactAddressLine3, contactAddressLine4);
@@ -82,14 +81,28 @@ public class Contact implements Parcelable {
 		this.fPhoto = new ContactPhoto(photo);
 	}
 	
-	public Contact(ContactName name, ContactPhoto photo, ContactPhone phone, ContactEmail email, ContactBirthday birthday,
-					ContactAddress address) {
+//	public Contact(String firstName, String lastName, 
+//			String contactAddressLine1, String contactAddressLine2, String contactAddressLine3, String contactAddressLine4, 
+//			String email, 
+//			String mobilePhone, String workPhone, String homePhone, 
+//			String birthday, 
+//			Bitmap photo) {
+//		this.fName = new ContactName(firstName, lastName);
+//		this.fAddress = new ContactAddress(contactAddressLine1, contactAddressLine2, contactAddressLine3, contactAddressLine4);
+//		this.fEmail = new ContactEmail(email);
+//		this.fPhone = new ContactPhone(mobilePhone, homePhone, workPhone);
+//		this.fBirthday = new ContactBirthday(birthday);
+//		this.fPhoto = new ContactPhoto(photo);
+//	}
+	
+	public Contact(ContactName name, ContactPhone phone, ContactEmail email, ContactBirthday birthday,
+					ContactAddress address, ContactPhoto photo) {
 		this.fName = name;
-		this.fPhoto = photo;
 		this.fPhone = phone;
 		this.fEmail = email;
 		this.fBirthday = birthday;
 		this.fAddress = address;
+		this.fPhoto = photo;
 	}
 	
 	//NAME
@@ -180,7 +193,7 @@ public class Contact implements Parcelable {
 			ContactAddress address = (ContactAddress)in.readValue(getClass().getClassLoader());
 			
 			
-			return new Contact(name, photo, phone, email, birthday, address);
+			return new Contact(name, phone, email, birthday, address, photo);
 		}
 		
 		@Override

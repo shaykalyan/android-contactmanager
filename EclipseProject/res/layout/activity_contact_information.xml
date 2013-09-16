@@ -47,6 +47,7 @@
 	        android:paddingBottom="@dimen/activity_vertical_margin">
 		
 	        
+	        
 		    <!-- Mobile -->
 		    <FrameLayout 
 		        android:id="@+id/viewgroup_contactinfo_mobile"
@@ -93,7 +94,7 @@
 						android:layout_marginRight="20dp"
 				        android:layout_gravity="right"
 				        android:clickable="true"
-				        android:onClick="makeSMSMessage"
+				        android:onClick="onClick_makeSMSMessage"
 				        />
 			    <ImageView 
 				        android:layout_height="wrap_content"
@@ -102,7 +103,7 @@
 				        android:contentDescription="@string/accessibility_callcontact"
 				        android:layout_gravity="right"
 				        android:clickable="true"
-				        android:onClick="makePhoneCall"/>
+				        android:onClick="onClick_makePhoneCall"/>
 				</LinearLayout>
 			</FrameLayout>
 		    
@@ -152,30 +153,49 @@
 			</FrameLayout>
 
 		    <!-- Work -->
-		    <RelativeLayout 
+		    <FrameLayout 
 		        android:id="@+id/viewgroup_contactinfo_work"
-		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
+		        android:layout_width="match_parent"
 		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactinfo_phone_work"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_phone_work"
-			        style="@style/Label_Blue"/>
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_phone_work"
-			        
+			    <RelativeLayout 
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactinfo_phone_work"
-			        android:background="@drawable/bg_card"
-			        android:text="@string/text_phone_work"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
+			        >
+				    
+				    <TextView 
+				        android:id="@+id/label_contactinfo_phone_work"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_phone_work"
+				        style="@style/Label_Blue"/>
+				    <TextView 
+				        android:id="@+id/textview_contactinfo_phone_work"
+				        android:layout_below="@id/label_contactinfo_phone_work"
+				        
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:paddingTop="15dp"
+				        android:paddingBottom="15dp"
+				        android:background="@drawable/bg_card"
+				        android:text="@string/text_phone_work"
+				        style="@style/Text_DarkGrey"
+				        />
+			    </RelativeLayout>
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_phone"
+				        android:contentDescription="@string/accessibility_callcontact"
+				        android:layout_marginTop="30dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_gravity="right"
+				        android:clickable="false"
+				        android:onClick=""/>
+			    
+			</FrameLayout>
+		    
 		    
 		    <!-- Email -->
 		    <FrameLayout 
@@ -220,7 +240,7 @@
 				        android:layout_marginRight="10dp"
 				        android:layout_gravity="right"
 				        android:clickable="true"
-				        android:onClick="makeEmail"/>
+				        android:onClick="onClick_makeEmail"/>
 		    </FrameLayout>
 		    
 		    <!-- Birthday -->
@@ -243,6 +263,9 @@
 			        
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
+			        android:paddingTop="15dp"
+		       		android:paddingBottom="15dp"
+			        
 			        android:layout_below="@id/label_contactinfo_birthday"
 			        android:background="@drawable/bg_card"
 			        android:text="@string/text_birthday"

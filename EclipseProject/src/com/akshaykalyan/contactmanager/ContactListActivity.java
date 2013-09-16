@@ -281,7 +281,8 @@ public class ContactListActivity extends FragmentActivity {
         	aboutDialogFragment.show(getFragmentManager(), "About");
         	break;
         case R.id.action_add_contact:
-        	Toast.makeText(getApplicationContext(), "Add Contact -- Coming Soon!", Toast.LENGTH_SHORT).show();
+        	Intent intent = new Intent(getApplicationContext(), ContactAddActivity.class);
+        	startActivity(intent);
         	break;
         case R.id.action_sortoptions:
         	if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
@@ -364,15 +365,18 @@ public class ContactListActivity extends FragmentActivity {
     		getListView().setDivider(null);
     		getListView().setDividerHeight(0);
     		
-    		contactsList.add(new Contact("Tony's", "Tyres", "145 Target Road", "Wairau Valley", "North Shore", "Auckland",
-         		   "info@targetroadtyres.co.nz", "0211066077", "096008333", "094432731", "25-12-1993", 
+    		contactsList.add(new Contact("Tony's", "Tyres", 
+    				"0211066077", "096008333", "094432731", 
+    				"info@targetroadtyres.co.nz",
+    				"25-12-1993", 
+    				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
          		   null));
          		   
-    		contactsList.add(new Contact("Akshay", "Kalyan", "", "", "", "", "akal881@aucklanduni.ac.nz", "0277276866", "", "","" , null));
+    		contactsList.add(new Contact("Akshay", "Kalyan", "0277276866", "", "", "akal881@aucklanduni.ac.nz", "", "", "", "","" , null));
     		contactsList.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
     		contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Matthew", "Chiam", "", "", "", "", "mchiam1991@gmail.com", "02102926646", "", "","" , null));
-    		contactsList.add(new Contact("Bert", "Huang", "", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "","" , null));
+    		contactsList.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "mchiam1991@gmail.com", "", "", "", "","" , null));
+    		contactsList.add(new Contact("Bert", "Huang", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "", "","" , null));
             contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
             contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
             contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
@@ -452,15 +456,18 @@ public class ContactListActivity extends FragmentActivity {
 
            // Create corresponding array of entries and load with data.
            List<Contact> entries = new ArrayList<Contact>(15);
-           entries.add(new Contact("Tony's", "Tyres", "145 Target Road", "Wairau Valley", "North Shore", "Auckland",
-        		   "info@targetroadtyres.co.nz", "0211066077", "096008333", "094432731", "25-12-1993", 
-        		   null));
+           entries.add(new Contact("Tony's", "Tyres", 
+   				"0211066077", "096008333", "094432731", 
+   				"info@targetroadtyres.co.nz",
+   				"25-12-1993",
+   				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
+        		null));
         		   
-           entries.add(new Contact("Akshay", "Kalyan", "", "", "", "", "akal881@aucklanduni.ac.nz", "0277276866", "", "","" , null));
+           entries.add(new Contact("Akshay", "Kalyan", "0277276866", "", "", "akal881@aucklanduni.ac.nz", "", "", "", "","" , null));
            entries.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
            entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Matthew", "Chiam", "", "", "", "", "mchiam1991@gmail.com", "02102926646", "", "","" , null));
-           entries.add(new Contact("Bert", "Huang", "", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "","" , null));
+           entries.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "mchiam1991@gmail.com", "", "", "", "","" , null));
+           entries.add(new Contact("Bert", "Huang", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "", "","" , null));
            entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
            entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
            entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
