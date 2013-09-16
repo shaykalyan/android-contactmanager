@@ -130,7 +130,18 @@ public class ContactEditActivity extends Activity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
+//			removed this and add same as cancel button
+//			NavUtils.navigateUpFromSameTask(this);
+			
+			
+			// Edits discarded Toast
+        	LayoutInflater inflater = getLayoutInflater();
+        	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
+            Toast toast = new Toast(getApplicationContext());
+            toast.setView(view);
+            toast.show();
+        	
+        	finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

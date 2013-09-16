@@ -4,27 +4,27 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ContactEmail implements Parcelable {
-	private String fEmailString;
+	private String fEmail;
 	
 	public ContactEmail() {
 		new ContactEmail("");
 	}
 	
 	public ContactEmail(String emailString) {
-		this.fEmailString = emailString;
+		this.fEmail = emailString;
 	}
 	
 	public String getEmailString() {
-		return fEmailString;
+		return fEmail;
 	}
 	
 	public void setEmailString(String emailString) {
-		this.fEmailString = emailString;
+		this.fEmail = emailString;
 	}
 	
 	@Override
 	public String toString() {
-		return fEmailString;
+		return fEmail;
 	}
 	
 	//Parcelable methods
@@ -36,7 +36,7 @@ public class ContactEmail implements Parcelable {
 	
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeValue(fEmailString);
+		dest.writeValue(fEmail);
 	}
 	
 	public static final Parcelable.Creator<ContactEmail> CREATOR = new Parcelable.Creator<ContactEmail>() {
@@ -51,6 +51,6 @@ public class ContactEmail implements Parcelable {
 	};
 	
 	private ContactEmail(Parcel in) {
-		fEmailString = (String)in.readValue(getClass().getClassLoader());
+		fEmail = (String)in.readValue(getClass().getClassLoader());
 	}
 }
