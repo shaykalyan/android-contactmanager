@@ -4,16 +4,16 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 public class FontRobotoLight {
-	private static Typeface robotoRegTypeface = null;
+	private static Typeface robotoLightTypeface = null;
 	
 	protected FontRobotoLight() {
 		// hidden to stop instantiation
 	}
 	
 	public static Typeface getTypeface(Context context) {
-		if (robotoRegTypeface == null) {
-			robotoRegTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf");
+		if (robotoLightTypeface == null) {
+			robotoLightTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf");
 		}
-		return robotoRegTypeface;
+		return robotoLightTypeface;
 	}
 }

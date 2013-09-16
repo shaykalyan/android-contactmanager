@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.akshaykalyan.contact.*;
+import com.akshaykalyan.contact.Contact.SortBy;
 
 import android.os.Bundle;
 import android.provider.Contacts;
@@ -56,6 +57,8 @@ public class ContactListActivity extends FragmentActivity {
 	private String[] mSortOptions;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
+	
+	private static SortBy currentSortBy = SortBy.FirstName;
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ContactListFragment mContactListFragment = new ContactListFragment();
@@ -134,9 +137,28 @@ public class ContactListActivity extends FragmentActivity {
 		fm.beginTransaction().add(R.id.content_frame, mContactListFragment).commit();
  		
 		
-		// set to first name order
+
 		// Highlight the selected item and close the drawer
-		mDrawerList.setItemChecked(1, true);
+		// highlight the current sort by type
+		int itemCheckedPosition = 1;
+		switch (currentSortBy) {
+		case FirstName:
+			itemCheckedPosition = 1;
+			break;
+		case LastName:
+			itemCheckedPosition = 2;
+			break;
+		case PhoneNumberMobile:
+			itemCheckedPosition = 3;
+			break;
+		case PhoneNumberHome: 
+			itemCheckedPosition = 4;
+			break;
+		case PhoneNumberWork:
+			itemCheckedPosition = 5;
+			break;
+		}
+		mDrawerList.setItemChecked(itemCheckedPosition, true);
 
  		
 	}
@@ -221,19 +243,24 @@ public class ContactListActivity extends FragmentActivity {
 		
 		switch (position) {
 		case 1: 
-				mContactListFragment.sortContactsList(Contact.SortBy.FirstName.fComparator);
-				break;
+			mContactListFragment.sortContactsList(Contact.SortBy.FirstName.fComparator);
+			currentSortBy = SortBy.FirstName;
+			break;
 		case 2:
 			mContactListFragment.sortContactsList(Contact.SortBy.LastName.fComparator);
+			currentSortBy = SortBy.LastName;
 			break;
 		case 3:
 			mContactListFragment.sortContactsList(Contact.SortBy.PhoneNumberMobile.fComparator);
+			currentSortBy = SortBy.PhoneNumberMobile;
 			break;
 		case 4:
 			mContactListFragment.sortContactsList(Contact.SortBy.PhoneNumberHome.fComparator);
+			currentSortBy = SortBy.PhoneNumberHome;
 			break;
 		case 5:
 			mContactListFragment.sortContactsList(Contact.SortBy.PhoneNumberWork.fComparator);
+			currentSortBy = SortBy.PhoneNumberWork;
 			break;
 		}
 		
@@ -393,7 +420,7 @@ public class ContactListActivity extends FragmentActivity {
             
             
          // quick hack to select firstname default
-            Collections.sort(contactsList, Contact.SortBy.FirstName.fComparator);
+            Collections.sort(contactsList, currentSortBy.fComparator);
 
             
             fAdapter.notifyDataSetChanged();

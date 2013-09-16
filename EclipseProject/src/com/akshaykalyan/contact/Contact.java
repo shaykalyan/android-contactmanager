@@ -38,6 +38,12 @@ public class Contact implements Parcelable {
 				case 1:
 					fComparator = new Comparator<Contact>() {
 						public int compare(Contact lhs, Contact rhs) {
+							if (lhs.fName.getFirstName().isEmpty()) {
+								return 1;
+								
+							} else if (rhs.fName.getFirstName().isEmpty()) {
+								return -1;
+							}
 							return lhs.fName.getFirstName().compareTo(rhs.fName.getFirstName());
 						};
 					};
@@ -45,6 +51,12 @@ public class Contact implements Parcelable {
 				case 2:
 					fComparator = new Comparator<Contact>() {
 						public int compare(Contact lhs, Contact rhs) {
+							if (lhs.fName.getLastName().isEmpty()) {
+								return 1;
+								
+							} else if (rhs.fName.getLastName().isEmpty()) {
+								return -1;
+							}
 							return lhs.fName.getLastName().compareTo(rhs.fName.getLastName());
 						};
 					};
@@ -52,6 +64,12 @@ public class Contact implements Parcelable {
 				case 3:
 					fComparator = new Comparator<Contact>() {
 						public int compare(Contact lhs, Contact rhs) {
+							if (lhs.fPhone.getMobilePhone().isEmpty()) {
+								return 1;
+								
+							} else if (rhs.fPhone.getMobilePhone().isEmpty()) {
+								return -1;
+							}
 							return lhs.fPhone.getMobilePhone().compareTo(rhs.fPhone.getMobilePhone());
 						};
 					};
@@ -59,6 +77,13 @@ public class Contact implements Parcelable {
 				case 4:
 					fComparator = new Comparator<Contact>() {
 						public int compare(Contact lhs, Contact rhs) {
+							// empty string is lower in order
+							if (lhs.fPhone.getHomePhone().isEmpty()) {
+								return 1;
+								
+							} else if (rhs.fPhone.getHomePhone().isEmpty()) {
+								return -1;
+							}
 							return lhs.fPhone.getHomePhone().compareTo(rhs.fPhone.getHomePhone());
 						};
 					};
@@ -66,6 +91,13 @@ public class Contact implements Parcelable {
 				case 5:
 					fComparator = new Comparator<Contact>() {
 						public int compare(Contact lhs, Contact rhs) {
+							// empty string is lower in order
+							if (lhs.fPhone.getWorkPhone().isEmpty()) {
+								return 1;
+								
+							} else if (rhs.fPhone.getWorkPhone().isEmpty()) {
+								return -1;
+							}
 							return lhs.fPhone.getWorkPhone().compareTo(rhs.fPhone.getWorkPhone());
 						};
 					};
