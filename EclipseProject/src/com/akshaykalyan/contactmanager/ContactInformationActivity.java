@@ -3,7 +3,7 @@ package com.akshaykalyan.contactmanager;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.akshaykalyan.contactmanager.ContactListActivity.AboutDialog;
+import com.akshaykalyan.contact.*;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,9 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ContactInformationActivity extends Activity {

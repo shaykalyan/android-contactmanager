@@ -1,4 +1,4 @@
-package com.akshaykalyan.contactmanager;
+package com.akshaykalyan.contact;
 
 
 
@@ -31,7 +31,7 @@ public class Contact implements Parcelable {
 	public enum SortBy {
 		FirstName(1), LastName(2), PhoneNumberMobile(3), PhoneNumberHome(4), PhoneNumberWork(5);
 		
-		Comparator<Contact> fComparator;
+		public Comparator<Contact> fComparator;
 		
 		private SortBy(int i) {
 			switch (i) {

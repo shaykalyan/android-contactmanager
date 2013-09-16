@@ -1,4 +1,4 @@
-package com.akshaykalyan.contactmanager;
+package com.akshaykalyan.contact;
 
 import android.os.Parcel;
 import android.os.Parcelable;

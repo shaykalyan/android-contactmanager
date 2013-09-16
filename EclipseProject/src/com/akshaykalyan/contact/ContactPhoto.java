@@ -1,4 +1,4 @@
-package com.akshaykalyan.contactmanager;
+package com.akshaykalyan.contact;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;

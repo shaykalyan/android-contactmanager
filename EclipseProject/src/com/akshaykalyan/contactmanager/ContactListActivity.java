@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import com.akshaykalyan.contact.*;
+
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.R.anim;

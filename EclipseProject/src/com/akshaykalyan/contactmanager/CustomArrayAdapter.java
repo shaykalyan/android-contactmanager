@@ -3,6 +3,8 @@ package com.akshaykalyan.contactmanager;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.akshaykalyan.contact.*;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
