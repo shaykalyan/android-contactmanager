@@ -22,8 +22,8 @@
     <string name="accessibility_clearbirthday">Clear Birthday</string>
 
     <!-- Actions -->
-    <string name="action_edit">Edit</string>
-    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit Contact</string>
+    <string name="action_delete">Delete Contact</string>
     <string name="action_selectphoto">Select Photo</string>
     <string name="action_addcontact">Add Contact</string>
     <string name="action_search">Search</string>

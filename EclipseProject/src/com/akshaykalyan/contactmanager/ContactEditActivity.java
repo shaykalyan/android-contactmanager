@@ -103,6 +103,21 @@ public class ContactEditActivity extends Activity {
 		});
 	}
 
+	@Override
+	public void onBackPressed() {
+
+		// Edits discarded Toast
+    	LayoutInflater inflater = getLayoutInflater();
+    	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(view);
+        toast.show();
+    	
+    	finish();
+		
+		
+		super.onBackPressed();
+	}
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
