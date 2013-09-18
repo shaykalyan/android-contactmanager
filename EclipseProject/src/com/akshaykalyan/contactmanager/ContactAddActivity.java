@@ -2,6 +2,7 @@ package com.akshaykalyan.contactmanager;
 
 import java.util.Calendar;
 
+import com.akshaykalyan.contact.ContactEmail;
 import com.akshaykalyan.contactmanager.ContactEditActivity.DatePickerFragment;
 import com.akshaykalyan.contactmanager.ContactEditActivity.ImageSelectDialogFragment;
 
@@ -27,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 public class ContactAddActivity extends Activity {
 
@@ -85,8 +88,28 @@ public class ContactAddActivity extends Activity {
 		
 		acceptEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
+            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
+            		Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
+            	} else {
+            		Toast.makeText(v.getContext(), "Invalid Email!!!!", Toast.LENGTH_SHORT).show();
+            	}
             }
+		});
+
+		// email listener
+		etEmail.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				etEmail.setError(null);
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+					int arg3) {}
+			
+			@Override
+			public void afterTextChanged(Editable arg0) {}
 		});
 	}
 

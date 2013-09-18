@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.akshaykalyan.contact.ContactEmail;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -39,6 +41,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 
 
@@ -98,9 +102,36 @@ public class ContactEditActivity extends Activity {
 		
 		acceptEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
+            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
+            		Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
+            	} else {
+            		
+            		// LOGIC FOR ADDING CONTACT TO LIST HERE!	
+            		
+            		Toast.makeText(v.getContext(), "Invalid Email!!!!", Toast.LENGTH_SHORT).show();
+            		
+            	}
+                
             }
 		});
+		
+		// email listener
+		etEmail.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				// clear error as soon as an edit is made to text view
+				etEmail.setError(null);
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+					int arg3) {}
+			
+			@Override
+			public void afterTextChanged(Editable arg0) {}
+		});
+		
 	}
 
 	@Override
