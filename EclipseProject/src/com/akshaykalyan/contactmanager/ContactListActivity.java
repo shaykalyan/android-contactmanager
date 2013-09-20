@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.text.AndroidCharacter;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 public class ContactListActivity extends FragmentActivity {
 
@@ -116,7 +119,10 @@ public class ContactListActivity extends FragmentActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 		
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.custom_view_search_edit_text, null);
         
+        getActionBar().setCustomView(customView);
        
         
         
@@ -167,7 +173,43 @@ public class ContactListActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_list, menu);
-		return true;
+		
+		/** Get the action view of the menu item whose id is search */
+        View v = (View) menu.findItem(R.id.action_search).getActionView();
+ 
+        /** Get the edit text from the action view */
+        EditText txtSearch = ( EditText ) v.findViewById(R.id.list_edittext_search);
+ 
+//        /** Setting an action listener */
+        txtSearch.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+//				ContactListFragment.this.fAdapter.getFilter().filter(s);
+				mContactListFragment.filterContacts(s);
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {}
+			@Override
+			public void afterTextChanged(Editable s) {}
+		});
+        
+//        txtSearch.setOnEditorActionListener(new OnEditorActionListener() {
+// 
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                Toast.makeText(getBaseContext(), "Search : " + v.getText(), Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//        });
+ 
+        return super.onCreateOptionsMenu(menu);
+		
+		
+		
+//		return true;
 	}
 
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
@@ -352,14 +394,7 @@ public class ContactListActivity extends FragmentActivity {
             return builder.create();
     		
     	}
-    }
-    
-    /** on click of first list item for myFragment */
-    public void goToContactInfo(View v) {
-    	Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-    	startActivity(intent);
-    }
-    
+    }    
     
     public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
 		List<Contact> contactsList = new ArrayList<Contact>(); 
@@ -380,6 +415,13 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter.notifyDataSetChanged();
     	}
     	
+    	public List<Contact> getContactList() {
+    		return contactsList;
+    	}
+    	
+    	public void filterContacts(CharSequence cs) {
+    		fAdapter.getFilter().filter(cs);
+    	}
     	@Override
     	public void onActivityCreated(Bundle savedInstanceState) {
     		super.onActivityCreated(savedInstanceState);
