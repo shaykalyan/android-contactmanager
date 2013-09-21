@@ -14,14 +14,13 @@
     <FrameLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content">
-		<com.akshaykalyan.contactmanager.ImageDrawer 
+		<ImageView
 		    android:id="@+id/image_contactedit_contact_image"
 		    android:src="@drawable/stockphoto_happy_male"
 		    android:layout_width="match_parent"
 		    android:layout_height="150dp"
 		    android:scaleType="centerCrop"
 		    android:contentDescription="@string/accessibility_contactphoto"/>
-		
 		<ImageView 
 		    android:id="@+id/textview_contactinfo_name"
 		    android:src="@drawable/ic_editpen_light"
@@ -297,6 +296,7 @@
 	    
 	</ScrollView>
 	</LinearLayout>
+	
     <RelativeLayout 
     	android:layout_width="match_parent"
 	    android:layout_height="48dp"

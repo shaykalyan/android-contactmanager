@@ -22,6 +22,8 @@
     <string name="accessibility_callcontact">Call Contact</string>
     <string name="accessibility_sendmessage">Send Message</string>
     <string name="accessibility_clearbirthday">Clear Birthday</string>
+    <string name="accessibility_savecontact">Save Contact</string>
+    <string name="accessibility_discardedits">Discard Edits</string>
 
     <!-- Actions -->
     <string name="action_edit">Edit Contact</string>
