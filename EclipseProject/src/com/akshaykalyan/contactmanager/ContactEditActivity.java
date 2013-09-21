@@ -1,34 +1,20 @@
 package com.akshaykalyan.contactmanager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
+import com.akshaykalyan.contact.Contact;
 import com.akshaykalyan.contact.ContactEmail;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.AlertDialog.Builder;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,12 +34,10 @@ import android.text.TextWatcher;
 
 public class ContactEditActivity extends Activity {
 	
-
-	private static final int IMAGE_REQUEST_CODE = 0;
+	private Class fParentClass;
 	private static final int REQUEST_CODE_INTENT_CAMERA = 0;
 	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
 	private Button acceptEditButton, discardEditButton;
-	private Uri outputFileUri;
 	
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
 						etAddressLine2, etAddressLine3, etAddressLine4;
@@ -65,21 +49,20 @@ public class ContactEditActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-
-		etFirstName = (EditText)findViewById(R.id.textview_contactedit_firstname);
-		etLastName = (EditText)findViewById(R.id.textview_contactedit_lastname);
-		etMobile = (EditText)findViewById(R.id.textview_contactedit_phone_mobile);
-		etHome = (EditText)findViewById(R.id.textview_contactedit_phone_home);
-		etWork = (EditText)findViewById(R.id.textview_contactedit_phone_work);
-		etEmail = (EditText)findViewById(R.id.textview_contactedit_email);
-		etAddressLine1 = (EditText)findViewById(R.id.textview_contactedit_addressline1);
-		etAddressLine2 = (EditText)findViewById(R.id.textview_contactedit_addressline2);
-		etAddressLine3 = (EditText)findViewById(R.id.textview_contactedit_addressline3);
-		etAddressLine4 = (EditText)findViewById(R.id.textview_contactedit_addressline4);
+		etFirstName = (EditText)findViewById(R.id.edittext_contactedit_firstname);
+		etLastName = (EditText)findViewById(R.id.edittext_contactedit_lastname);
+		etMobile = (EditText)findViewById(R.id.edittext_contactedit_phone_mobile);
+		etHome = (EditText)findViewById(R.id.edittext_contactedit_phone_home);
+		etWork = (EditText)findViewById(R.id.edittext_contactedit_phone_work);
+		etEmail = (EditText)findViewById(R.id.edittext_contactedit_email);
+		etAddressLine1 = (EditText)findViewById(R.id.edittext_contactedit_addressline1);
+		etAddressLine2 = (EditText)findViewById(R.id.edittext_contactedit_addressline2);
+		etAddressLine3 = (EditText)findViewById(R.id.edittext_contactedit_addressline3);
+		etAddressLine4 = (EditText)findViewById(R.id.edittext_contactedit_addressline4);
 		
 		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
 
-
+		
 		
 		// save cancel buttons
 		
@@ -90,11 +73,7 @@ public class ContactEditActivity extends Activity {
             public void onClick(View v) {
             	
             	// Edits discarded Toast
-            	LayoutInflater inflater = getLayoutInflater();
-            	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
-                Toast toast = new Toast(getApplicationContext());
-                toast.setView(view);
-                toast.show();
+            	showEditsDiscardToast();
             	
             	finish();
             }
@@ -104,11 +83,14 @@ public class ContactEditActivity extends Activity {
             public void onClick(View v) {
             	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
             		Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
+            		
+            		if (fParentClass == ContactInformationActivity.class) {
+            			//TODO Logic for updating contact info
+            		} else { //fParentClass is ContactListActivity
+            			//TODO Logic for adding new contact	
+            		}
             	} else {
-            		
-            		// LOGIC FOR ADDING CONTACT TO LIST HERE!	
-            		
-            		Toast.makeText(v.getContext(), "Invalid Email!!!!", Toast.LENGTH_SHORT).show();
+            		Toast.makeText(v.getContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
             		
             	}
                 
@@ -116,21 +98,31 @@ public class ContactEditActivity extends Activity {
 		});
 		
 		// email listener
-		etEmail.addTextChangedListener(new TextWatcher() {
-			
+		etEmail.addTextChangedListener(new TextWatcher() {	
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 				// clear error as soon as an edit is made to text view
 				etEmail.setError(null);
 			}
-			
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {}
-			
 			@Override
 			public void afterTextChanged(Editable arg0) {}
 		});
+		
+		
+		Intent intent = getIntent();
+		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
+		
+		if (fParentClass == ContactListActivity.class) { // new contact
+			// Do not populate views
+		} else { // fParent is ContactInformationActivity
+			// Populate views
+			Contact contact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
+			//TODO populate views
+			etFirstName.setText(contact.getfName().getFirstName());
+		}
 		
 	}
 
@@ -138,24 +130,16 @@ public class ContactEditActivity extends Activity {
 	public void onBackPressed() {
 
 		// Edits discarded Toast
-    	LayoutInflater inflater = getLayoutInflater();
-    	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
-        Toast toast = new Toast(getApplicationContext());
-        toast.setView(view);
-        toast.show();
+		showEditsDiscardToast();
     	
     	finish();
-		
-		
 		super.onBackPressed();
 	}
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
 	@Override
@@ -169,32 +153,20 @@ public class ContactEditActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-//			removed this and add same as cancel button
-//			NavUtils.navigateUpFromSameTask(this);
+			if (fParentClass == ContactInformationActivity.class){
+				finish();
+			} else { // ListActivity
+				finish();
+			}
 			
-			
-			// Edits discarded Toast
-        	LayoutInflater inflater = getLayoutInflater();
-        	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
-            Toast toast = new Toast(getApplicationContext());
-            toast.setView(view);
-            toast.show();
-        	
-        	finish();
+        	showEditsDiscardToast();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void onClick_showDatePickerDialog(View v) {
 	
+	public void onClick_showDatePickerDialog(View v) {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
@@ -220,11 +192,8 @@ public class ContactEditActivity extends Activity {
 			}
 			
 			// create new instance of DatePickerDialog and return
-			
 			Dialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
 			return datePickerDialog;
-	
-			
 		}
 		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -234,10 +203,7 @@ public class ContactEditActivity extends Activity {
 						            // Month is 0 based so add 1
 						            .append(month + 1).append("-")
 						            
-						            .append(year).append(" "));
-			
-			
-					
+						            .append(year).append(" "));			
 		}
 	}
 	
@@ -252,7 +218,6 @@ public class ContactEditActivity extends Activity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setTitle(R.string.dialog_selectimage_title);
 			builder.setItems(R.array.image_sources, new DialogInterface.OnClickListener() {
-				
 				
 				public void onClick(DialogInterface dialog, int which) {
 					switch (which) {
@@ -294,13 +259,17 @@ public class ContactEditActivity extends Activity {
 		    break;
 		}
 	}
-	
-	
+
 	public void onClick_deleteBirthdayText(View v) {
-		TextView birthdayTextView = (TextView)findViewById(R.id.textview_contactedit_birthday);
-		birthdayTextView.setText("");
+		tvBirthday.setText("");
 	}
-	
-	
-	
+
+	private void showEditsDiscardToast() {
+		LayoutInflater inflater = getLayoutInflater();
+    	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(view);
+        toast.show();
+	}
+
 }

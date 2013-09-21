@@ -70,7 +70,7 @@
 		            style="@style/Label_Blue"/>
 	           	 
 		        <EditText
-		            android:id="@+id/textview_contactedit_firstname"
+		            android:id="@+id/edittext_contactedit_firstname"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 	
@@ -78,7 +78,7 @@
 		            android:inputType="textCapWords"
 		            style="@style/Text_DarkGrey"/>
 		        <EditText
-		            android:id="@+id/textview_contactedit_lastname"
+		            android:id="@+id/edittext_contactedit_lastname"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_marginTop="5dp"
@@ -104,7 +104,7 @@
 			        android:text="@string/text_phone_mobile"
 			        style="@style/Label_Blue"/>
 			    <EditText 
-			        android:id="@+id/textview_contactedit_phone_mobile"
+			        android:id="@+id/edittext_contactedit_phone_mobile"
 			        
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
 			        android:text="@string/text_phone_home"
 			        style="@style/Label_Blue"/>
 			    <EditText 
-			        android:id="@+id/textview_contactedit_phone_home"
+			        android:id="@+id/edittext_contactedit_phone_home"
 			        
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
 			        android:text="@string/text_phone_work"
 			        style="@style/Label_Blue"/>
 			    <EditText 
-			        android:id="@+id/textview_contactedit_phone_work"
+			        android:id="@+id/edittext_contactedit_phone_work"
 			        
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
 			        android:text="@string/text_email"
 			        style="@style/Label_Blue"/>
 			    <EditText 
-			        android:id="@+id/textview_contactedit_email"
+			        android:id="@+id/edittext_contactedit_email"
 			        
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
@@ -254,42 +254,39 @@
 		            android:layout_width="fill_parent"
 		            
 		            android:layout_below="@id/label_contactedit_address"
-		            android:orientation="vertical"
-		            >
-		            
-		        		    
-			    <EditText 
-			        android:id="@+id/textview_contactedit_addressline1"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:hint="@string/text_addressline1"
-			        android:inputType="textPostalAddress"
-			        style="@style/Text_DarkGrey"
-			        />
-			    <EditText 
-			        android:id="@+id/textview_contactedit_addressline2"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:hint="@string/text_addressline2"
-			        android:inputType="textPostalAddress"
-			        style="@style/Text_DarkGrey"
-			        />
-			    <EditText 
-			        android:id="@+id/textview_contactedit_addressline3"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:hint="@string/text_addressline3"
-			        android:inputType="textPostalAddress"
-			        style="@style/Text_DarkGrey"
-			        />
-			    <EditText 
-			        android:id="@+id/textview_contactedit_addressline4"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:hint="@string/text_addressline4"
-			        android:inputType="textPostalAddress"
-			        style="@style/Text_DarkGrey"
-			        />
+		            android:orientation="vertical">
+				    <EditText 
+				        android:id="@+id/edittext_contactedit_addressline1"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:hint="@string/text_addressline1"
+				        android:inputType="textPostalAddress"
+				        style="@style/Text_DarkGrey"
+				        />
+				    <EditText 
+				        android:id="@+id/edittext_contactedit_addressline2"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:hint="@string/text_addressline2"
+				        android:inputType="textPostalAddress"
+				        style="@style/Text_DarkGrey"
+				        />
+				    <EditText 
+				        android:id="@+id/edittext_contactedit_addressline3"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:hint="@string/text_addressline3"
+				        android:inputType="textPostalAddress"
+				        style="@style/Text_DarkGrey"
+				        />
+				    <EditText 
+				        android:id="@+id/edittext_contactedit_addressline4"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:hint="@string/text_addressline4"
+				        android:inputType="textPostalAddress"
+				        style="@style/Text_DarkGrey"
+				        />
 			    </LinearLayout>
 		    </RelativeLayout>
 	    </LinearLayout>

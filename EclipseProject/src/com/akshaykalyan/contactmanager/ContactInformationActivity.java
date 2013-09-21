@@ -26,7 +26,7 @@ public class ContactInformationActivity extends Activity {
 
 	private TextView tvName, tvMobile, tvHome, tvWork, tvEmail, tvBirthday, tvAddressLine1,
 						tvAddressLine2, tvAddressLine3, tvAddressLine4;
-	
+	private Contact fContact;
 	private List<TextView> labelList = new ArrayList<TextView>();
 
 	@Override
@@ -56,18 +56,18 @@ public class ContactInformationActivity extends Activity {
 		Intent intent = getIntent();
 		
 		//B
-		Contact contact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
+		fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
 		
 		//Name
-		if (contact.getfName().toString().length() > 0) {
-			tvName.setText(contact.getfName().toString());
+		if (fContact.getfName().toString().length() > 0) {
+			tvName.setText(fContact.getfName().toString());
 		} else {
 			tvName.setText("-");
 		}
 		
 		// Mobile Phone
-		if (contact.getfPhone().getMobilePhone().length() > 0) {
-			tvMobile.setText(contact.getfPhone().getMobilePhone());
+		if (fContact.getfPhone().getMobilePhone().length() > 0) {
+			tvMobile.setText(fContact.getfPhone().getMobilePhone());
 			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
 		} else {
@@ -77,8 +77,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Home Phone
-		if (contact.getfPhone().getHomePhone().length() > 0) {
-			tvHome.setText(contact.getfPhone().getHomePhone());
+		if (fContact.getfPhone().getHomePhone().length() > 0) {
+			tvHome.setText(fContact.getfPhone().getHomePhone());
 			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
 		} else {
@@ -88,8 +88,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Work Phone
-		if (contact.getfPhone().getWorkPhone().length() > 0) {
-			tvWork.setText(contact.getfPhone().getWorkPhone());
+		if (fContact.getfPhone().getWorkPhone().length() > 0) {
+			tvWork.setText(fContact.getfPhone().getWorkPhone());
 			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
 		} else {
@@ -99,8 +99,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Email
-		if (contact.getfEmail().getEmailString().length() > 0) {
-			tvEmail.setText(contact.getfEmail().getEmailString());
+		if (fContact.getfEmail().getEmailString().length() > 0) {
+			tvEmail.setText(fContact.getfEmail().getEmailString());
 			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
 		} else {
@@ -110,8 +110,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Birthday
-		if (contact.getfBirthday().toString().length() > 0) {
-			tvBirthday.setText(contact.getfBirthday().toString());
+		if (fContact.getfBirthday().toString().length() > 0) {
+			tvBirthday.setText(fContact.getfBirthday().toString());
 			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_birthday));
 		} else {
@@ -121,18 +121,18 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Address
-		if (contact.getfAddress().getAddressLine1().length() > 0 ||
-				contact.getfAddress().getAddressLine2().length() > 0 ||
-				contact.getfAddress().getAddressLine3().length() > 0 ||
-				contact.getfAddress().getAddressLine4().length() > 0) {
+		if (fContact.getfAddress().getAddressLine1().length() > 0 ||
+				fContact.getfAddress().getAddressLine2().length() > 0 ||
+				fContact.getfAddress().getAddressLine3().length() > 0 ||
+				fContact.getfAddress().getAddressLine4().length() > 0) {
 			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
 			
 			// update fields
-			tvAddressLine1.setText(contact.getfAddress().getAddressLine1());
-			tvAddressLine2.setText(contact.getfAddress().getAddressLine2());
-			tvAddressLine3.setText(contact.getfAddress().getAddressLine3());
-			tvAddressLine4.setText(contact.getfAddress().getAddressLine4());
+			tvAddressLine1.setText(fContact.getfAddress().getAddressLine1());
+			tvAddressLine2.setText(fContact.getfAddress().getAddressLine2());
+			tvAddressLine3.setText(fContact.getfAddress().getAddressLine3());
+			tvAddressLine4.setText(fContact.getfAddress().getAddressLine4());
 			
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -182,13 +182,22 @@ public class ContactInformationActivity extends Activity {
         	confirmDeleteDialogFragment.show(getFragmentManager(), "ConfirmDelete");
         	break;
 		case R.id.action_edit_contact:
-			Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
-        	startActivity(intent);
+//			Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
+//			
+//        	startActivity(intent);
+			startEditContactActivity();
         	break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void startEditContactActivity() {
+		Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
+		intent.putExtra("PARENT_ACTIVITY", ContactInformationActivity.class);
+		intent.putExtra("CONTACT_OBJECT", fContact);
+		startActivity(intent);
+	}
+	
 	
 	public void onClick_makePhoneCallMobile(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);

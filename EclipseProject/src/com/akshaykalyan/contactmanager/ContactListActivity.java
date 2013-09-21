@@ -185,7 +185,7 @@ public class ContactListActivity extends FragmentActivity {
         searchEditText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				mContactListFragment.filterContacts(s);
+					mContactListFragment.filterContacts(s);
 			}
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -362,7 +362,8 @@ public class ContactListActivity extends FragmentActivity {
         	aboutDialogFragment.show(getFragmentManager(), "About");
         	break;
         case R.id.action_add_contact:
-        	Intent intent = new Intent(getApplicationContext(), ContactAddActivity.class);
+        	Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
+        	intent.putExtra("PARENT_ACTIVITY", ContactListActivity.class);
         	startActivity(intent);
         	break;
         case R.id.action_sortoptions:
@@ -417,8 +418,7 @@ public class ContactListActivity extends FragmentActivity {
     	}
 
     	public void sortContactsList(Comparator<Contact> cmp) {
-    		Collections.sort(contactsList, cmp);
-    		fAdapter.notifyDataSetChanged();
+    		fAdapter.sort(cmp);
     	}
     	
     	
@@ -476,14 +476,9 @@ public class ContactListActivity extends FragmentActivity {
     	
     	@Override
     	public void onListItemClick(ListView l, View v, int position, long id) {
-    		// insert desired behaviour here.
+    		// pass contact to info activity via intent
     		Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-    		
     		Contact contact = fAdapter.getItem(position);
-    		
-    		
-    		// A
-//    		intent.putExtra("CONTACT_NAME", fContact.getfName().toString());
     		intent.putExtra("CONTACT_OBJECT", contact);
     		startActivity(intent);
     	}

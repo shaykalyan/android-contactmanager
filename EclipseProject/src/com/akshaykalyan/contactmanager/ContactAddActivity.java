@@ -51,16 +51,16 @@ public class ContactAddActivity extends Activity {
 		setupActionBar();
 		
 
-		etFirstName = (EditText)findViewById(R.id.textview_contactedit_firstname);
-		etLastName = (EditText)findViewById(R.id.textview_contactedit_lastname);
-		etMobile = (EditText)findViewById(R.id.textview_contactedit_phone_mobile);
-		etHome = (EditText)findViewById(R.id.textview_contactedit_phone_home);
-		etWork = (EditText)findViewById(R.id.textview_contactedit_phone_work);
-		etEmail = (EditText)findViewById(R.id.textview_contactedit_email);
-		etAddressLine1 = (EditText)findViewById(R.id.textview_contactedit_addressline1);
-		etAddressLine2 = (EditText)findViewById(R.id.textview_contactedit_addressline2);
-		etAddressLine3 = (EditText)findViewById(R.id.textview_contactedit_addressline3);
-		etAddressLine4 = (EditText)findViewById(R.id.textview_contactedit_addressline4);
+		etFirstName = (EditText)findViewById(R.id.edittext_contactedit_firstname);
+		etLastName = (EditText)findViewById(R.id.edittext_contactedit_lastname);
+		etMobile = (EditText)findViewById(R.id.edittext_contactedit_phone_mobile);
+		etHome = (EditText)findViewById(R.id.edittext_contactedit_phone_home);
+		etWork = (EditText)findViewById(R.id.edittext_contactedit_phone_work);
+		etEmail = (EditText)findViewById(R.id.edittext_contactedit_email);
+		etAddressLine1 = (EditText)findViewById(R.id.edittext_contactedit_addressline1);
+		etAddressLine2 = (EditText)findViewById(R.id.edittext_contactedit_addressline2);
+		etAddressLine3 = (EditText)findViewById(R.id.edittext_contactedit_addressline3);
+		etAddressLine4 = (EditText)findViewById(R.id.edittext_contactedit_addressline4);
 		
 		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
 
@@ -75,12 +75,7 @@ public class ContactAddActivity extends Activity {
             public void onClick(View v) {
             	
             	// Edits discarded Toast
-            	LayoutInflater inflater = getLayoutInflater();
-            	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
-
-                Toast toast = new Toast(getApplicationContext());
-                toast.setView(view);
-                toast.show();
+            	showEditsDiscardToast();
             	
             	finish();
             }
@@ -146,10 +141,7 @@ public class ContactAddActivity extends Activity {
 			
 			// Edits discarded Toast
         	LayoutInflater inflater = getLayoutInflater();
-        	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
-            Toast toast = new Toast(getApplicationContext());
-            toast.setView(view);
-            toast.show();
+        	showEditsDiscardToast();
         	
         	finish();
 			return true;
@@ -261,11 +253,18 @@ public class ContactAddActivity extends Activity {
 	
 	
 	public void onClick_deleteBirthdayText(View v) {
-		TextView birthdayTextView = (TextView)findViewById(R.id.textview_contactedit_birthday);
-		birthdayTextView.setText("");
+		tvBirthday.setText("");
+//		TextView birthdayTextView = (TextView)findViewById(R.id.textview_contactedit_birthday);
+//		birthdayTextView.setText("");
 	}
 	
-	
+	private void showEditsDiscardToast() {
+		LayoutInflater inflater = getLayoutInflater();
+    	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(view);
+        toast.show();
+	}
 	
 }
 
