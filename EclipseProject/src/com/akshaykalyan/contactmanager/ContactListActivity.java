@@ -177,7 +177,7 @@ public class ContactListActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.contact_list, menu);
 		
 		// search menu item
-		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+		final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
         // Get the edit text from the action view
         final EditText searchEditText = ( EditText ) searchMenuItem.getActionView().findViewById(R.id.list_edittext_search);
  
@@ -200,14 +200,14 @@ public class ContactListActivity extends FragmentActivity {
 		searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 			
 			public boolean onMenuItemActionExpand(MenuItem item) {
-				searchEditText.post(new Runnable() {
-			        @Override
-			        public void run() {
-			        	searchEditText.requestFocus();
-			            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-			            imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);
-			        }
-			    });
+				// only if drawer is closed
+				if (!(mDrawerLayout.isDrawerOpen(Gravity.LEFT))) {
+					searchEditText.requestFocus();
+	                InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	                if(keyboard != null){
+	                	keyboard.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
+	                }
+				}
 			    return true;
 			}
 			public boolean onMenuItemActionCollapse(MenuItem item) {
@@ -225,69 +225,10 @@ public class ContactListActivity extends FragmentActivity {
 		}
 	}
 	
-//	public static class ListFragment extends Fragment {
-//		public static final String ARG_SORT_TYPE_NUMBER = "sort_number";
-//		
-//		public ListFragment() {
-//			// required default constructor
-//		}
-//		
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.my_fragment, container, false);
-//            int i = getArguments().getInt(ARG_SORT_TYPE_NUMBER);
-//            
-//            
-//            // changing the fragment
-//            String sortType = getResources().getStringArray(R.array.sort_options_array)[i];
-//            TextView tv = (TextView) rootView.findViewById(R.id.testingTextView);
-//            tv.setText(sortType);
-//            
-//     		// BUTTON --------------
-//     		Button editButton = (Button)rootView.findViewById(R.id.my_fragment_editbutton);
-//            editButton.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(v.getContext(), ContactEditActivity.class);
-//                	startActivity(intent);
-//
-//                }
-//    		});
-//            
-//         // BUTTON --------------
-//     		Button contactInfoButton = (Button)rootView.findViewById(R.id.my_fragment_contactinfobutton);
-//     		contactInfoButton.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-//                	startActivity(intent);
-//
-//                }
-//    		});
-//            
-//            return rootView;
-//		
-//		}
-//		
-//	}
-	
-	/** Swaps fragments in the main content view */
-	private void selectItem(int position) {
-//		// Create a new fragment and specify the sort order to show based on position
-//		Fragment fragment = new ListFragment();
-//		Bundle args = new Bundle();
-//		args.putInt(ListFragment.ARG_SORT_TYPE_NUMBER, position-1);
-//		fragment.setArguments(args);
-//		
-//		// Insert the fragment by replacing any existing fragment
-//		
-//		FragmentManager fragmentManager = getFragmentManager();
-//	    fragmentManager.beginTransaction()
-//	                   .replace(R.id.content_frame, fragment)
-//	                   .commit();
-		
-//		FragmentManager fragmentManager = getFragmentManager();
-//		ContactListFragment listFragment = new ContactListFragment();
-//		fragmentManager.beginTransaction().add(R.id.content_frame, listFragment);
-		
+	/**
+	 * Sort items by the options in drawer
+	 */
+	private void selectItem(int position) {		
 		
 		switch (position) {
 		case 1: 
@@ -455,7 +396,7 @@ public class ContactListActivity extends FragmentActivity {
     		contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
     		contactsList.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "mchiam1991@gmail.com", "", "", "", "","" , null));
     		contactsList.add(new Contact("Bert", "Huang", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "", "","" , null));
-            contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
+            contactsList.add(new Contact("Beeve", "Zivy", "", "", "", "", "", "", "", "","" , null));
             contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
             contactsList.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
             contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
