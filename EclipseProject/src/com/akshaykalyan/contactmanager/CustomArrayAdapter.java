@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.akshaykalyan.contact.*;
+import com.akshaykalyan.contactmanager.ContactListActivity.ContactListFragment;
 
+import android.R.integer;
 import android.content.Context;
+import android.provider.SyncStateContract.Constants;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 public class CustomArrayAdapter extends ArrayAdapter<Contact> {
@@ -49,11 +54,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		
 		Contact itemContact = getItem(position);
 		((TextView)view.findViewById(R.id.list_item_contact_card_textview)).setText(itemContact.getfName().toString());
-		// ---------------------------------------------------------------------------------------------------------------add contact photo ImageView set here
+		// -----------------------------------------------------------------------------------------add contact photo ImageView set here
 		
 		return view;
 	}
-	
-	
-	
 }

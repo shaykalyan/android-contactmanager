@@ -34,9 +34,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,6 +54,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.text.AndroidCharacter;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 public class ContactListActivity extends FragmentActivity {
 
@@ -116,7 +121,10 @@ public class ContactListActivity extends FragmentActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 		
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.custom_view_search_edit_text, null);
         
+        getActionBar().setCustomView(customView);
        
         
         
@@ -167,7 +175,47 @@ public class ContactListActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_list, menu);
-		return true;
+		
+		// search menu item
+		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        // Get the edit text from the action view
+        final EditText searchEditText = ( EditText ) searchMenuItem.getActionView().findViewById(R.id.list_edittext_search);
+ 
+        // search text listener
+        searchEditText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				mContactListFragment.filterContacts(s);
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {}
+			@Override
+			public void afterTextChanged(Editable s) {}
+		});
+        
+        // search menu item expand listener. 
+        // 			Clears text when collapsed
+        //			Ensures soft keyboard pops up
+		searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+			
+			public boolean onMenuItemActionExpand(MenuItem item) {
+				searchEditText.post(new Runnable() {
+			        @Override
+			        public void run() {
+			        	searchEditText.requestFocus();
+			            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			            imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);
+			        }
+			    });
+			    return true;
+			}
+			public boolean onMenuItemActionCollapse(MenuItem item) {
+				searchEditText.setText("");
+				return true;
+			}
+		});
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
@@ -352,14 +400,7 @@ public class ContactListActivity extends FragmentActivity {
             return builder.create();
     		
     	}
-    }
-    
-    /** on click of first list item for myFragment */
-    public void goToContactInfo(View v) {
-    	Intent intent = new Intent(v.getContext(), ContactInformationActivity.class);
-    	startActivity(intent);
-    }
-    
+    }    
     
     public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
 		List<Contact> contactsList = new ArrayList<Contact>(); 
@@ -380,6 +421,10 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter.notifyDataSetChanged();
     	}
     	
+    	
+    	public void filterContacts(CharSequence cs) {
+    		fAdapter.getFilter().filter(cs.toString().toLowerCase());
+    	}
     	@Override
     	public void onActivityCreated(Bundle savedInstanceState) {
     		super.onActivityCreated(savedInstanceState);
@@ -388,7 +433,7 @@ public class ContactListActivity extends FragmentActivity {
     		System.out.println("ContactListFragment.onActivityCreated");
     		
     		//Initially there is no data
-    		setEmptyText("No Data Here");
+    		setEmptyText("No Contacts Found");
     		
     		//Create an empty adapter we will use to display the loaded data
     		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);

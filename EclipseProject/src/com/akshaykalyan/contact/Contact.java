@@ -256,4 +256,12 @@ public class Contact implements Parcelable {
 			return new Contact[size];
 		}
 	};
+	
+	/*
+	 * Override to lower-case string for inbuilt filtering of the list
+	 */
+	@Override
+	public String toString() {
+		return getfName().toString().toLowerCase();
+	}
 }

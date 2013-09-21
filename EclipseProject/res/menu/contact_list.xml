@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_add_contact"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:showAsAction="always"
         android:icon="@drawable/ic_addcontact"
         android:title="@string/action_addcontact"
@@ -18,10 +18,18 @@
     
     <item
         android:id="@+id/action_sortoptions"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:showAsAction="never"
         android:title="@string/action_sort"/>
     
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:actionLayout="@layout/custom_view_search_edit_text"
+    />
     
 
 </menu>
