@@ -34,6 +34,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -174,19 +176,15 @@ public class ContactListActivity extends FragmentActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_list, menu);
 		
-		/** Get the action view of the menu item whose id is search */
-        View v = (View) menu.findItem(R.id.action_search).getActionView();
+		// search menu item
+		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        // Get the edit text from the action view
+        final EditText searchEditText = ( EditText ) searchMenuItem.getActionView().findViewById(R.id.list_edittext_search);
  
-        /** Get the edit text from the action view */
-        EditText txtSearch = ( EditText ) v.findViewById(R.id.list_edittext_search);
- 
-//        /** Setting an action listener */
-        txtSearch.addTextChangedListener(new TextWatcher() {
-			
+        // search text listener
+        searchEditText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				// TODO Auto-generated method stub
-//				ContactListFragment.this.fAdapter.getFilter().filter(s);
 				mContactListFragment.filterContacts(s);
 			}
 			@Override
@@ -196,20 +194,28 @@ public class ContactListActivity extends FragmentActivity {
 			public void afterTextChanged(Editable s) {}
 		});
         
-//        txtSearch.setOnEditorActionListener(new OnEditorActionListener() {
-// 
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                Toast.makeText(getBaseContext(), "Search : " + v.getText(), Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        });
- 
-        return super.onCreateOptionsMenu(menu);
-		
-		
-		
-//		return true;
+        // search menu item expand listener. 
+        // 			Clears text when collapsed
+        //			Ensures soft keyboard pops up
+		searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+			
+			public boolean onMenuItemActionExpand(MenuItem item) {
+				searchEditText.post(new Runnable() {
+			        @Override
+			        public void run() {
+			        	searchEditText.requestFocus();
+			            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			            imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT);
+			        }
+			    });
+			    return true;
+			}
+			public boolean onMenuItemActionCollapse(MenuItem item) {
+				searchEditText.setText("");
+				return true;
+			}
+		});
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
@@ -415,12 +421,9 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter.notifyDataSetChanged();
     	}
     	
-    	public List<Contact> getContactList() {
-    		return contactsList;
-    	}
     	
     	public void filterContacts(CharSequence cs) {
-    		fAdapter.getFilter().filter(cs);
+    		fAdapter.getFilter().filter(cs.toString().toLowerCase());
     	}
     	@Override
     	public void onActivityCreated(Bundle savedInstanceState) {
@@ -430,7 +433,7 @@ public class ContactListActivity extends FragmentActivity {
     		System.out.println("ContactListFragment.onActivityCreated");
     		
     		//Initially there is no data
-    		setEmptyText("No Data Here");
+    		setEmptyText("No Contacts Found");
     		
     		//Create an empty adapter we will use to display the loaded data
     		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);

@@ -6,6 +6,7 @@ import java.util.List;
 import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contactmanager.ContactListActivity.ContactListFragment;
 
+import android.R.integer;
 import android.content.Context;
 import android.provider.SyncStateContract.Constants;
 import android.util.Log;
@@ -18,8 +19,6 @@ import android.widget.TextView;
 
 public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 	private final LayoutInflater fInflater;
-	
-	private Filter fFilter;
 	
 	public CustomArrayAdapter(Context context) {
 		super(context, android.R.layout.simple_list_item_2);
@@ -59,47 +58,4 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		
 		return view;
 	}
-	
-	
-	
-//	// for custom filtering
-//	@Override
-//	public Filter getFilter() {
-//		if (fFilter == null) {
-//			fFilter = new ContactNameFilter();
-//		}
-//		return fFilter;
-//	}
-//
-//	
-//	private class ContactNameFilter extends Filter {
-//		
-//		@Override
-//		protected FilterResults performFiltering(CharSequence constraint){
-//			FilterResults results = new FilterResults();
-//			String prefix =  constraint.toString().toLowerCase();
-//			
-//			if (prefix == null || prefix.length() == 0) {
-//				ArrayList<Contact> list = new ArrayList<Contact>();
-//				results.values = list;
-//				results.count = list.size();
-//			} else {
-//				final ArrayList<Contact> list = new ArrayList<Contact>();
-//			}
-//		}
-		
-		
-		
-		
-		
-		
-		
-		
-//	}
-	
-	
-	
-	
-	
-	
 }
