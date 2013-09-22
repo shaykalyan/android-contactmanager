@@ -119,7 +119,12 @@ public class ContactEditActivity extends Activity {
 		Intent intent = getIntent();
 		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
 		
+		
+		
+		
+		
 		if (fParentClass == ContactListActivity.class) { // new contact
+			getActionBar().setTitle("New Contact");
 			// Do not populate views
 		} else { // fParent is ContactInformationActivity
 			// Populate views
