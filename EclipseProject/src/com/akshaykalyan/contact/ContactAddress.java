@@ -3,13 +3,23 @@ package com.akshaykalyan.contact;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Class to represent a Contact Address object. 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class ContactAddress implements Parcelable {
 	private String fAddressLine1, fAddressLine2, fAddressLine3, fAddressLine4;
 	
+	/**
+	 * Default constructor creates Address object with empty address
+	 */
 	public ContactAddress() {
 		new ContactAddress("","","","");
 	}
 	
+	/**
+	 * Address constructor creates Address object with given address strings
+	 */
 	ContactAddress(String addressLine1, String addressLine2, String addressLine3, String addressLine4) {
 		this.fAddressLine1 = addressLine1;
 		this.fAddressLine2 = addressLine2;
@@ -17,6 +27,9 @@ public class ContactAddress implements Parcelable {
 		this.fAddressLine4 = addressLine4;
 	}
 	
+	/**
+	 * Getters and Setters
+	 */
 	public String getAddressLine1() {
 		return fAddressLine1;
 	}
@@ -46,8 +59,10 @@ public class ContactAddress implements Parcelable {
 		this.fAddressLine4 = addressLine4;
 	}
 	
-	// Parcelable methods
 	
+	/**
+	 * Parcelable Interface Methods
+	 */
 	@Override
 	public int describeContents() {
 		return 0;

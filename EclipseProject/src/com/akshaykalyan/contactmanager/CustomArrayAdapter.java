@@ -17,6 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
+/**
+ * Custom Array Adapter extending ArrayAdapter to manage and communicate a list of
+ * Contact objects to/from ListView
+ * 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 	private final LayoutInflater fInflater;
 	
@@ -54,6 +60,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		
 		Contact itemContact = getItem(position);
 		((TextView)view.findViewById(R.id.list_item_contact_card_textview)).setText(itemContact.getfName().toString());
+		// TODO get ContactPhoto and fill image view
 		// -----------------------------------------------------------------------------------------add contact photo ImageView set here
 		
 		return view;

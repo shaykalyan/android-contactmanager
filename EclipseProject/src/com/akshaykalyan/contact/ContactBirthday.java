@@ -3,17 +3,33 @@ package com.akshaykalyan.contact;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Class to represent a Contact Birthday object. 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class ContactBirthday implements Parcelable {
 	private String fBirthday;
 	
+	/**
+	 * Default constructor returns object with empty fBirthday field
+	 */
 	public ContactBirthday() {
 		new ContactBirthday("");
 	}
 	
+	/**
+	 * Constructor returns object with given birthday. Format required:
+	 * D(D)-M(M)-YYYY
+	 * @param birthday
+	 */
 	public ContactBirthday(String birthday) {
 		this.fBirthday = birthday;
 	}
 	
+	/**
+	 * Getters and Setters
+	 * @return
+	 */
 	public String getfBirthday() {
 		return fBirthday;
 	}
@@ -27,7 +43,9 @@ public class ContactBirthday implements Parcelable {
 		return fBirthday;
 	}
 	
-	//Parcelable methods
+	/**
+	 * Parcelable Interface Methods
+	 */
 	@Override
 	public int describeContents() {
 		return 0;

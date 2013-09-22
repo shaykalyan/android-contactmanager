@@ -95,11 +95,7 @@ public class ContactListActivity extends FragmentActivity {
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
 				R.layout.list_item_drawer, mSortOptions));
 		
-		
-		
 
-		
-		
 		// enable listening
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 				
@@ -127,20 +123,6 @@ public class ContactListActivity extends FragmentActivity {
         View customView = inflater.inflate(R.layout.custom_view_search_edit_text, null);
         
         getActionBar().setCustomView(customView);
-       
-        
-        
-        // set to default fragment -- contact list sorted by first name
-// 		selectItem(1);
-        
-//        FragmentManager fm = getSupportFragmentManager();
-//  		ContactListFragment list = new ContactListFragment();
-//  		fm.beginTransaction().add(R.id.content_frame, list).commit();
-//   		
-//        FragmentManager fm = getSupportFragmentManager();
-//		ContactListFragment list = new ContactListFragment();
-//		fm.beginTransaction().replace(R.id.content_frame, list).commit();
-// 		
 
         FragmentManager fm = getSupportFragmentManager();
 		

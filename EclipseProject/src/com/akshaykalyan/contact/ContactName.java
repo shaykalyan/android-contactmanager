@@ -3,26 +3,40 @@ package com.akshaykalyan.contact;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Class to represent a Contact Name object. 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class ContactName implements Parcelable {
 	private String fFirstName, fLastName;
 	
-	
+	/**
+	 * Default constructor returns a Contact Name object with empty names
+	 */
 	public ContactName() {
 		new ContactName("","");
 	}
 	
+	/**
+	 * Constructs and returns a Contact Name object with given names
+	 */
 	public ContactName(String firstName, String lastName) {
 		this.fFirstName = firstName;
 		this.fLastName = lastName;
 	}
 	
 	@Override
+	/**
+	 * Formats first and last name fields delimited with a space
+	 */
 	public String toString() {
 		String fullNameString = fFirstName + " " + fLastName;
 		return fullNameString;
 	}
 	
-	
+	/**
+	 * Getters and Setters
+	 */
 	public String getFirstName() {
 		return fFirstName;
 	}
@@ -40,7 +54,9 @@ public class ContactName implements Parcelable {
 	}
 	
 	
-	// Parcelable interface methods
+	/**
+	 * Parcelable Interface Methods
+	 */
 	
 	@Override
 	public int describeContents() {
@@ -49,13 +65,10 @@ public class ContactName implements Parcelable {
 	
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		//marcshall(serialize) object
 		dest.writeValue(fFirstName);
 		dest.writeValue(fLastName);
 	}
 	
-	
-		// regenerate object using CREATOR
 	public static final Parcelable.Creator<ContactName> CREATOR = new Parcelable.Creator<ContactName>() {
 		
 		public ContactName createFromParcel(Parcel in) {
@@ -72,7 +85,6 @@ public class ContactName implements Parcelable {
 		}
 	};
 	
-	//Private constructor used when demarshalling (unserializing the custom object)
     private ContactName(Parcel in) {
         fFirstName         = (String)in.readValue(getClass().getClassLoader());       
         fLastName          =  (String)in.readValue(getClass().getClassLoader());

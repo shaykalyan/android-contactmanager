@@ -1,6 +1,5 @@
 package com.akshaykalyan.contactmanager;
 
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,9 +11,11 @@ import android.view.animation.Transformation;
 import android.widget.ImageView;
 
 /**
- * http://im-dexter.blogspot.co.nz/2013/01/android-expandable-collapsible-image.html tutorial
- *
- *
+ * Class extending ImageView to provide custom actions.
+ * Allows user to expand and collapse an ImageView.
+ * View animates between states
+ * 
+ * TODO: wip
  */
 public class ImageDrawer extends ImageView {
 	private final static int STATE_CLOSED = 0;

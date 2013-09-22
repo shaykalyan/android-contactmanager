@@ -1,14 +1,15 @@
 package com.akshaykalyan.contact;
 
-
-
 import java.util.Comparator;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
+/**
+ * Class to represent a Contact object. 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class Contact implements Parcelable {
 
 	private ContactName fName;
@@ -26,7 +27,6 @@ public class Contact implements Parcelable {
 	 * PhoneNumberMobile - Sorts contacts by the Mobile number attribute of the Phone object composed within a Contact
 	 * PhoneNumberHome - Sorts contacts by the Home number attribute of the Phone object composed within a Contact
 	 * PhoneNumberWork - Sorts contacts by the Work number attribute of the Phone object composed within a Contact
-	 *
 	 */
 	public enum SortBy {
 		FirstName(1), LastName(2), PhoneNumberMobile(3), PhoneNumberHome(4), PhoneNumberWork(5);
@@ -159,17 +159,24 @@ public class Contact implements Parcelable {
 		this.fPhoto = photo;
 	}
 	
-	//NAME
+	/**
+	 * Name - Setter 
+	 */
 	public void setfName(String firstName, String lastName) {
 		this.fName.setFirstName(firstName);
 		this.fName.setLastName(lastName);
 	}
 	
+	/**
+	 * Name - Getter 
+	 */
 	public ContactName getfName() {
 		return fName;
 	}
 	
-	//ADDRESS
+	/**
+	 * Address - Setter
+	 */
 	public void setfAddress(String addressLine1, String addressLine2, String addressLine3, String addressLine4) {
 		this.fAddress.setAddressLine1(addressLine1);
 		this.fAddress.setAddressLine2(addressLine2);
@@ -177,51 +184,74 @@ public class Contact implements Parcelable {
 		this.fAddress.setAddressLine4(addressLine4);
 	}
 	
+	/**
+	 * Address - Getter
+	 */
 	public ContactAddress getfAddress() {
 		return fAddress;
 	}
 	
-	//EMAIL
+	/**
+	 * Email - Setter
+	 */
 	public void setfEmail(String emailString) {
 		this.fEmail.setEmailString(emailString);
 	}
 	
+	/**
+	 * Email - Getter
+	 */
 	public ContactEmail getfEmail() {
 		return fEmail;
 	}
 	
-	//PHONE	
+	/**
+	 * Phone - Setter
+	 */
 	public void setfPhone(String mobilePhone, String homePhone, String workPhone) {
 		this.fPhone.setMobilePhone(mobilePhone);
 		this.fPhone.setHomePhone(homePhone);
 		this.fPhone.setWorkPhone(workPhone);
 	}
-	
+	/**
+	 * Phone - Getter
+	 */
 	public ContactPhone getfPhone() {
 		return fPhone;
 	}
 	
-	// BIRTHDAY
+	/**
+	 * Birthday - Setter
+	 */
 	public void setfBirthday(String birthday) {
 		this.fBirthday.setfBirthday(birthday);
 	}
 	
+	/**
+	 * Birthday - Getter
+	 */
 	public ContactBirthday getfBirthday() {
 		return fBirthday;
 	}
 	
-	// PHOTO
+	/**
+	 * Photo - Setter
+	 */
 	public void setfPhoto(Bitmap photoBitmap) {
 		this.fPhoto.setPhotoBitmap(photoBitmap);
 	}
 	
+	/**
+	 * Photo - Getter
+	 */
 	public ContactPhoto getfPhoto() {
 		return fPhoto;
 	}
 	
 	
 	
-	// Parcelable Interface Methods
+	/** Parcelable Interface Methods */
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -257,10 +287,13 @@ public class Contact implements Parcelable {
 		}
 	};
 	
-	/*
-	 * Override to lower-case string for inbuilt filtering of the list
-	 */
+	
+
 	@Override
+	/**
+	 * Override to String to return contact name in lower-case for a list adapter's filter
+	 * function to work with this Contact implementation.
+	 */
 	public String toString() {
 		return getfName().toString().toLowerCase();
 	}

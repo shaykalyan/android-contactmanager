@@ -4,24 +4,41 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
+/**
+ * Class to represent a Contact Photo object. 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class ContactPhoto implements Parcelable {
 	private Bitmap fPhotoBitmap;
 	
+	/**
+	 * Default constructor initialises photo Bitmap to null
+	 */
+	public ContactPhoto() {
+		this.fPhotoBitmap = null;
+	}
+	/**
+	 * Constructs Contact Photo object with given photo Bitmap
+	 * @param photoBitmap
+	 */
 	ContactPhoto(Bitmap photoBitmap) {
 		this.fPhotoBitmap = photoBitmap;
 	}
 	
+	/**
+	 * Getters and Setters
+	 */
 	public Bitmap getPhotoBitmap() {
 		return fPhotoBitmap;
 	}
 	
-
 	public void setPhotoBitmap(Bitmap photoBitmap) {
 		this.fPhotoBitmap = photoBitmap;
 	}
 	
-	//Parcelable methods
+	/**
+	 * Parcelable Interace Methods
+	 */
 	
 	@Override
 	public int describeContents() {

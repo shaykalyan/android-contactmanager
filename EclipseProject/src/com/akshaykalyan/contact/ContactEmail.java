@@ -10,17 +10,31 @@ import android.widget.EditText;
 
 import com.akshaykalyan.contactmanager.R;
 
+/**
+ * Class to represent a Contact Email object. 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class ContactEmail implements Parcelable {
 	private String fEmail;
 	
+	/**
+	 * Default constructor returns object containing empty email address
+	 */
 	public ContactEmail() {
 		new ContactEmail("");
 	}
 	
+	/**
+	 * Constructor creates and returns object with given email adress
+	 * @param emailString
+	 */
 	public ContactEmail(String emailString) {
 		this.fEmail = emailString;
 	}
 	
+	/**
+	 * Getters and Setters
+	 */
 	public String getEmailString() {
 		return fEmail;
 	}
@@ -34,8 +48,9 @@ public class ContactEmail implements Parcelable {
 		return fEmail;
 	}
 	
-	//Parcelable methods
-	
+	/**
+	 * Parcelable Interface Methods
+	 */
 	@Override
 	public int describeContents() {
 		return 0;
@@ -62,8 +77,11 @@ public class ContactEmail implements Parcelable {
 	}
 	
 	
-	// email validation
-	
+	/**
+	 * Inner class used to validate email address strings. 
+	 * @author Akshay Pravin Kalyan | akal881 | 5786866
+	 *
+	 */
 	public static class Validation {
 		private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+" +
 				"(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -73,27 +91,23 @@ public class ContactEmail implements Parcelable {
 			
 			String text = editText.getText().toString().trim();
 			
-			// text required and editText is blank, so return false
+			// if empty, field is valid
 	        if (!hasText(editText) ) {
 	        	return true;
 	        }
-	 
-	        // pattern doesn't match so returning false
+	        // if pattern does not match, set error and return false
 	        if (!Pattern.matches(EMAIL_REGEX, text)) {
 	            editText.setError(MSG);
 	            return false;
 	        } else {
 	        	return true;
 	        }
-
 	    }
 		
 		public static boolean hasText(EditText editText) {
-			 
 	        String text = editText.getText().toString().trim();
+	        // clear any error views
 	        editText.setError(null);
-	 
-	        // length 0 means there is no text
 	        if (text.length() == 0) {
 	            return false;
 	        }
