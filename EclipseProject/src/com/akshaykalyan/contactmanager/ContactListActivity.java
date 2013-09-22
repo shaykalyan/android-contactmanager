@@ -29,12 +29,14 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -170,6 +172,19 @@ public class ContactListActivity extends FragmentActivity {
 
  		
 	}
+	
+	// if drawer open, close drawer otherwise exit app.
+	@Override
+	public void onBackPressed() {
+
+		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+    		mDrawerLayout.closeDrawer(Gravity.LEFT);
+    	} else {
+    		finish();
+    		super.onBackPressed();
+    	}
+    	
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,7 +196,7 @@ public class ContactListActivity extends FragmentActivity {
         // Get the edit text from the action view
         final EditText searchEditText = ( EditText ) searchMenuItem.getActionView().findViewById(R.id.list_edittext_search);
  
-        // search text listener
+        // search text listeners
         searchEditText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -194,24 +209,38 @@ public class ContactListActivity extends FragmentActivity {
 			public void afterTextChanged(Editable s) {}
 		});
         
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+					keyboard.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0); 
+					searchEditText.clearFocus();
+				}
+				return false;
+			}
+		});
+        
         // search menu item expand listener. 
         // 			Clears text when collapsed
         //			Ensures soft keyboard pops up
 		searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 			
+			InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+			
 			public boolean onMenuItemActionExpand(MenuItem item) {
-				// only if drawer is closed
+				// only if drawer is closed trigger keyboard open
 				if (!(mDrawerLayout.isDrawerOpen(Gravity.LEFT))) {
 					searchEditText.requestFocus();
-	                InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-	                if(keyboard != null){
-	                	keyboard.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
-	                }
+					keyboard.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
 				}
 			    return true;
 			}
 			public boolean onMenuItemActionCollapse(MenuItem item) {
+				// clear text
 				searchEditText.setText("");
+				// hide keyboard on collapse
+				keyboard.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0); 
 				return true;
 			}
 		});

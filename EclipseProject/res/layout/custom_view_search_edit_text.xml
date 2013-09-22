@@ -13,6 +13,7 @@
             android:hint="@string/action_search_hint"
             android:drawableRight="@drawable/ic_search"
             android:singleLine="true"
+            android:imeOptions="actionSearch"
             />
 
 </LinearLayout>

@@ -3,23 +3,23 @@
          android:orientation="vertical"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
+         android:background="@color/color_background_grey"
          >
 
      <ListView
-         android:layout_marginTop="50dp"
-          android:id="@id/android:list"
-               android:layout_width="wrap_content"
-               android:layout_height="0dp"
-               android:layout_weight="1"
-               android:drawSelectorOnTop="false"
-               android:divider="@color/color_background_grey"
-               android:dividerHeight="0dp"
-               />
+         android:id="@id/android:list"
+         android:layout_width="wrap_content"
+         android:layout_height="0dp"
+         android:layout_weight="1"
+         android:background="@color/color_background_grey"
+         android:divider="@color/color_background_grey"
+         android:dividerHeight="0dp"
+         android:drawSelectorOnTop="false" />
 
      <TextView android:id="@id/android:empty"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:background="#FF0000"
-               android:text="@string/action_addcontact"/>
+               android:text="@string/accessibility_nocontactsfound"/>
 </LinearLayout>
  
