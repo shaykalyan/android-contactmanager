@@ -358,7 +358,8 @@ public class ContactListActivity extends FragmentActivity {
     	}
     }    
     
-    public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
+//    public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
+    public static class ContactListFragment extends android.support.v4.app.ListFragment {
 		List<Contact> contactsList = new ArrayList<Contact>(); 
     	CustomArrayAdapter fAdapter;
     	
@@ -366,9 +367,10 @@ public class ContactListActivity extends FragmentActivity {
     	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
     		View superView = super.onCreateView(inflater, container, savedInstanceState);
-//            View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
             ViewGroup parent = (ViewGroup)inflater.inflate(R.layout.fragment_contact_list, container, false);
             parent.addView(superView,0);
+            
+            
             return parent;
     	}
 
@@ -376,35 +378,34 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter.sort(cmp);
     	}
     	
-    	
     	public void filterContacts(CharSequence cs) {
     		fAdapter.getFilter().filter(cs.toString().toLowerCase());
     	}
+    	
     	@Override
     	public void onActivityCreated(Bundle savedInstanceState) {
     		super.onActivityCreated(savedInstanceState);
     		
-    		// ##### self print check
-    		System.out.println("ContactListFragment.onActivityCreated");
-    		
-    		//Initially there is no data
+    		//remove divider line between list items
+    		getListView().setDivider(null);
+    		getListView().setDividerHeight(0);
+    		// Set no data text
     		setEmptyText("No Contacts Found");
     		
-    		//Create an empty adapter we will use to display the loaded data
+    		// TODO remove self print check
+    		System.out.println("ContactListFragment.onActivityCreated");
+    		
+    		//Create an adapter with list
     		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);
     		setListAdapter(fAdapter);
     		
-    		//remove divider line
-    		getListView().setDivider(null);
-    		getListView().setDividerHeight(0);
-    		
+    		// TODO remove hard-coded Contacts!
     		contactsList.add(new Contact("Tony's", "Tyres", 
     				"0211066077", "096008333", "094432731", 
     				"info@targetroadtyres.co.nz",
     				"25-12-1993", 
     				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
-         		   null));
-         		   
+         		   null));   
     		contactsList.add(new Contact("Akshay", "Kalyan", "0277276866", "", "", "akal881@aucklanduni.ac.nz", "", "", "", "","" , null));
     		contactsList.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
     		contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
@@ -417,16 +418,9 @@ public class ContactListActivity extends FragmentActivity {
             contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
             contactsList.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));  
             
-            
-            
-         // quick hack to select firstname default
+            // TODO find replacement for this quick hack to select first name default
             Collections.sort(contactsList, currentSortBy.fComparator);
-
-            
             fAdapter.notifyDataSetChanged();
-            
-            
-            
     	}
     	
     	@Override
@@ -437,170 +431,11 @@ public class ContactListActivity extends FragmentActivity {
     		intent.putExtra("CONTACT_OBJECT", contact);
     		startActivity(intent);
     	}
-    	
+    
     	public void AddItem (View v, Contact c) {
-    		contactsList.add(c);
+    		fAdapter.add(c);
     		fAdapter.notifyDataSetChanged();
     	}
-    	
-    	@Override
-    	public Loader<List<Contact>> onCreateLoader(int arg0, Bundle arg1) {
-    		System.out.println("ContactListFragment.onCreateLoader");
-            return new ContactListLoader(getActivity());
-    	}
-
-    	@Override
-    	public void onLoadFinished(Loader<List<Contact>> arg0, List<Contact> data) {
-    		fAdapter.setData(data);
-    		System.out.println("ContactListFragment.onLoadFinished");
-            //the list should now be shown.
-            if (isResumed()) {
-                setListShown(true);
-            } else {
-                setListShownNoAnimation(true);
-            }
-    	}
-    	
-    	@Override
-    	public void onLoaderReset(Loader<List<Contact>> arg0) {
-    		fAdapter.setData(null);
-    	}
 	}
-    
-    public static class ContactListLoader extends android.support.v4.content.AsyncTaskLoader<List<Contact>> {
-    	List<Contact> fContactsList;
-    	
-    	public ContactListLoader(Context context) {
-    		super(context);
-    	}
-    	
-    	@Override
-    	public List<Contact> loadInBackground() {
-    		System.out.println("ContactListLoader.loadInBackground");
-            
-            // You should perform the heavy task of getting data from 
-            // Internet or database or other source 
-            // Here, we are generating some Sample data
-
-           // Create corresponding array of entries and load with data.
-           List<Contact> entries = new ArrayList<Contact>(15);
-           entries.add(new Contact("Tony's", "Tyres", 
-   				"0211066077", "096008333", "094432731", 
-   				"info@targetroadtyres.co.nz",
-   				"25-12-1993",
-   				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
-        		null));
-        		   
-           entries.add(new Contact("Akshay", "Kalyan", "0277276866", "", "", "akal881@aucklanduni.ac.nz", "", "", "", "","" , null));
-           entries.add(new Contact("Bob", "Quinn", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "mchiam1991@gmail.com", "", "", "", "","" , null));
-           entries.add(new Contact("Bert", "Huang", "", "", "", "ihua164@aucklanduni.ac.nz", "", "", "", "","" , null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Steve", "Ivy", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-           entries.add(new Contact("Ewan", "Weber", "", "", "", "", "", "", "", "","" , null));
-
-           return entries;
-    	}
-    	
-    	/**
-         * Called when there is new data to deliver to the client.  The
-         * super class will take care of delivering it; the implementation
-         * here just adds a little more logic.
-         */
-    	@Override
-    	public void deliverResult(List<Contact> listOfData) {
-    		if (isReset()) {
-    			// An async query came in while the loader is stopped.  We
-                // don't need the result.
-                if (listOfData != null) {
-                    onReleaseResources(listOfData);
-                }
-    		}
-    		List<Contact> oldApps = listOfData;
-    		fContactsList = listOfData;
-    		
-    		if (isStarted()) {
-    			// If the Loader is currently started, we can immediately
-                // deliver its results.
-                super.deliverResult(listOfData);
-    		}
-    		
-    		// At this point we can release the resources associated with
-            // 'oldApps' if needed; now that the new result is delivered we
-            // know that it is no longer in use.
-            if (oldApps != null) {
-                onReleaseResources(oldApps);
-            }    		
-    	}
-    	
-    	/**
-         * Handles a request to start the Loader.
-         */
-        @Override protected void onStartLoading() {
-            if (fContactsList != null) {
-                // If we currently have a result available, deliver it
-                // immediately.
-                deliverResult(fContactsList);
-            }
-            
-            if (takeContentChanged() || fContactsList == null) {
-                // If the data has changed since the last time it was loaded
-                // or is not currently available, start a load.
-                forceLoad();
-            }
-        }
-        
-        /**
-         * Handles a request to stop the Loader.
-         */
-        @Override protected void onStopLoading() {
-            // Attempt to cancel the current load task if possible.
-            cancelLoad();
-        }
-        
-        /**
-         * Handles a request to cancel a load.
-         */
-        @Override 
-        public void onCanceled(List<Contact> apps) {
-            super.onCanceled(apps);
- 
-            // At this point we can release the resources associated with 'apps'
-            // if needed.
-            onReleaseResources(apps);
-        }
-        
-        /**
-         * Handles a request to completely reset the Loader.
-         */
-        @Override 
-        protected void onReset() {
-            super.onReset();
- 
-            // Ensure the loader is stopped
-            onStopLoading();
- 
-            // At this point we can release the resources associated with 'apps'
-            // if needed.
-            if (fContactsList != null) {
-                onReleaseResources(fContactsList);
-                fContactsList = null;
-            }
-        }
-        
-        /**
-         * Helper function to take care of releasing resources associated
-         * with an actively loaded data set.
-         */
-        protected void onReleaseResources(List<Contact> apps) {}
-        
-        
-        
-        
-    }
 }
 
