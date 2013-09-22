@@ -30,8 +30,18 @@ import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-
-
+/**
+ * Activity class representing the edit screen of a contact. This activity is used for two cases and reacts
+ * differently depending on the intent and the parent class (which this activity is requested from)
+ * 
+ * If parent activity is ContactListActivity, it is treated as a new contact situation
+ * and the views are not populated
+ * 
+ * If parent activity is ContactInformationActivity, it is treated as a contact edit situation 
+ * and the views are populated with the contact's respective information
+ * 
+ * @author Akshay Pravin Kalyan | akal881 | 57886866
+ */
 public class ContactEditActivity extends Activity {
 	
 	private Class fParentClass;
@@ -59,28 +69,21 @@ public class ContactEditActivity extends Activity {
 		etAddressLine2 = (EditText)findViewById(R.id.edittext_contactedit_addressline2);
 		etAddressLine3 = (EditText)findViewById(R.id.edittext_contactedit_addressline3);
 		etAddressLine4 = (EditText)findViewById(R.id.edittext_contactedit_addressline4);
-		
 		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
 
-		
-		
-		// save cancel buttons
-		
+		// save cancel button and listeners
 		acceptEditButton = (Button)findViewById(R.id.button_editactivity_acceptedit);
 		discardEditButton = (Button)findViewById(R.id.button_editactivity_discardedit);
 		
 		discardEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	
-            	// Edits discarded Toast
             	showEditsDiscardToast();
-            	
             	finish();
             }
 		});
-		
 		acceptEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	// only if email is validated, further actions can occur
             	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
             		Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
             		
@@ -90,14 +93,13 @@ public class ContactEditActivity extends Activity {
             			//TODO Logic for adding new contact	
             		}
             	} else {
+            		// TODO custom toast?
             		Toast.makeText(v.getContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
-            		
-            	}
-                
+            	}  
             }
 		});
 		
-		// email listener
+		// email edit text field listener
 		etEmail.addTextChangedListener(new TextWatcher() {	
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -111,7 +113,7 @@ public class ContactEditActivity extends Activity {
 			public void afterTextChanged(Editable arg0) {}
 		});
 		
-		
+		// TODO: Populate all fields + Photo field
 		Intent intent = getIntent();
 		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
 		
@@ -127,11 +129,11 @@ public class ContactEditActivity extends Activity {
 	}
 
 	@Override
+	/**
+	 * Override back press to show toast
+	 */
 	public void onBackPressed() {
-
-		// Edits discarded Toast
 		showEditsDiscardToast();
-    	
     	finish();
 		super.onBackPressed();
 	}
@@ -158,19 +160,28 @@ public class ContactEditActivity extends Activity {
 			} else { // ListActivity
 				finish();
 			}
-			
         	showEditsDiscardToast();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	
+	/**
+	 * onClick method which launches a dialog allowing the user to pick a date for the 
+	 * Contact's birthday text field.
+	 */
 	public void onClick_showDatePickerDialog(View v) {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
 	
+	/**
+	 * Inner Class responsible for generating a Date Picker dialog when a request has 
+	 * been placed by the user. 
+	 * 
+	 * If the birthday field was already set, it will be parsed and the picker
+	 * will be set to that date. Otherwise the current date will be set as default
+	 */
 	public static class DatePickerFragment extends DialogFragment
 										implements DatePickerDialog.OnDateSetListener {
 		
@@ -182,7 +193,7 @@ public class ContactEditActivity extends Activity {
 			String[] birthdayText = dateTextView.getText().toString().split("-");
 			if (birthdayText.length > 1) {
 				day = Integer.parseInt(birthdayText[0].trim());
-				month = Integer.parseInt(birthdayText[1].trim()) - 1;
+				month = Integer.parseInt(birthdayText[1].trim()) - 1; // month starts from 0
 				year = Integer.parseInt(birthdayText[2].trim());
 			} else {
 				final Calendar c = Calendar.getInstance();
@@ -196,6 +207,9 @@ public class ContactEditActivity extends Activity {
 			return datePickerDialog;
 		}
 		
+		/**
+		 * Formats and sets the birthday text to the date selected by user 
+		 */
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			TextView datePickerTextView = (TextView)getActivity().findViewById(R.id.textview_contactedit_birthday);
 			datePickerTextView.setText(new StringBuilder()
@@ -207,6 +221,13 @@ public class ContactEditActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * onClick method to enable the user to select a replacement contact photo.
+	 * This method launches a dialog allowing the user to pick a source for the image from either
+	 * 		Camera
+	 * 		Gallery
+	 * and fires an intent depending on the decision made.
+	 */
 	public void onClick_showImageSourceDialog(View v) {
 		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
 		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
@@ -239,19 +260,23 @@ public class ContactEditActivity extends Activity {
 			return builder.create();
 		}
 	}
-		
+	
+	/**
+	 * Reacts to intents fired. In this case, reacts to request codes suggesting and sets
+	 * the contact's ImageView to the selected image.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
 		ImageView contactPhotoImageView = (ImageView)findViewById(R.id.image_contactedit_contact_image);
 
 		switch(requestCode) {
-		case 0:
+		case REQUEST_CODE_INTENT_CAMERA:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
 		        contactPhotoImageView.setImageURI(selectedImage);
 		    }
 		    break; 
-		case 1:
+		case REQUEST_CODE_INTENT_GALLERY:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
 		        contactPhotoImageView.setImageURI(selectedImage);
@@ -260,10 +285,16 @@ public class ContactEditActivity extends Activity {
 		}
 	}
 
+	/**
+	 * onClick method which resets the birthday text view field.
+	 */
 	public void onClick_deleteBirthdayText(View v) {
 		tvBirthday.setText("");
 	}
 
+	/**
+	 * Inflates a custom toast, Edits Discarded Toast, and shows to the currect Application Context
+	 */
 	private void showEditsDiscardToast() {
 		LayoutInflater inflater = getLayoutInflater();
     	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));

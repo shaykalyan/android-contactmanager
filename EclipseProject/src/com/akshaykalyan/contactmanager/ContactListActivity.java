@@ -59,6 +59,16 @@ import android.text.AndroidCharacter;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+/**
+ * Activity class responsible in managing a list of Contact objects and populating
+ * a ListView via a adapter.
+ * 
+ * This is the launcher activity.
+ *
+ * This activity is based on the navigation drawer layout scheme.
+ * 
+ * @author Akshay Pravin Kalyan | akal881 | 57886866
+ */
 public class ContactListActivity extends FragmentActivity {
 
 	private String[] mSortOptions;
@@ -75,15 +85,12 @@ public class ContactListActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
 		
-		
 		mSortOptions = getResources().getStringArray(R.array.sort_options_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
-		
-		
+
 		// create sort options header
 		View header = View.inflate(this, R.layout.listview_header_sort_options, null);
-		
 		mDrawerList.addHeaderView(header, null, false);
 		
 		// sets header font to roboto
@@ -95,8 +102,7 @@ public class ContactListActivity extends FragmentActivity {
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
 				R.layout.list_item_drawer, mSortOptions));
 		
-
-		// enable listening
+		// set sort options list listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 				
 		mDrawerToggle = new ActionBarDrawerToggle(this,  mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
@@ -111,24 +117,17 @@ public class ContactListActivity extends FragmentActivity {
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 		};
-            
-		
+
 		// enable launcher icon as button to toggle drawer
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		
+		// enable up button functionality
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-		
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customView = inflater.inflate(R.layout.custom_view_search_edit_text, null);
-        
-        getActionBar().setCustomView(customView);
-
+ 
         FragmentManager fm = getSupportFragmentManager();
-		
 		fm.beginTransaction().add(R.id.content_frame, mContactListFragment).commit();
  		
-		
 
 		// Highlight the selected item and close the drawer
 		// highlight the current sort by type
@@ -150,22 +149,21 @@ public class ContactListActivity extends FragmentActivity {
 			itemCheckedPosition = 5;
 			break;
 		}
+		// NOTE: actual sorting of list is not done now, as list is not yet populated
 		mDrawerList.setItemChecked(itemCheckedPosition, true);
-
- 		
 	}
 	
-	// if drawer open, close drawer otherwise exit app.
 	@Override
+	/**
+	 * If sort options drawer is open, it is closed. Otherwise application exits.
+	 */
 	public void onBackPressed() {
-
 		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
     		mDrawerLayout.closeDrawer(Gravity.LEFT);
     	} else {
     		finish();
     		super.onBackPressed();
     	}
-    	
 	}
 
 	@Override
@@ -173,12 +171,11 @@ public class ContactListActivity extends FragmentActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_list, menu);
 		
-		// search menu item
+		// search menu action layout and edit text views
 		final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-        // Get the edit text from the action view
         final EditText searchEditText = ( EditText ) searchMenuItem.getActionView().findViewById(R.id.list_edittext_search);
  
-        // search text listeners
+        // EditText listener for filtering of contacts based on search. List is filtered at every key input
         searchEditText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -191,6 +188,7 @@ public class ContactListActivity extends FragmentActivity {
 			public void afterTextChanged(Editable s) {}
 		});
         
+        // EditText listener for when Search is pressed on keyboard which hides the keyboard.
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -203,9 +201,12 @@ public class ContactListActivity extends FragmentActivity {
 			}
 		});
         
-        // search menu item expand listener. 
-        // 			Clears text when collapsed
-        //			Ensures soft keyboard pops up
+        // search menu action layout listener to
+        //		when expand view
+        //				set focus on edit text and enable keyboard
+        //		when collapse view
+        //				clear edit text
+        //				hide keyboard
 		searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 			
 			InputMethodManager keyboard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -232,14 +233,14 @@ public class ContactListActivity extends FragmentActivity {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
-			selectItem(position);
+			setListSort(position);
 		}
 	}
 	
 	/**
 	 * Sort items by the options in drawer
 	 */
-	private void selectItem(int position) {		
+	private void setListSort(int position) {		
 		
 		switch (position) {
 		case 1: 
@@ -263,8 +264,7 @@ public class ContactListActivity extends FragmentActivity {
 			currentSortBy = SortBy.PhoneNumberWork;
 			break;
 		}
-		
-		
+
 	    // Highlight the selected item and close the drawer
 	    mDrawerList.setItemChecked(position, true);
 	    mDrawerLayout.closeDrawer(mDrawerList);  
@@ -278,7 +278,6 @@ public class ContactListActivity extends FragmentActivity {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         
         // to hide the menus items etc
-//        menu.findItem(R.id.action_add_contact).setVisible(!drawerOpen);
 //        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -303,7 +302,7 @@ public class ContactListActivity extends FragmentActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
           return true;
         }
-        
+
         switch (item.getItemId()) {
         case R.id.action_about:
         	// check if drawer is open, if so close first
@@ -329,11 +328,15 @@ public class ContactListActivity extends FragmentActivity {
        		break;
         }
         // Handle your other action bar items...
-
         return super.onOptionsItemSelected(item);
     }
 
-    
+    /**
+	 * Inner Class responsible for generating a custom About dialog when a request has 
+	 * been placed by the user. 
+	 * 
+	 * About dialog contains the Application name, version and Author.
+	 */
     public static class AboutDialog extends DialogFragment {
     	@Override
     	public Dialog onCreateDialog(Bundle savedInstanceState) {

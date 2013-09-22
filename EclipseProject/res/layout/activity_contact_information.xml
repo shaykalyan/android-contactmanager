@@ -348,7 +348,7 @@
 				        android:layout_marginRight="10dp"
 				        android:layout_gravity="right"
 				        android:clickable="true"
-				        android:onClick="makeMapSearch"/>
+				        android:onClick="onClick_makeMapSearch"/>
 		    </FrameLayout> 
 		    
 	    </LinearLayout>

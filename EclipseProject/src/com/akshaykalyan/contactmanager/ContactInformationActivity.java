@@ -7,10 +7,12 @@ import com.akshaykalyan.contact.*;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -47,18 +49,17 @@ public class ContactInformationActivity extends Activity {
 		tvAddressLine3 = (TextView)findViewById(R.id.textview_contactinfo_addressline3);
 		tvAddressLine4 = (TextView)findViewById(R.id.textview_contactinfo_addressline4);
 		
-		
-//		if (savedInstanceState == null) {
-//			Toast.makeText(getApplicationContext(), "Bundle is NULL", Toast.LENGTH_SHORT).show();
-//		}
-
-
 		Intent intent = getIntent();
-		
-		//B
 		fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
 		
-		//Name
+		// for each field in Contact, populate views respectively
+		// if state exists
+		//			set text
+		//			add respective label to list for typeface change
+		// else
+		//			remove respective view group		
+		
+		// Name
 		if (fContact.getfName().toString().length() > 0) {
 			tvName.setText(fContact.getfName().toString());
 		} else {
@@ -68,7 +69,6 @@ public class ContactInformationActivity extends Activity {
 		// Mobile Phone
 		if (fContact.getfPhone().getMobilePhone().length() > 0) {
 			tvMobile.setText(fContact.getfPhone().getMobilePhone());
-			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -79,7 +79,6 @@ public class ContactInformationActivity extends Activity {
 		// Home Phone
 		if (fContact.getfPhone().getHomePhone().length() > 0) {
 			tvHome.setText(fContact.getfPhone().getHomePhone());
-			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -90,7 +89,6 @@ public class ContactInformationActivity extends Activity {
 		// Work Phone
 		if (fContact.getfPhone().getWorkPhone().length() > 0) {
 			tvWork.setText(fContact.getfPhone().getWorkPhone());
-			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -101,7 +99,6 @@ public class ContactInformationActivity extends Activity {
 		// Email
 		if (fContact.getfEmail().getEmailString().length() > 0) {
 			tvEmail.setText(fContact.getfEmail().getEmailString());
-			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -112,7 +109,6 @@ public class ContactInformationActivity extends Activity {
 		// Birthday
 		if (fContact.getfBirthday().toString().length() > 0) {
 			tvBirthday.setText(fContact.getfBirthday().toString());
-			// add to label list for typeface change
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_birthday));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -125,22 +121,21 @@ public class ContactInformationActivity extends Activity {
 				fContact.getfAddress().getAddressLine2().length() > 0 ||
 				fContact.getfAddress().getAddressLine3().length() > 0 ||
 				fContact.getfAddress().getAddressLine4().length() > 0) {
-			// add to label list for typeface change
+
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
 			
-			// update fields
 			tvAddressLine1.setText(fContact.getfAddress().getAddressLine1());
 			tvAddressLine2.setText(fContact.getfAddress().getAddressLine2());
 			tvAddressLine3.setText(fContact.getfAddress().getAddressLine3());
 			tvAddressLine4.setText(fContact.getfAddress().getAddressLine4());
-			
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
 			View child = (View)findViewById(R.id.viewgroup_contactinfo_address);
 			parent.removeView(child);
 		}
 		
-		// set font typeface of labels		
+		
+		// set font type face to all labels in list
 		for (TextView textView : labelList) {
 			Typeface tf = FontRobotoLight.getTypeface(this);
 	    	textView.setTypeface(tf); 
@@ -152,7 +147,6 @@ public class ContactInformationActivity extends Activity {
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
@@ -168,13 +162,6 @@ public class ContactInformationActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.action_delete_contact:
@@ -182,15 +169,16 @@ public class ContactInformationActivity extends Activity {
         	confirmDeleteDialogFragment.show(getFragmentManager(), "ConfirmDelete");
         	break;
 		case R.id.action_edit_contact:
-//			Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
-//			
-//        	startActivity(intent);
 			startEditContactActivity();
         	break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Method to create intent containing the Contact object and reference to this class.
+	 * Starts activity to Edit screen
+	 */
 	private void startEditContactActivity() {
 		Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
 		intent.putExtra("PARENT_ACTIVITY", ContactInformationActivity.class);
@@ -198,7 +186,9 @@ public class ContactInformationActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	
+	/**
+	 * onClick method which extracts the Mobile Phone field, creates call intent and fires.
+	 */
 	public void onClick_makePhoneCallMobile(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -206,6 +196,9 @@ public class ContactInformationActivity extends Activity {
 		startActivity(callIntent);
 	}
 	
+	/**
+	 * onClick method which extracts the Home Phone field, creates call intent and fires.
+	 */
 	public void onClick_makePhoneCallHome(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_home);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -213,6 +206,9 @@ public class ContactInformationActivity extends Activity {
 		startActivity(callIntent);
 	}
 	
+	/**
+	 * onClick method which extracts the Work Phone field, creates call intent and fires.
+	 */
 	public void onClick_makePhoneCallWork(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_work);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -220,12 +216,18 @@ public class ContactInformationActivity extends Activity {
 		startActivity(callIntent);
 	}
 	
+	/**
+	 * onClick method which extracts the Mobile Phone field, creates SMS intent and fires.
+	 */
 	public void onClick_makeSMSMessage(View v) {
 		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
 		Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + numberTextView.getText().toString().trim()));
 		startActivity(smsIntent);
 	}
 	
+	/**
+	 * onClick method which extracts the Email field, creates email intent and fires.
+	 */
 	public void onClick_makeEmail(View v) {
 		TextView emailTextView = (TextView)findViewById(R.id.textview_contactinfo_email);
 		String emailString = emailTextView.getText().toString().trim();
@@ -234,7 +236,10 @@ public class ContactInformationActivity extends Activity {
 		
 	}
 	
-	public void makeMapSearch(View v) {
+	/**
+	 * onClick method which extracts the Address field, creates map intent and fires.
+	 */
+	public void onClick_makeMapSearch(View v) {
 		StringBuilder addressStringBuilder = new StringBuilder();
 		List<TextView> addressList = new ArrayList<TextView>();
 		
@@ -254,6 +259,13 @@ public class ContactInformationActivity extends Activity {
 		startActivity(geoIntent);
 	}
 	
+	/**
+	 * Inner Class responsible for generating a confirmation dialog when a delete request has 
+	 * been placed by the user. The response will be handled respective to the decision made.
+	 * 
+	 * Yes - removes contact and returns to list view
+	 * Cancel - returns focus to activity
+	 */
     public static class ConfirmDeleteDialog extends DialogFragment {
     	@Override
     	public Dialog onCreateDialog(Bundle saveInstanceState) {
@@ -264,7 +276,7 @@ public class ContactInformationActivity extends Activity {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub	
+						// TODO removes contact and returns to list view	
 						dismiss();
 					}
 				})
@@ -272,14 +284,11 @@ public class ContactInformationActivity extends Activity {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
+						// TODO returns focus to activity
 						dismiss();
 					}
 				});
     		return builder.create();
-    		
-    		
-    		
     	}
     }
 }
