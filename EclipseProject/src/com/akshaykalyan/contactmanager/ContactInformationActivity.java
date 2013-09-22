@@ -16,12 +16,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ContactInformationActivity extends Activity {
@@ -258,7 +260,7 @@ public class ContactInformationActivity extends Activity {
 		Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + addressStringBuilder.toString()));
 		startActivity(geoIntent);
 	}
-	
+		
 	/**
 	 * Inner Class responsible for generating a confirmation dialog when a delete request has 
 	 * been placed by the user. The response will be handled respective to the decision made.
@@ -277,7 +279,12 @@ public class ContactInformationActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO removes contact and returns to list view	
-						dismiss();
+						LayoutInflater inflater = getActivity().getLayoutInflater();
+				    	View view = inflater.inflate(R.layout.toast_contact_removed, (ViewGroup)getActivity().findViewById(R.id.toast_contact_removed));
+				        Toast toast = new Toast(getActivity().getApplicationContext());
+				        toast.setView(view);
+				        toast.show();
+				        getActivity().finish();
 					}
 				})
 				.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {

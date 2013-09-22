@@ -85,13 +85,15 @@ public class ContactEditActivity extends Activity {
             public void onClick(View v) {
             	// only if email is validated, further actions can occur
             	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
-            		Toast.makeText(v.getContext(), "Coming soon... !", Toast.LENGTH_SHORT).show();
             		
             		if (fParentClass == ContactInformationActivity.class) {
             			//TODO Logic for updating contact info
+            			finish();
             		} else { //fParentClass is ContactListActivity
-            			//TODO Logic for adding new contact	
+            			//TODO Logic for adding new contact
+            			finish();
             		}
+            		showContactSavedToast();
             	} else {
             		// TODO custom toast?
             		Toast.makeText(v.getContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
@@ -298,6 +300,17 @@ public class ContactEditActivity extends Activity {
 	private void showEditsDiscardToast() {
 		LayoutInflater inflater = getLayoutInflater();
     	View view = inflater.inflate(R.layout.toast_edits_discarded, (ViewGroup)findViewById(R.id.toast_edits_discarded));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(view);
+        toast.show();
+	}
+	
+	/**
+	 * Inflates a custom toast, Contact Saved Toast, and shows to the currect Application Context
+	 */
+	private void showContactSavedToast() {
+		LayoutInflater inflater = getLayoutInflater();
+    	View view = inflater.inflate(R.layout.toast_contact_saved, (ViewGroup)findViewById(R.id.toast_contact_saved));
         Toast toast = new Toast(getApplicationContext());
         toast.setView(view);
         toast.show();
