@@ -32,7 +32,12 @@ public class Contact implements Parcelable {
 		FirstName(1), LastName(2), PhoneNumberMobile(3), PhoneNumberHome(4), PhoneNumberWork(5);
 		
 		public Comparator<Contact> fComparator;
-		
+		/**
+		 * Constructor to initialise comparator field.
+		 * Note: If either of the compared fields is an empty string, that contact object is 'pushed back'/
+		 * given lower priority than other. 
+		 * 		e.g: "" compared to "abc" -- "" will be placed after "abc" in the list.
+		 */
 		private SortBy(int i) {
 			switch (i) {
 				case 1:
@@ -287,8 +292,6 @@ public class Contact implements Parcelable {
 		}
 	};
 	
-	
-
 	@Override
 	/**
 	 * Override to String to return contact name in lower-case for a list adapter's filter

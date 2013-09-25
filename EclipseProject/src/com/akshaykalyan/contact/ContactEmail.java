@@ -2,13 +2,9 @@ package com.akshaykalyan.contact;
 
 import java.util.regex.Pattern;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.EditText;
-
-import com.akshaykalyan.contactmanager.R;
 
 /**
  * Class to represent a Contact Email object. 

@@ -4,31 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contact.Contact.SortBy;
 
 import android.os.Bundle;
-import android.provider.Contacts;
-import android.R.anim;
-import android.R.integer;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -36,27 +26,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import android.support.v4.app.FragmentActivity;
 
 
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
-import android.text.AndroidCharacter;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -110,6 +90,7 @@ public class ContactListActivity extends FragmentActivity {
 			
 			/** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
+            	// TODO: try to lose focus on search edit text here or onDrawerOpened
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
             
@@ -150,7 +131,7 @@ public class ContactListActivity extends FragmentActivity {
 			itemCheckedPosition = 5;
 			break;
 		}
-		// NOTE: actual sorting of list is not done now, as list is not yet populated
+		// NOTE: actual sorting of contact list is not done now, as list is not yet populated
 		mDrawerList.setItemChecked(itemCheckedPosition, true);
 	}
 	
@@ -162,6 +143,7 @@ public class ContactListActivity extends FragmentActivity {
 		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
     		mDrawerLayout.closeDrawer(Gravity.LEFT);
     	} else {
+    		// TODO change this as does not actually close app. Runs in bg
     		finish();
     		super.onBackPressed();
     	}
@@ -269,7 +251,6 @@ public class ContactListActivity extends FragmentActivity {
 	    // Highlight the selected item and close the drawer
 	    mDrawerList.setItemChecked(position, true);
 	    mDrawerLayout.closeDrawer(mDrawerList);  
-	    
 	}	
 	
 	/* Called whenever we call invalidateOptionsMenu() */
@@ -371,14 +352,21 @@ public class ContactListActivity extends FragmentActivity {
             ViewGroup parent = (ViewGroup)inflater.inflate(R.layout.fragment_contact_list, container, false);
             parent.addView(superView,0);
             
-            
             return parent;
     	}
-
+    	
+    	/**
+    	 * Sorts the underlying Contacts list based on the comparator passed in. 
+    	 */
     	public void sortContactsList(Comparator<Contact> cmp) {
     		fAdapter.sort(cmp);
     	}
     	
+    	/**
+    	 * Filters the underlying contact list based on the character sequence input.
+    	 * Uses the default adapter's filter method alongside Contact's toString() 
+    	 * to filter contacts. 
+    	 */
     	public void filterContacts(CharSequence cs) {
     		fAdapter.getFilter().filter(cs.toString().toLowerCase());
     	}

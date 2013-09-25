@@ -1,20 +1,12 @@
 package com.akshaykalyan.contactmanager;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import com.akshaykalyan.contact.*;
-import com.akshaykalyan.contactmanager.ContactListActivity.ContactListFragment;
-
-import android.R.integer;
 import android.content.Context;
-import android.provider.SyncStateContract.Constants;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.TextView;
 
 /**

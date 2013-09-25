@@ -26,7 +26,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -118,9 +117,7 @@ public class ContactEditActivity extends Activity {
 		// TODO: Populate all fields + Photo field
 		Intent intent = getIntent();
 		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
-		
-		
-		
+
 		
 		
 		if (fParentClass == ContactListActivity.class) { // new contact
@@ -132,7 +129,6 @@ public class ContactEditActivity extends Activity {
 			//TODO populate views
 			etFirstName.setText(contact.getfName().getFirstName());
 		}
-		
 	}
 
 	@Override
@@ -191,7 +187,6 @@ public class ContactEditActivity extends Activity {
 	 */
 	public static class DatePickerFragment extends DialogFragment
 										implements DatePickerDialog.OnDateSetListener {
-		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			int year, month, day;
@@ -320,5 +315,4 @@ public class ContactEditActivity extends Activity {
         toast.setView(view);
         toast.show();
 	}
-
 }
