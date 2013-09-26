@@ -61,8 +61,4 @@ public class ContactPhoto implements Parcelable {
 			return new ContactPhoto[size];
 		};
 	};
-	
-	private ContactPhoto(Parcel in) {
-		fPhotoBitmap = (Bitmap)in.readValue(getClass().getClassLoader());
-	}
 }

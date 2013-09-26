@@ -67,9 +67,5 @@ public class ContactBirthday implements Parcelable {
 			return new ContactBirthday[size];
 		}
 	}; 
-	
-	private ContactBirthday(Parcel in) {
-		fBirthday = (String)in.readValue(getClass().getClassLoader());
-	}
 }
 

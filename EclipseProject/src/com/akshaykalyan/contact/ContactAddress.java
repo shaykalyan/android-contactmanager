@@ -90,11 +90,4 @@ public class ContactAddress implements Parcelable {
 			return new ContactAddress[size];
 		}
 	};
-	
-	private ContactAddress(Parcel in) {
-		fAddressLine1 = (String)in.readValue(getClass().getClassLoader());
-		fAddressLine2 = (String)in.readValue(getClass().getClassLoader());
-		fAddressLine3 = (String)in.readValue(getClass().getClassLoader());
-		fAddressLine4 = (String)in.readValue(getClass().getClassLoader());
-	}
 }

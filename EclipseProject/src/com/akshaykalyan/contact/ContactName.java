@@ -84,9 +84,4 @@ public class ContactName implements Parcelable {
 			return new ContactName[size];
 		}
 	};
-	
-    private ContactName(Parcel in) {
-        fFirstName         = (String)in.readValue(getClass().getClassLoader());       
-        fLastName          =  (String)in.readValue(getClass().getClassLoader());
-    }
 }

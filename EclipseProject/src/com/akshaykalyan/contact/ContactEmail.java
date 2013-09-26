@@ -68,11 +68,6 @@ public class ContactEmail implements Parcelable {
 		};
 	};
 	
-	private ContactEmail(Parcel in) {
-		fEmail = (String)in.readValue(getClass().getClassLoader());
-	}
-	
-	
 	/**
 	 * Inner class used to validate email address strings. 
 	 * @author Akshay Pravin Kalyan | akal881 | 5786866

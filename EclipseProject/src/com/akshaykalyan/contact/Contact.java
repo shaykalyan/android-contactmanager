@@ -8,6 +8,9 @@ import android.os.Parcelable;
 
 /**
  * Class to represent a Contact object. 
+ * Each object have the following states:
+ * 		Name, Photo, Phone, Email, Birthday and Address.
+ *  
  * @author Akshay Pravin Kalyan | akal881 | 5786866
  */
 public class Contact implements Parcelable {

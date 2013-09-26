@@ -81,11 +81,5 @@ public class ContactPhone implements Parcelable {
 			return new ContactPhone[size];
 		};
 	};
-	
-	private ContactPhone(Parcel in) {
-		fMobilePhone = (String)in.readValue(getClass().getClassLoader());
-		fHomePhone = (String)in.readValue(getClass().getClassLoader());
-		fWorkPhone = (String)in.readValue(getClass().getClassLoader());
-	}
 }
 
