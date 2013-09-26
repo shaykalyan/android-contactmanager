@@ -1,0 +1,53 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:background="@color/color_background_grey"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+    <!--  block descendents to make all children :focusable="false" -->
+<RelativeLayout 
+	android:id="@+id/list_item_contact_card_relative"
+	android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:background="@drawable/listitem_selector"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:padding="0dp"
+    >
+	    <ImageView
+	        android:id="@+id/list_item_contact_card_imageview"
+	        android:layout_width="@dimen/card_listview_height"
+	        android:layout_height="@dimen/card_listview_height"
+	        
+	        android:contentDescription="@string/accessibility_contactphoto"
+	        android:focusable="true"
+	        android:paddingBottom="2dp"
+	        android:paddingLeft="0dp"
+	        android:paddingRight="0dp"
+	        android:paddingTop="0dp"
+	        android:scaleType="centerCrop"
+	        android:src="@drawable/ic_default_contactphoto" />
+
+	    <TextView
+	        android:id="@+id/list_item_contact_card_textview"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toRightOf="@+id/list_item_contact_card_imageview"
+	        android:paddingLeft="30dp"
+	        android:paddingBottom="5dp"
+	        android:text="@string/text_fakefullname"
+	        android:textSize="16sp" />
+ 
+</RelativeLayout>
+	<!-- empty view for bottom margin -->
+	<View 
+	    android:layout_below="@id/list_item_contact_card_relative"
+	    android:layout_height="0dp"
+	    android:layout_width="0dp"
+	    android:layout_marginBottom="5dp"/>
+</RelativeLayout>

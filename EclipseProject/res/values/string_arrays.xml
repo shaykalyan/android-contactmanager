@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="sort_options_array">
+        <item>First Name</item>
+        <item>Last Name</item>
+        <item>Mobile Phone Number</item>
+        <item>Home Phone Number</item>
+        <item>Work Phone Number</item>
+    </string-array>
+        
+    <string-array name="people_array">
+        <item>Bob Smith</item>
+        <item>Terry Longbottom</item>
+        <item>Nadia Wilkinson</item>
+    </string-array>
+    
+    
+    <!-- Select Image Dialog -->
+    <string-array name="image_sources">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
+    
+    
+    <!-- Contact List Random Array -->
+    <string-array name="adobe_products">
+        <item>Adobe After Effects</item>
+        <item>Adobe Bridge</item>
+        <item>Adobe Dreamweaver</item>
+        <item>Adobe Edge</item>
+        <item>Adobe Fireworks</item>
+        <item>Adobe Flash</item>
+        <item>Adobe Photoshop</item>
+        <item>Adobe Premiere</item>
+        <item>Adobe Reader</item>
+        <item>Adobe Illustrator</item>
+    </string-array>
+</resources>

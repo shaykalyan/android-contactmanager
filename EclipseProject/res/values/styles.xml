@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -17,4 +17,40 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="card_contactlistview">
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        
+    </style>
+    
+    <style name="Label_Blue">
+        <item name="android:textColor">@color/color_font_cyan_med</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    
+    <style name="Text_DarkGrey">
+        <item name="android:textColor">@color/color_font_grey_dark</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    
+    
+    
+    <!-- Image TextView Overlay Style -->
+    <style name="TextView_ImageOverlay_OpaqueBg">
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:gravity">right</item>
+        <item name="android:background">@color/color_black_transparent</item>
+        <item name="android:textColor">@color/color_font_white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
+
