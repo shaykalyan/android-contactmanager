@@ -61,6 +61,9 @@ public class ContactListActivity extends FragmentActivity {
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ContactListFragment mContactListFragment = new ContactListFragment();
 
+	/**
+	 * @see android.app.Activity#onCreate(Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -149,6 +152,9 @@ public class ContactListActivity extends FragmentActivity {
     	}
 	}
 
+	/**
+	 * @see android.app.Activity#onCreateOptionsMenu(Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -213,6 +219,10 @@ public class ContactListActivity extends FragmentActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/**
+	 * Drawer item click listener to set the sort type depending on the list option selected
+	 * from within the Options Drawer
+	 */
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
 		@Override
 		public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -277,6 +287,9 @@ public class ContactListActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
     
+    /**
+     * @see android.app.Activity#onOptionsItemSelected(MenuItem)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
@@ -340,7 +353,11 @@ public class ContactListActivity extends FragmentActivity {
     	}
     }    
     
-//    public static class ContactListFragment extends android.support.v4.app.ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<Contact>> {
+    /**
+     * A custom List Fragment class responsible for displaying the Contact list.
+     * The fragment contains a CustomArrayAdapter and a list containing the contact 
+     * objects to populate the ListView with.
+     */
     public static class ContactListFragment extends android.support.v4.app.ListFragment {
 		List<Contact> contactsList = new ArrayList<Contact>(); 
     	CustomArrayAdapter fAdapter;
@@ -371,6 +388,9 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter.getFilter().filter(cs.toString().toLowerCase());
     	}
     	
+    	/**
+    	 * @see android.app.ListFragment#onActivityCreated(Bundle)
+    	 */
     	@Override
     	public void onActivityCreated(Bundle savedInstanceState) {
     		super.onActivityCreated(savedInstanceState);
@@ -417,6 +437,9 @@ public class ContactListActivity extends FragmentActivity {
             fAdapter.notifyDataSetChanged();
     	}
     	
+    	/**
+    	 * @See {@link android.app.ListFragment#onListItemClick(ListView, View, int, long)}
+    	 */
     	@Override
     	public void onListItemClick(ListView l, View v, int position, long id) {
     		// pass contact to info activity via intent
@@ -426,6 +449,9 @@ public class ContactListActivity extends FragmentActivity {
     		startActivity(intent);
     	}
     
+    	/**
+    	 * Adds a contact object passed in to the underlying list in the adapter.
+    	 */
     	public void AddItem (View v, Contact c) {
     		fAdapter.add(c);
     		fAdapter.notifyDataSetChanged();

@@ -24,6 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
+/**
+ * Activity class representing the Contact Information screen of a contact. This activity is 
+ * focused after selecting a contact item from the ContactListActivity activity. The 
+ * corresponding Contact object is passed through an intent, unpacked and its content 
+ * displayed to the respective views.
+ * 
+ * @author Akshay Pravin Kalyan | akal881 | 57886866
+ */
 public class ContactInformationActivity extends Activity {
 
 	private TextView tvName, tvMobile, tvHome, tvWork, tvEmail, tvBirthday, tvAddressLine1,
@@ -31,6 +39,9 @@ public class ContactInformationActivity extends Activity {
 	private Contact fContact;
 	private List<TextView> labelList = new ArrayList<TextView>();
 
+	/**
+	 * @see android.app.Activity#onCreate(Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -134,13 +145,11 @@ public class ContactInformationActivity extends Activity {
 			parent.removeView(child);
 		}
 		
-		
 		// set font type face to all labels in list
 		for (TextView textView : labelList) {
 			Typeface tf = FontRobotoLight.getTypeface(this);
 	    	textView.setTypeface(tf); 
 		}
-		
 	}
 
 	/**
@@ -148,9 +157,11 @@ public class ContactInformationActivity extends Activity {
 	 */
 	private void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
+	/**
+	 * @see android.app.Activity#onCreateOptionsMenu(Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -158,6 +169,9 @@ public class ContactInformationActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * @see android.app.Activity#onOptionsItemSelected(MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

@@ -51,6 +51,10 @@ public class ContactEditActivity extends Activity {
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
 						etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
+	
+	/**
+	 * @see android.app.Activity#onCreate(Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -147,6 +151,9 @@ public class ContactEditActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
+	/**
+	 * @see android.app.Activity#onCreateOptionsMenu(Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -154,6 +161,9 @@ public class ContactEditActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * @see android.app.Activity#onOptionsItemSelected(MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -224,6 +234,13 @@ public class ContactEditActivity extends Activity {
 	}
 	
 	/**
+	 * onClick method which resets the birthday text view field.
+	 */
+	public void onClick_deleteBirthdayText(View v) {
+		tvBirthday.setText("");
+	}
+	
+	/**
 	 * onClick method to enable the user to select a replacement contact photo.
 	 * This method launches a dialog allowing the user to pick a source for the image from either
 	 * 		Camera
@@ -235,6 +252,18 @@ public class ContactEditActivity extends Activity {
 		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
 	}
 
+	/**
+	 * Inner Class responsible for generating an image source Picker dialog when a request has 
+	 * been placed by the user. 
+	 * 
+	 * The user is presented with a list of sources to select a contact image from.
+	 * The options are:
+	 * 		Camera
+	 * 		Gallery
+	 * 
+	 * The option select fires its respective intent and is then presented with the chosen
+	 * activity.
+	 */
 	public static class ImageSelectDialogFragment extends DialogFragment {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -287,12 +316,6 @@ public class ContactEditActivity extends Activity {
 		}
 	}
 
-	/**
-	 * onClick method which resets the birthday text view field.
-	 */
-	public void onClick_deleteBirthdayText(View v) {
-		tvBirthday.setText("");
-	}
 
 	/**
 	 * Inflates a custom toast, Edits Discarded Toast, and shows to the currect Application Context

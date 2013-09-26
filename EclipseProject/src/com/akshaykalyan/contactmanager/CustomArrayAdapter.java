@@ -28,6 +28,10 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		fInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	/**
+	 * Assigns an initial list of Contact objects to the underlying list within
+	 * the adapter.
+	 */
 	public void setData(List<Contact> data) {
 		clear();
 		if (data != null) {
