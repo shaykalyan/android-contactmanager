@@ -31,11 +31,11 @@ public class ContactEmail implements Parcelable {
 	/**
 	 * Getters and Setters
 	 */
-	public String getEmailString() {
+	public String getEmail() {
 		return fEmail;
 	}
 	
-	public void setEmailString(String emailString) {
+	public void setEmail(String emailString) {
 		this.fEmail = emailString;
 	}
 	

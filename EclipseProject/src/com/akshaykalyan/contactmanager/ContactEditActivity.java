@@ -52,6 +52,7 @@ public class ContactEditActivity extends Activity {
 						etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
 	
+	private DatabaseHelper db;
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
@@ -61,6 +62,7 @@ public class ContactEditActivity extends Activity {
 		setContentView(R.layout.activity_contact_edit);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		db = new DatabaseHelper(getApplicationContext());
 		
 		etFirstName = (EditText)findViewById(R.id.edittext_contactedit_firstname);
 		etLastName = (EditText)findViewById(R.id.edittext_contactedit_lastname);
@@ -93,7 +95,11 @@ public class ContactEditActivity extends Activity {
             			//TODO Logic for updating contact info
             			finish();
             		} else { //fParentClass is ContactListActivity
+            			// ---------------------------------------------------------------------------------------ADD CONTACT LOGIC
             			//TODO Logic for adding new contact
+            			
+            			
+            			
             			finish();
             		}
             		showContactSavedToast();

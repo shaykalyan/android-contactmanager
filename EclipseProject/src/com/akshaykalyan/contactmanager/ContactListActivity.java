@@ -408,29 +408,29 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);
     		setListAdapter(fAdapter);
     		
-    		// TODO remove hard-coded Contacts!
-    		contactsList.add(new Contact("Target Road", "Tyres", 
-    				"0210210211", "096005000", "095478731", 
-    				"akal881@aucklanduni.co.nz",
-    				"25-12-1993", 
-    				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
-         		   null));   
-    		contactsList.add(new Contact("Akshay", "Kalyan",
-    				"0277556866", "094445566", "094455466", 
-    				"akal881@aucklanduni.ac.nz",
-    				"25-12-1993",
-    				"70 Symonds Street", "Grafton", "Auckland","New Zealand" ,
-    				null));
-    		contactsList.add(new Contact("Bob", "Quinn", "", "075788675", "", "", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Ewan", "Weber", "", "", "094445566", "", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "matthew.c@gmail.com", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Bert", "Huang", "", "", "", "bert.h@aucklanduni.ac.nz", "", "", "", "","" , null));
-            contactsList.add(new Contact("Tommy", "Zong", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Zack", "Smith", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Steve", "Hunter", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Nota", "Reelperson", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Ethan", "Inglis", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("James", "Bourne", "", "", "", "", "", "", "", "","" , null));  
+//    		// TODO remove hard-coded Contacts!
+//    		contactsList.add(new Contact("Target Road", "Tyres", 
+//    				"0210210211", "096005000", "095478731", 
+//    				"akal881@aucklanduni.co.nz",
+//    				"25-12-1993", 
+//    				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
+//         		   null,1));   
+//    		contactsList.add(new Contact("Akshay", "Kalyan",
+//    				"0277556866", "094445566", "094455466", 
+//    				"akal881@aucklanduni.ac.nz",
+//    				"25-12-1993",
+//    				"70 Symonds Street", "Grafton", "Auckland","New Zealand" ,
+//    				null,1));
+//    		contactsList.add(new Contact("Bob", "Quinn", "", "075788675", "", "", "", "", "", "","" , null,1));
+//    		contactsList.add(new Contact("Ewan", "Weber", "", "", "094445566", "", "", "", "", "","" , null,1));
+//    		contactsList.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "matthew.c@gmail.com", "", "", "", "","" , null,1));
+//    		contactsList.add(new Contact("Bert", "Huang", "", "", "", "bert.h@aucklanduni.ac.nz", "", "", "", "","" , null,1));
+//            contactsList.add(new Contact("Tommy", "Zong", "", "", "", "", "", "", "", "","" , null,1));
+//            contactsList.add(new Contact("Zack", "Smith", "", "", "", "", "", "", "", "","" , null,1));
+//            contactsList.add(new Contact("Steve", "Hunter", "", "", "", "", "", "", "", "","" , null,1));
+//            contactsList.add(new Contact("Nota", "Reelperson", "", "", "", "", "", "", "", "","" , null,1));
+//            contactsList.add(new Contact("Ethan", "Inglis", "", "", "", "", "", "", "", "","" , null,1));
+//            contactsList.add(new Contact("James", "Bourne", "", "", "", "", "", "", "", "","" , null,1));  
             
             // TODO find replacement for this quick hack to select first name default
             Collections.sort(contactsList, currentSortBy.fComparator);

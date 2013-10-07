@@ -108,8 +108,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Email
-		if (fContact.getfEmail().getEmailString().length() > 0) {
-			tvEmail.setText(fContact.getfEmail().getEmailString());
+		if (fContact.getfEmail().getEmail().length() > 0) {
+			tvEmail.setText(fContact.getfEmail().getEmail());
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
