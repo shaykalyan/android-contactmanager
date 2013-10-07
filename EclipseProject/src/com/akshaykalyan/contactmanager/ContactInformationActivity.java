@@ -14,6 +14,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +37,7 @@ public class ContactInformationActivity extends Activity {
 
 	private TextView tvName, tvMobile, tvHome, tvWork, tvEmail, tvBirthday, tvAddressLine1,
 						tvAddressLine2, tvAddressLine3, tvAddressLine4;
-	private Contact fContact;
+	private static Contact fContact;
 	private List<TextView> labelList = new ArrayList<TextView>();
 
 	/**
@@ -169,6 +170,18 @@ public class ContactInformationActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	/**
+	 * Override back to create new ListActivty as underlying database may have updated 
+	 * via EditActivity
+	 */
+	public void onBackPressed() {
+		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    	startActivity(intent);
+    	super.onBackPressed();
+	}
+	
 	/**
 	 * @see android.app.Activity#onOptionsItemSelected(MenuItem)
 	 */
@@ -176,8 +189,13 @@ public class ContactInformationActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+//			NavUtils.navigateUpFromSameTask(this);
+			Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        	startActivity(intent);
+        	finish();
+//			return true;
+        	break;
 		case R.id.action_delete_contact:
 			DialogFragment confirmDeleteDialogFragment = new ConfirmDeleteDialog();
         	confirmDeleteDialogFragment.show(getFragmentManager(), "ConfirmDelete");
@@ -291,12 +309,25 @@ public class ContactInformationActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO removes contact and returns to list view	
+						
+						// db remove contact
+						DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
+						db.deleteContact(fContact.getfId());
+												
+						// show toast
 						LayoutInflater inflater = getActivity().getLayoutInflater();
 				    	View view = inflater.inflate(R.layout.toast_contact_removed, (ViewGroup)getActivity().findViewById(R.id.toast_contact_removed));
 				        Toast toast = new Toast(getActivity().getApplicationContext());
 				        toast.setView(view);
 				        toast.show();
-				        getActivity().finish();
+				        
+				        Intent intent = new Intent(getActivity().getApplicationContext(), ContactListActivity.class);
+				        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    	startActivity(intent);
+				        
+				        
+				        
+				        
 					}
 				})
 				.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {

@@ -186,7 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		values.put(KEY_ADDRESS_LINE4, contact.getfAddress().getAddressLine4());
 		
 		// update the contact's row
-		return db.update(TABLE_CONTACTS, values, KEY_ID + " =  ?" , 
+		return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?", 
 				new String[] { String.valueOf(contact.getfId()) });
 	}
 	

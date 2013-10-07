@@ -9,6 +9,7 @@ import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contact.Contact.SortBy;
 
 import android.os.Bundle;
+import android.R.string;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -19,6 +20,7 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 
 
@@ -52,6 +55,8 @@ import android.text.TextWatcher;
  */
 public class ContactListActivity extends FragmentActivity {
 
+	private static final String APP_TAG = "contactmanager";
+
 	private String[] mSortOptions;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -60,6 +65,8 @@ public class ContactListActivity extends FragmentActivity {
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ContactListFragment mContactListFragment = new ContactListFragment();
+	
+	private DatabaseHelper db;
 
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -68,6 +75,7 @@ public class ContactListActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
+		db = new DatabaseHelper(getApplicationContext());
 		
 		mSortOptions = getResources().getStringArray(R.array.sort_options_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -136,6 +144,7 @@ public class ContactListActivity extends FragmentActivity {
 		}
 		// NOTE: actual sorting of contact list is not done now, as list is not yet populated
 		mDrawerList.setItemChecked(itemCheckedPosition, true);
+		
 	}
 	
 	@Override
@@ -408,6 +417,13 @@ public class ContactListActivity extends FragmentActivity {
     		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);
     		setListAdapter(fAdapter);
     		
+    		// add database
+    		DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
+    		contactsList.clear();
+    		contactsList.addAll(db.getAllContacts());
+    		
+    		
+//    		
 //    		// TODO remove hard-coded Contacts!
 //    		contactsList.add(new Contact("Target Road", "Tyres", 
 //    				"0210210211", "096005000", "095478731", 

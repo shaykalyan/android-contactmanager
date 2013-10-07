@@ -8,6 +8,7 @@ import com.akshaykalyan.contact.ContactEmail;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -15,6 +16,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,7 +53,7 @@ public class ContactEditActivity extends Activity {
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
 						etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
-	
+	private Contact fContact;
 	private DatabaseHelper db;
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -92,14 +94,56 @@ public class ContactEditActivity extends Activity {
             	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
             		
             		if (fParentClass == ContactInformationActivity.class) {
-            			//TODO Logic for updating contact info
+            			// ---------------------------------------------------------------------------------------SAVE EDITS LOGIC
+            			//TODO Logic for updating contact
+            			Contact contact = new Contact(
+            					etFirstName.getText().toString(),
+            					etLastName.getText().toString(),
+            					etMobile.getText().toString(),
+            					etHome.getText().toString(),
+            					etWork.getText().toString(),
+            					etEmail.getText().toString().toLowerCase(),
+            					tvBirthday.getText().toString(),
+            					etAddressLine1.getText().toString(),
+            					etAddressLine2.getText().toString(),
+            					etAddressLine3.getText().toString(),
+            					etAddressLine4.getText().toString(),
+            					null, //TODO photo
+            					fContact.getfId());
+            			int out = db.updateContact(contact);
+            			if (out == 1) {
+            				Log.d("contactmanager","works");
+            			} else {
+            				Log.d("contactmanager","nope");            				
+            			}
+            			
+            			Intent intent = new Intent(getApplicationContext(), ContactInformationActivity.class);
+            			intent.putExtra("CONTACT_OBJECT", contact);
+            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    	startActivity(intent);
             			finish();
             		} else { //fParentClass is ContactListActivity
             			// ---------------------------------------------------------------------------------------ADD CONTACT LOGIC
             			//TODO Logic for adding new contact
+            			Contact contact = new Contact(
+            					etFirstName.getText().toString(),
+            					etLastName.getText().toString(),
+            					etMobile.getText().toString(),
+            					etHome.getText().toString(),
+            					etWork.getText().toString(),
+            					etEmail.getText().toString().toLowerCase(),
+            					tvBirthday.getText().toString(),
+            					etAddressLine1.getText().toString(),
+            					etAddressLine2.getText().toString(),
+            					etAddressLine3.getText().toString(),
+            					etAddressLine4.getText().toString(),
+            					null, //TODO photo
+            					1);
+            			db.createContact(contact);
             			
-            			
-            			
+            			Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    	startActivity(intent);		
             			finish();
             		}
             		showContactSavedToast();
@@ -131,13 +175,26 @@ public class ContactEditActivity extends Activity {
 		
 		
 		if (fParentClass == ContactListActivity.class) { // new contact
+			
 			getActionBar().setTitle("New Contact");
 			// Do not populate views
+			
 		} else { // fParent is ContactInformationActivity
+			
 			// Populate views
-			Contact contact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
+			fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
 			//TODO populate views
-			etFirstName.setText(contact.getfName().getFirstName());
+			etFirstName.setText(fContact.getfName().getFirstName());
+			etLastName.setText(fContact.getfName().getLastName());
+			etMobile.setText(fContact.getfPhone().getMobilePhone());
+			etHome.setText(fContact.getfPhone().getHomePhone());
+			etWork.setText(fContact.getfPhone().getWorkPhone());
+			etEmail.setText(fContact.getfEmail().getEmail());
+			tvBirthday.setText(fContact.getfBirthday().getfBirthday());
+			etAddressLine1.setText(fContact.getfAddress().getAddressLine1());
+			etAddressLine2.setText(fContact.getfAddress().getAddressLine2());
+			etAddressLine3.setText(fContact.getfAddress().getAddressLine3());
+			etAddressLine4.setText(fContact.getfAddress().getAddressLine4());
 		}
 	}
 

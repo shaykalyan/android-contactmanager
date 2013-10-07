@@ -264,7 +264,7 @@ public class Contact implements Parcelable {
 	/**
 	 * ID - Getter
 	 */
-	public long getfId() {
+	public int getfId() {
 		return fId;
 	}
 	
