@@ -91,6 +91,10 @@ public class ContactEditActivity extends Activity {
 		
 		discardEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	if (fParentClass == ContactListActivity.class) {
+            		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+            		startActivity(intent);
+            	}
             	showEditsDiscardToast();
             	finish();
             }
@@ -213,7 +217,11 @@ public class ContactEditActivity extends Activity {
 	 * Override back press to show toast
 	 */
 	public void onBackPressed() {
-		showEditsDiscardToast();
+		if (fParentClass == ContactListActivity.class) {
+    		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+    		startActivity(intent);
+    	}
+    	showEditsDiscardToast();
     	finish();
 		super.onBackPressed();
 	}
@@ -241,12 +249,12 @@ public class ContactEditActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			if (fParentClass == ContactInformationActivity.class){
-				finish();
-			} else { // ListActivity
-				finish();
-			}
+			if (fParentClass == ContactListActivity.class) {
+        		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+        		startActivity(intent);
+        	}
         	showEditsDiscardToast();
+        	finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
