@@ -14,6 +14,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
@@ -37,6 +39,7 @@ public class ContactInformationActivity extends Activity {
 
 	private TextView tvName, tvMobile, tvHome, tvWork, tvEmail, tvBirthday, tvAddressLine1,
 						tvAddressLine2, tvAddressLine3, tvAddressLine4;
+	private ImageView ivPhoto;
 	private static Contact fContact;
 	private List<TextView> labelList = new ArrayList<TextView>();
 
@@ -60,9 +63,13 @@ public class ContactInformationActivity extends Activity {
 		tvAddressLine2 = (TextView)findViewById(R.id.textview_contactinfo_addressline2);
 		tvAddressLine3 = (TextView)findViewById(R.id.textview_contactinfo_addressline3);
 		tvAddressLine4 = (TextView)findViewById(R.id.textview_contactinfo_addressline4);
+		ivPhoto = (ImageView)findViewById(R.id.image_contactinfo_contact_image);
 		
 		Intent intent = getIntent();
 		fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
+		
+		// Photo
+		ivPhoto.setImageBitmap(fContact.getfPhoto().getPhotoBitmap());
 		
 		// for each field in Contact, populate views respectively
 		// if state exists

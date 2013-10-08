@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.akshaykalyan.contact.Contact;
+import com.akshaykalyan.contact.ContactPhoto;
 
 import android.R.integer;
 import android.R.layout;
@@ -13,6 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract.CommonDataKinds.Photo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
@@ -38,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_ADDRESS_LINE2 = "addressline2";
 	private static final String KEY_ADDRESS_LINE3 = "addressline3";
 	private static final String KEY_ADDRESS_LINE4 = "addressline4";
+	private static final String KEY_PHOTO = "photo";
 	
 	// table create statement 
 	private static final String CREATE_TABLE_CONTACTS = "CREATE TABLE " + TABLE_CONTACTS + "("
@@ -52,7 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ KEY_ADDRESS_LINE1 + " TEXT,"
 			+ KEY_ADDRESS_LINE2 + " TEXT,"
 			+ KEY_ADDRESS_LINE3 + " TEXT,"
-			+ KEY_ADDRESS_LINE4 + " TEXT"
+			+ KEY_ADDRESS_LINE4 + " TEXT,"
+			+ KEY_PHOTO + " BLOB"
 			+ ")";
 			
 	
@@ -90,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		values.put(KEY_ADDRESS_LINE2, contact.getfAddress().getAddressLine2());
 		values.put(KEY_ADDRESS_LINE3, contact.getfAddress().getAddressLine3());
 		values.put(KEY_ADDRESS_LINE4, contact.getfAddress().getAddressLine4());
+		values.put(KEY_PHOTO, contact.getfPhoto().getPhotoByteArray());
 		
 		// insert row into table
 		long contact_id = db.insert(TABLE_CONTACTS, null, values);
@@ -124,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				cursor.getString(cursor.getColumnIndex(KEY_ADDRESS_LINE2)),
 				cursor.getString(cursor.getColumnIndex(KEY_ADDRESS_LINE3)),
 				cursor.getString(cursor.getColumnIndex(KEY_ADDRESS_LINE4)),
-				null, //photo TODO
+				ContactPhoto.getPhotoBitmap(cursor.getBlob(cursor.getColumnIndex(KEY_PHOTO))),
 				cursor.getInt(cursor.getColumnIndex(KEY_ID)));
 		
 		return contact;
@@ -156,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    				cursor.getString(cursor.getColumnIndex(KEY_ADDRESS_LINE2)),
 	    				cursor.getString(cursor.getColumnIndex(KEY_ADDRESS_LINE3)),
 	    				cursor.getString(cursor.getColumnIndex(KEY_ADDRESS_LINE4)),
-	    				null, //photo TODO
+	    				ContactPhoto.getPhotoBitmap(cursor.getBlob(cursor.getColumnIndex(KEY_PHOTO))),
 	    				cursor.getInt(cursor.getColumnIndex(KEY_ID)));
 	    		
 	        	contactsList.add(contact);
@@ -184,6 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		values.put(KEY_ADDRESS_LINE2, contact.getfAddress().getAddressLine2());
 		values.put(KEY_ADDRESS_LINE3, contact.getfAddress().getAddressLine3());
 		values.put(KEY_ADDRESS_LINE4, contact.getfAddress().getAddressLine4());
+		values.put(KEY_PHOTO, contact.getfPhoto().getPhotoByteArray());
 		
 		// update the contact's row
 		return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?", 
