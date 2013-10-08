@@ -49,7 +49,7 @@ public class ContactInformationActivity extends Activity {
 		setContentView(R.layout.activity_contact_information);
 		// Show the Up button in the action bar.
 		setupActionBar();
-
+		
 		tvName = (TextView)findViewById(R.id.textview_contactinfo_name);
 		tvMobile = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
 		tvHome = (TextView)findViewById(R.id.textview_contactinfo_phone_home);

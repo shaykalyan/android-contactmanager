@@ -65,8 +65,7 @@ public class ContactListActivity extends FragmentActivity {
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ContactListFragment mContactListFragment = new ContactListFragment();
-	
-	private DatabaseHelper db;
+
 
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -75,7 +74,6 @@ public class ContactListActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
-		db = new DatabaseHelper(getApplicationContext());
 		
 		mSortOptions = getResources().getStringArray(R.array.sort_options_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -320,6 +318,7 @@ public class ContactListActivity extends FragmentActivity {
         	Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
         	intent.putExtra("PARENT_ACTIVITY", ContactListActivity.class);
         	startActivity(intent);
+        	finish();
         	break;
         case R.id.action_sortoptions:
         	if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
@@ -421,7 +420,7 @@ public class ContactListActivity extends FragmentActivity {
     		DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
     		contactsList.clear();
     		contactsList.addAll(db.getAllContacts());
-    		
+    		db.close();
     		
 //    		
 //    		// TODO remove hard-coded Contacts!
@@ -463,6 +462,7 @@ public class ContactListActivity extends FragmentActivity {
     		Contact contact = fAdapter.getItem(position);
     		intent.putExtra("CONTACT_OBJECT", contact);
     		startActivity(intent);
+    		getActivity().finish();
     	}
     
     	/**

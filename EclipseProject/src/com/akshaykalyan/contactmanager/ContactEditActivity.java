@@ -16,6 +16,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,6 +49,7 @@ public class ContactEditActivity extends Activity {
 	private Class fParentClass;
 	private static final int REQUEST_CODE_INTENT_CAMERA = 0;
 	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
+	private static final int REQUEST_CODE_INTENT_CROP = 2;
 	private Button acceptEditButton, discardEditButton;
 	
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
@@ -90,68 +92,70 @@ public class ContactEditActivity extends Activity {
 		});
 		acceptEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	// only if email is validated, further actions can occur
-            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
-            		
-            		if (fParentClass == ContactInformationActivity.class) {
-            			// ---------------------------------------------------------------------------------------SAVE EDITS LOGIC
-            			//TODO Logic for updating contact
-            			Contact contact = new Contact(
-            					etFirstName.getText().toString(),
-            					etLastName.getText().toString(),
-            					etMobile.getText().toString(),
-            					etHome.getText().toString(),
-            					etWork.getText().toString(),
-            					etEmail.getText().toString().toLowerCase(),
-            					tvBirthday.getText().toString(),
-            					etAddressLine1.getText().toString(),
-            					etAddressLine2.getText().toString(),
-            					etAddressLine3.getText().toString(),
-            					etAddressLine4.getText().toString(),
-            					null, //TODO photo
-            					fContact.getfId());
-            			int out = db.updateContact(contact);
-            			if (out == 1) {
-            				Log.d("contactmanager","works");
-            			} else {
-            				Log.d("contactmanager","nope");            				
-            			}
-            			
-            			Intent intent = new Intent(getApplicationContext(), ContactInformationActivity.class);
-            			intent.putExtra("CONTACT_OBJECT", contact);
-            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    	startActivity(intent);
-            			finish();
-            		} else { //fParentClass is ContactListActivity
-            			// ---------------------------------------------------------------------------------------ADD CONTACT LOGIC
-            			//TODO Logic for adding new contact
-            			Contact contact = new Contact(
-            					etFirstName.getText().toString(),
-            					etLastName.getText().toString(),
-            					etMobile.getText().toString(),
-            					etHome.getText().toString(),
-            					etWork.getText().toString(),
-            					etEmail.getText().toString().toLowerCase(),
-            					tvBirthday.getText().toString(),
-            					etAddressLine1.getText().toString(),
-            					etAddressLine2.getText().toString(),
-            					etAddressLine3.getText().toString(),
-            					etAddressLine4.getText().toString(),
-            					null, //TODO photo
-            					1);
-            			db.createContact(contact);
-            			
-            			Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
-            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    	startActivity(intent);		
-            			finish();
-            		}
-            		showContactSavedToast();
+            	if (etFirstName.getText().length() + etLastName.getText().length() == 0) {
+            		showErrorToast("Name Required");
             	} else {
-            		// TODO custom toast?
-            		Toast.makeText(v.getContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
-            	}  
-            }
+	            	// only if email is validated, further actions can occur
+	            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
+	            		
+	            		if (fParentClass == ContactInformationActivity.class) {
+	            			// ---------------------------------------------------------------------------------------SAVE EDITS LOGIC
+	            			//TODO Logic for updating contact
+	            			Contact contact = new Contact(
+	            					etFirstName.getText().toString(),
+	            					etLastName.getText().toString(),
+	            					etMobile.getText().toString(),
+	            					etHome.getText().toString(),
+	            					etWork.getText().toString(),
+	            					etEmail.getText().toString().toLowerCase(),
+	            					tvBirthday.getText().toString(),
+	            					etAddressLine1.getText().toString(),
+	            					etAddressLine2.getText().toString(),
+	            					etAddressLine3.getText().toString(),
+	            					etAddressLine4.getText().toString(),
+	            					null, //TODO photo
+	            					fContact.getfId());
+	
+	            			db.updateContact(contact);
+	            			db.close();
+	            			
+	            			Intent intent = new Intent(getApplicationContext(), ContactInformationActivity.class);
+	            			intent.putExtra("CONTACT_OBJECT", contact);
+	            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+	                    	startActivity(intent);
+	            			finish();
+	            		} else { //fParentClass is ContactListActivity
+	            			// ---------------------------------------------------------------------------------------ADD CONTACT LOGIC
+	            			//TODO Logic for adding new contact
+	            			Contact contact = new Contact(
+	            					etFirstName.getText().toString(),
+	            					etLastName.getText().toString(),
+	            					etMobile.getText().toString(),
+	            					etHome.getText().toString(),
+	            					etWork.getText().toString(),
+	            					etEmail.getText().toString().toLowerCase(),
+	            					tvBirthday.getText().toString(),
+	            					etAddressLine1.getText().toString(),
+	            					etAddressLine2.getText().toString(),
+	            					etAddressLine3.getText().toString(),
+	            					etAddressLine4.getText().toString(),
+	            					null, //TODO photo
+	            					1);
+	            			
+	            			db.createContact(contact);
+	            			db.close();
+	            			
+	            			Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+	            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+	                    	startActivity(intent);		
+	            			finish();
+	            		}
+	            		showContactSavedToast();
+	            	} else {
+	            		showErrorToast("Invalid Email");
+	            	}  
+	            }
+            } 
 		});
 		
 		// email edit text field listener
@@ -367,21 +371,41 @@ public class ContactEditActivity extends Activity {
 		case REQUEST_CODE_INTENT_CAMERA:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
-		        contactPhotoImageView.setImageURI(selectedImage);
+//		        contactPhotoImageView.setImageURI(selectedImage);
+		        fireCropIntent(selectedImage);
 		    }
 		    break; 
 		case REQUEST_CODE_INTENT_GALLERY:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
-		        contactPhotoImageView.setImageURI(selectedImage);
+//		        contactPhotoImageView.setImageURI(selectedImage);
+		        fireCropIntent(selectedImage);
 		    }
 		    break;
+		case REQUEST_CODE_INTENT_CROP:
+			Bundle extras = imageReturnedIntent.getExtras();
+			if (extras != null) {
+				Bitmap photo = extras.getParcelable("data");
+				contactPhotoImageView.setImageBitmap(photo);
+			}
+			break;
 		}
 	}
 
+	private void fireCropIntent(Uri imgUri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(imgUri, "image/*");  
+		intent.putExtra("crop", "true");  
+		intent.putExtra("aspectX", 1);  
+		intent.putExtra("aspectY", 1);  
+		intent.putExtra("outputX", 300);  
+		intent.putExtra("outputY", 300);  
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, REQUEST_CODE_INTENT_CROP);
+	}
 
 	/**
-	 * Inflates a custom toast, Edits Discarded Toast, and shows to the currect Application Context
+	 * Inflates a custom toast, Edits Discarded Toast, and shows to the current Application Context
 	 */
 	private void showEditsDiscardToast() {
 		LayoutInflater inflater = getLayoutInflater();
@@ -392,11 +416,26 @@ public class ContactEditActivity extends Activity {
 	}
 	
 	/**
-	 * Inflates a custom toast, Contact Saved Toast, and shows to the currect Application Context
+	 * Inflates a custom toast, Contact Saved Toast, and shows to the current Application Context
 	 */
 	private void showContactSavedToast() {
 		LayoutInflater inflater = getLayoutInflater();
     	View view = inflater.inflate(R.layout.toast_contact_saved, (ViewGroup)findViewById(R.id.toast_contact_saved));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(view);
+        toast.show();
+	}
+	
+	/**
+	 * Inflates a custom toast, Error Toast, with the provided String
+	 */
+	private void showErrorToast(String msg) {
+		LayoutInflater inflater = getLayoutInflater();
+    	View view = inflater.inflate(R.layout.toast_error, (ViewGroup)findViewById(R.id.toast_error));
+    	
+    	TextView tvToast = (TextView)view.findViewById(R.id.textview_toast_error);
+    	tvToast.setText(msg);
+    	
         Toast toast = new Toast(getApplicationContext());
         toast.setView(view);
         toast.show();
