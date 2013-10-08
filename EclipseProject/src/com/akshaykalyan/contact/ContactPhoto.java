@@ -1,6 +1,9 @@
 package com.akshaykalyan.contact;
 
+import java.io.ByteArrayOutputStream;
+
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,12 +14,12 @@ import android.os.Parcelable;
 public class ContactPhoto implements Parcelable {
 	private Bitmap fPhotoBitmap;
 	
-	/**
-	 * Default constructor initialises photo Bitmap to null
-	 */
-	public ContactPhoto() {
-		this.fPhotoBitmap = null;
-	}
+//	/**
+//	 * Default constructor initialises photo Bitmap to null
+//	 */
+//	public ContactPhoto() {
+//		this.fPhotoBitmap = null;
+//	}
 	/**
 	 * Constructs Contact Photo object with given photo Bitmap
 	 * @param photoBitmap
@@ -36,8 +39,20 @@ public class ContactPhoto implements Parcelable {
 		this.fPhotoBitmap = photoBitmap;
 	}
 	
+	public byte[] getPhotoByteArray() {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		this.fPhotoBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		return stream.toByteArray();
+	}
+	
+	public static Bitmap getPhotoBitmap(byte[] byteArray) {
+		Bitmap photo = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+		return photo;
+	}
+	
+
 	/**
-	 * Parcelable Interace Methods
+	 * Parcelable Interface Methods
 	 */
 	
 	@Override

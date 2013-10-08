@@ -17,6 +17,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,6 +57,8 @@ public class ContactEditActivity extends Activity {
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
 						etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
+	private ImageView ivPhoto;
+	
 	private Contact fContact;
 	private DatabaseHelper db;
 	/**
@@ -79,6 +83,7 @@ public class ContactEditActivity extends Activity {
 		etAddressLine3 = (EditText)findViewById(R.id.edittext_contactedit_addressline3);
 		etAddressLine4 = (EditText)findViewById(R.id.edittext_contactedit_addressline4);
 		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
+		ivPhoto = (ImageView)findViewById(R.id.image_contactedit_contact_image);
 
 		// save cancel button and listeners
 		acceptEditButton = (Button)findViewById(R.id.button_editactivity_acceptedit);
@@ -86,6 +91,10 @@ public class ContactEditActivity extends Activity {
 		
 		discardEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	if (fParentClass == ContactListActivity.class) {
+            		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+            		startActivity(intent);
+            	}
             	showEditsDiscardToast();
             	finish();
             }
@@ -113,7 +122,7 @@ public class ContactEditActivity extends Activity {
 	            					etAddressLine2.getText().toString(),
 	            					etAddressLine3.getText().toString(),
 	            					etAddressLine4.getText().toString(),
-	            					null, //TODO photo
+	            					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
 	            					fContact.getfId());
 	
 	            			db.updateContact(contact);
@@ -139,7 +148,7 @@ public class ContactEditActivity extends Activity {
 	            					etAddressLine2.getText().toString(),
 	            					etAddressLine3.getText().toString(),
 	            					etAddressLine4.getText().toString(),
-	            					null, //TODO photo
+	            					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
 	            					1);
 	            			
 	            			db.createContact(contact);
@@ -199,6 +208,7 @@ public class ContactEditActivity extends Activity {
 			etAddressLine2.setText(fContact.getfAddress().getAddressLine2());
 			etAddressLine3.setText(fContact.getfAddress().getAddressLine3());
 			etAddressLine4.setText(fContact.getfAddress().getAddressLine4());
+			ivPhoto.setImageBitmap(fContact.getfPhoto().getPhotoBitmap());
 		}
 	}
 
@@ -207,7 +217,11 @@ public class ContactEditActivity extends Activity {
 	 * Override back press to show toast
 	 */
 	public void onBackPressed() {
-		showEditsDiscardToast();
+		if (fParentClass == ContactListActivity.class) {
+    		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+    		startActivity(intent);
+    	}
+    	showEditsDiscardToast();
     	finish();
 		super.onBackPressed();
 	}
@@ -235,12 +249,12 @@ public class ContactEditActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			if (fParentClass == ContactInformationActivity.class){
-				finish();
-			} else { // ListActivity
-				finish();
-			}
+			if (fParentClass == ContactListActivity.class) {
+        		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+        		startActivity(intent);
+        	}
         	showEditsDiscardToast();
+        	finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -371,14 +385,12 @@ public class ContactEditActivity extends Activity {
 		case REQUEST_CODE_INTENT_CAMERA:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
-//		        contactPhotoImageView.setImageURI(selectedImage);
 		        fireCropIntent(selectedImage);
 		    }
 		    break; 
 		case REQUEST_CODE_INTENT_GALLERY:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
-//		        contactPhotoImageView.setImageURI(selectedImage);
 		        fireCropIntent(selectedImage);
 		    }
 		    break;
@@ -386,7 +398,7 @@ public class ContactEditActivity extends Activity {
 			Bundle extras = imageReturnedIntent.getExtras();
 			if (extras != null) {
 				Bitmap photo = extras.getParcelable("data");
-				contactPhotoImageView.setImageBitmap(photo);
+				ivPhoto.setImageBitmap(photo);
 			}
 			break;
 		}

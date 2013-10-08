@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -56,8 +57,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		
 		Contact itemContact = getItem(position);
 		((TextView)view.findViewById(R.id.list_item_contact_card_textview)).setText(itemContact.getfName().toString());
-		// TODO get ContactPhoto and fill image view
-		// -----------------------------------------------------------------------------------------add contact photo ImageView set here
+		((ImageView)view.findViewById(R.id.list_item_contact_card_imageview)).setImageBitmap(itemContact.getfPhoto().getPhotoBitmap());
 		
 		return view;
 	}
