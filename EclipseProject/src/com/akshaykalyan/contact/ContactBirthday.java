@@ -30,11 +30,11 @@ public class ContactBirthday implements Parcelable {
 	 * Getters and Setters
 	 * @return
 	 */
-	public String getfBirthday() {
+	public String getBirthday() {
 		return fBirthday;
 	}
 	
-	public void setfBirthday(String fBirthday) {
+	public void setBirthday(String fBirthday) {
 		this.fBirthday = fBirthday;
 	}
 	

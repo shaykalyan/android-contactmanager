@@ -56,8 +56,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		}
 		
 		Contact itemContact = getItem(position);
-		((TextView)view.findViewById(R.id.list_item_contact_card_textview)).setText(itemContact.getfName().toString());
-		((ImageView)view.findViewById(R.id.list_item_contact_card_imageview)).setImageBitmap(itemContact.getfPhoto().getPhotoBitmap());
+		((TextView)view.findViewById(R.id.list_item_contact_card_textview)).setText(itemContact.getName().toString());
+		((ImageView)view.findViewById(R.id.list_item_contact_card_imageview)).setImageBitmap(itemContact.getPhoto().getPhotoBitmap());
 		
 		return view;
 	}

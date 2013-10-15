@@ -69,7 +69,7 @@ public class ContactInformationActivity extends Activity {
 		fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
 		
 		// Photo
-		ivPhoto.setImageBitmap(fContact.getfPhoto().getPhotoBitmap());
+		ivPhoto.setImageBitmap(fContact.getPhoto().getPhotoBitmap());
 		
 		// for each field in Contact, populate views respectively
 		// if state exists
@@ -79,15 +79,15 @@ public class ContactInformationActivity extends Activity {
 		//			remove respective view group		
 		
 		// Name
-		if (fContact.getfName().toString().length() > 0) {
-			tvName.setText(fContact.getfName().toString());
+		if (fContact.getName().toString().length() > 0) {
+			tvName.setText(fContact.getName().toString());
 		} else {
 			tvName.setText("-");
 		}
 		
 		// Mobile Phone
-		if (fContact.getfPhone().getMobilePhone().length() > 0) {
-			tvMobile.setText(fContact.getfPhone().getMobilePhone());
+		if (fContact.getPhone().getMobilePhone().length() > 0) {
+			tvMobile.setText(fContact.getPhone().getMobilePhone());
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_mobile));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -96,8 +96,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Home Phone
-		if (fContact.getfPhone().getHomePhone().length() > 0) {
-			tvHome.setText(fContact.getfPhone().getHomePhone());
+		if (fContact.getPhone().getHomePhone().length() > 0) {
+			tvHome.setText(fContact.getPhone().getHomePhone());
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_home));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -106,8 +106,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Work Phone
-		if (fContact.getfPhone().getWorkPhone().length() > 0) {
-			tvWork.setText(fContact.getfPhone().getWorkPhone());
+		if (fContact.getPhone().getWorkPhone().length() > 0) {
+			tvWork.setText(fContact.getPhone().getWorkPhone());
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_phone_work));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -116,8 +116,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Email
-		if (fContact.getfEmail().getEmail().length() > 0) {
-			tvEmail.setText(fContact.getfEmail().getEmail());
+		if (fContact.getEmail().getEmail().length() > 0) {
+			tvEmail.setText(fContact.getEmail().getEmail());
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_email));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -126,8 +126,8 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Birthday
-		if (fContact.getfBirthday().toString().length() > 0) {
-			tvBirthday.setText(fContact.getfBirthday().toString());
+		if (fContact.getBirthday().toString().length() > 0) {
+			tvBirthday.setText(fContact.getBirthday().toString());
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_birthday));
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
@@ -136,17 +136,17 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Address
-		if (fContact.getfAddress().getAddressLine1().length() > 0 ||
-				fContact.getfAddress().getAddressLine2().length() > 0 ||
-				fContact.getfAddress().getAddressLine3().length() > 0 ||
-				fContact.getfAddress().getAddressLine4().length() > 0) {
+		if (fContact.getAddress().getAddressLine1().length() > 0 ||
+				fContact.getAddress().getAddressLine2().length() > 0 ||
+				fContact.getAddress().getAddressLine3().length() > 0 ||
+				fContact.getAddress().getAddressLine4().length() > 0) {
 
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
 			
-			tvAddressLine1.setText(fContact.getfAddress().getAddressLine1());
-			tvAddressLine2.setText(fContact.getfAddress().getAddressLine2());
-			tvAddressLine3.setText(fContact.getfAddress().getAddressLine3());
-			tvAddressLine4.setText(fContact.getfAddress().getAddressLine4());
+			tvAddressLine1.setText(fContact.getAddress().getAddressLine1());
+			tvAddressLine2.setText(fContact.getAddress().getAddressLine2());
+			tvAddressLine3.setText(fContact.getAddress().getAddressLine3());
+			tvAddressLine4.setText(fContact.getAddress().getAddressLine4());
 		} else {
 			ViewGroup parent = (ViewGroup)findViewById(R.id.viewgroupparent_contactinfo);
 			View child = (View)findViewById(R.id.viewgroup_contactinfo_address);
@@ -319,7 +319,7 @@ public class ContactInformationActivity extends Activity {
 						
 						// db remove contact
 						DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
-						db.deleteContact(fContact.getfId());
+						db.deleteContact(fContact.getId());
 												
 						// show toast
 						LayoutInflater inflater = getActivity().getLayoutInflater();
