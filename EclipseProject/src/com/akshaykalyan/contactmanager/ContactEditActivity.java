@@ -48,19 +48,21 @@ import android.text.TextWatcher;
  */
 public class ContactEditActivity extends Activity {
 	
-	private Class fParentClass;
 	private static final int REQUEST_CODE_INTENT_CAMERA = 0;
 	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
 	private static final int REQUEST_CODE_INTENT_CROP = 2;
-	private Button acceptEditButton, discardEditButton;
 	
+	private Class fParentClass;
+	private Contact fContact;
+	private DatabaseHelper db;
+	
+	private Button acceptEditButton, discardEditButton;
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
 						etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
 	private ImageView ivPhoto;
 	
-	private Contact fContact;
-	private DatabaseHelper db;
+	
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
@@ -101,29 +103,32 @@ public class ContactEditActivity extends Activity {
 		});
 		acceptEditButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	// ensure name is given
             	if (etFirstName.getText().length() + etLastName.getText().length() == 0) {
             		showErrorToast("Name Required");
             	} else {
 	            	// only if email is validated, further actions can occur
 	            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
+	            		// create contact from fields
+	            		Contact contact = new Contact(
+            					etFirstName.getText().toString(),
+            					etLastName.getText().toString(),
+            					etMobile.getText().toString(),
+            					etHome.getText().toString(),
+            					etWork.getText().toString(),
+            					etEmail.getText().toString().toLowerCase(),
+            					tvBirthday.getText().toString(),
+            					etAddressLine1.getText().toString(),
+            					etAddressLine2.getText().toString(),
+            					etAddressLine3.getText().toString(),
+            					etAddressLine4.getText().toString(),
+            					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
+            					1);
 	            		
 	            		if (fParentClass == ContactInformationActivity.class) {
-	            			// ---------------------------------------------------------------------------------------SAVE EDITS LOGIC
-	            			//TODO Logic for updating contact
-	            			Contact contact = new Contact(
-	            					etFirstName.getText().toString(),
-	            					etLastName.getText().toString(),
-	            					etMobile.getText().toString(),
-	            					etHome.getText().toString(),
-	            					etWork.getText().toString(),
-	            					etEmail.getText().toString().toLowerCase(),
-	            					tvBirthday.getText().toString(),
-	            					etAddressLine1.getText().toString(),
-	            					etAddressLine2.getText().toString(),
-	            					etAddressLine3.getText().toString(),
-	            					etAddressLine4.getText().toString(),
-	            					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
-	            					fContact.getfId());
+	            			// -------------------------------------------------------------------------------------- EDIT CONTACT LOGIC
+	            			// set previous ID to contact
+	            			contact.setId(fContact.getId());
 	
 	            			db.updateContact(contact);
 	            			db.close();
@@ -135,22 +140,7 @@ public class ContactEditActivity extends Activity {
 	            			finish();
 	            		} else { //fParentClass is ContactListActivity
 	            			// ---------------------------------------------------------------------------------------ADD CONTACT LOGIC
-	            			//TODO Logic for adding new contact
-	            			Contact contact = new Contact(
-	            					etFirstName.getText().toString(),
-	            					etLastName.getText().toString(),
-	            					etMobile.getText().toString(),
-	            					etHome.getText().toString(),
-	            					etWork.getText().toString(),
-	            					etEmail.getText().toString().toLowerCase(),
-	            					tvBirthday.getText().toString(),
-	            					etAddressLine1.getText().toString(),
-	            					etAddressLine2.getText().toString(),
-	            					etAddressLine3.getText().toString(),
-	            					etAddressLine4.getText().toString(),
-	            					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
-	            					1);
-	            			
+
 	            			db.createContact(contact);
 	            			db.close();
 	            			
@@ -181,7 +171,7 @@ public class ContactEditActivity extends Activity {
 			public void afterTextChanged(Editable arg0) {}
 		});
 		
-		// TODO: Populate all fields + Photo field
+		
 		Intent intent = getIntent();
 		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
 
@@ -196,19 +186,18 @@ public class ContactEditActivity extends Activity {
 			
 			// Populate views
 			fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
-			//TODO populate views
-			etFirstName.setText(fContact.getfName().getFirstName());
-			etLastName.setText(fContact.getfName().getLastName());
-			etMobile.setText(fContact.getfPhone().getMobilePhone());
-			etHome.setText(fContact.getfPhone().getHomePhone());
-			etWork.setText(fContact.getfPhone().getWorkPhone());
-			etEmail.setText(fContact.getfEmail().getEmail());
-			tvBirthday.setText(fContact.getfBirthday().getfBirthday());
-			etAddressLine1.setText(fContact.getfAddress().getAddressLine1());
-			etAddressLine2.setText(fContact.getfAddress().getAddressLine2());
-			etAddressLine3.setText(fContact.getfAddress().getAddressLine3());
-			etAddressLine4.setText(fContact.getfAddress().getAddressLine4());
-			ivPhoto.setImageBitmap(fContact.getfPhoto().getPhotoBitmap());
+			etFirstName.setText(fContact.getName().getFirstName());
+			etLastName.setText(fContact.getName().getLastName());
+			etMobile.setText(fContact.getPhone().getMobilePhone());
+			etHome.setText(fContact.getPhone().getHomePhone());
+			etWork.setText(fContact.getPhone().getWorkPhone());
+			etEmail.setText(fContact.getEmail().getEmail());
+			tvBirthday.setText(fContact.getBirthday().getBirthday());
+			etAddressLine1.setText(fContact.getAddress().getAddressLine1());
+			etAddressLine2.setText(fContact.getAddress().getAddressLine2());
+			etAddressLine3.setText(fContact.getAddress().getAddressLine3());
+			etAddressLine4.setText(fContact.getAddress().getAddressLine4());
+			ivPhoto.setImageBitmap(fContact.getPhoto().getPhotoBitmap());
 		}
 	}
 

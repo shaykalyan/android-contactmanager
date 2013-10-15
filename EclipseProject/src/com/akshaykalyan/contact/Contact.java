@@ -175,7 +175,7 @@ public class Contact implements Parcelable {
 	/**
 	 * Name - Setter 
 	 */
-	public void setfName(String firstName, String lastName) {
+	public void setName(String firstName, String lastName) {
 		this.fName.setFirstName(firstName);
 		this.fName.setLastName(lastName);
 	}
@@ -183,14 +183,14 @@ public class Contact implements Parcelable {
 	/**
 	 * Name - Getter 
 	 */
-	public ContactName getfName() {
+	public ContactName getName() {
 		return fName;
 	}
 	
 	/**
 	 * Address - Setter
 	 */
-	public void setfAddress(String addressLine1, String addressLine2, String addressLine3, String addressLine4) {
+	public void setAddress(String addressLine1, String addressLine2, String addressLine3, String addressLine4) {
 		this.fAddress.setAddressLine1(addressLine1);
 		this.fAddress.setAddressLine2(addressLine2);
 		this.fAddress.setAddressLine3(addressLine3);
@@ -200,28 +200,28 @@ public class Contact implements Parcelable {
 	/**
 	 * Address - Getter
 	 */
-	public ContactAddress getfAddress() {
+	public ContactAddress getAddress() {
 		return fAddress;
 	}
 	
 	/**
 	 * Email - Setter
 	 */
-	public void setfEmail(String emailString) {
+	public void setEmail(String emailString) {
 		this.fEmail.setEmail(emailString);
 	}
 	
 	/**
 	 * Email - Getter
 	 */
-	public ContactEmail getfEmail() {
+	public ContactEmail getEmail() {
 		return fEmail;
 	}
 	
 	/**
 	 * Phone - Setter
 	 */
-	public void setfPhone(String mobilePhone, String homePhone, String workPhone) {
+	public void setPhone(String mobilePhone, String homePhone, String workPhone) {
 		this.fPhone.setMobilePhone(mobilePhone);
 		this.fPhone.setHomePhone(homePhone);
 		this.fPhone.setWorkPhone(workPhone);
@@ -229,49 +229,49 @@ public class Contact implements Parcelable {
 	/**
 	 * Phone - Getter
 	 */
-	public ContactPhone getfPhone() {
+	public ContactPhone getPhone() {
 		return fPhone;
 	}
 	
 	/**
 	 * Birthday - Setter
 	 */
-	public void setfBirthday(String birthday) {
-		this.fBirthday.setfBirthday(birthday);
+	public void setBirthday(String birthday) {
+		this.fBirthday.setBirthday(birthday);
 	}
 	
 	/**
 	 * Birthday - Getter
 	 */
-	public ContactBirthday getfBirthday() {
+	public ContactBirthday getBirthday() {
 		return fBirthday;
 	}
 	
 	/**
 	 * Photo - Setter
 	 */
-	public void setfPhoto(Bitmap photoBitmap) {
+	public void setPhoto(Bitmap photoBitmap) {
 		this.fPhoto.setPhotoBitmap(photoBitmap);
 	}
 	
 	/**
 	 * Photo - Getter
 	 */
-	public ContactPhoto getfPhoto() {
+	public ContactPhoto getPhoto() {
 		return fPhoto;
 	}
 	
 	/**
 	 * ID - Getter
 	 */
-	public int getfId() {
+	public int getId() {
 		return fId;
 	}
 	
 	/**
 	 * ID - Setter
 	 */
-	public void setfId(int fId) {
+	public void setId(int fId) {
 		this.fId = fId;
 	}
 	
@@ -320,6 +320,6 @@ public class Contact implements Parcelable {
 	 * function to work with this Contact implementation.
 	 */
 	public String toString() {
-		return getfName().toString().toLowerCase();
+		return getName().toString().toLowerCase();
 	}
 }

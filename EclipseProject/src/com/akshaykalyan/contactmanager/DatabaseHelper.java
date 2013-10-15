@@ -83,18 +83,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
-		values.put(KEY_NAME_FIRST, contact.getfName().getFirstName());
-		values.put(KEY_NAME_LAST, contact.getfName().getLastName());
-		values.put(KEY_PHONE_MOBILE, contact.getfPhone().getMobilePhone());
-		values.put(KEY_PHONE_HOME, contact.getfPhone().getHomePhone());
-		values.put(KEY_PHONE_WORK, contact.getfPhone().getWorkPhone());
-		values.put(KEY_EMAIL, contact.getfEmail().getEmail());
-		values.put(KEY_BIRTHDAY, contact.getfBirthday().getfBirthday());
-		values.put(KEY_ADDRESS_LINE1, contact.getfAddress().getAddressLine1());
-		values.put(KEY_ADDRESS_LINE2, contact.getfAddress().getAddressLine2());
-		values.put(KEY_ADDRESS_LINE3, contact.getfAddress().getAddressLine3());
-		values.put(KEY_ADDRESS_LINE4, contact.getfAddress().getAddressLine4());
-		values.put(KEY_PHOTO, contact.getfPhoto().getPhotoByteArray());
+		values.put(KEY_NAME_FIRST, contact.getName().getFirstName());
+		values.put(KEY_NAME_LAST, contact.getName().getLastName());
+		values.put(KEY_PHONE_MOBILE, contact.getPhone().getMobilePhone());
+		values.put(KEY_PHONE_HOME, contact.getPhone().getHomePhone());
+		values.put(KEY_PHONE_WORK, contact.getPhone().getWorkPhone());
+		values.put(KEY_EMAIL, contact.getEmail().getEmail());
+		values.put(KEY_BIRTHDAY, contact.getBirthday().getBirthday());
+		values.put(KEY_ADDRESS_LINE1, contact.getAddress().getAddressLine1());
+		values.put(KEY_ADDRESS_LINE2, contact.getAddress().getAddressLine2());
+		values.put(KEY_ADDRESS_LINE3, contact.getAddress().getAddressLine3());
+		values.put(KEY_ADDRESS_LINE4, contact.getAddress().getAddressLine4());
+		values.put(KEY_PHOTO, contact.getPhoto().getPhotoByteArray());
 		
 		// insert row into table
 		long contact_id = db.insert(TABLE_CONTACTS, null, values);
@@ -178,22 +178,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
-		values.put(KEY_NAME_FIRST, contact.getfName().getFirstName());
-		values.put(KEY_NAME_LAST, contact.getfName().getLastName());
-		values.put(KEY_PHONE_MOBILE, contact.getfPhone().getMobilePhone());
-		values.put(KEY_PHONE_HOME, contact.getfPhone().getHomePhone());
-		values.put(KEY_PHONE_WORK, contact.getfPhone().getWorkPhone());
-		values.put(KEY_EMAIL, contact.getfEmail().getEmail());
-		values.put(KEY_BIRTHDAY, contact.getfBirthday().getfBirthday());
-		values.put(KEY_ADDRESS_LINE1, contact.getfAddress().getAddressLine1());
-		values.put(KEY_ADDRESS_LINE2, contact.getfAddress().getAddressLine2());
-		values.put(KEY_ADDRESS_LINE3, contact.getfAddress().getAddressLine3());
-		values.put(KEY_ADDRESS_LINE4, contact.getfAddress().getAddressLine4());
-		values.put(KEY_PHOTO, contact.getfPhoto().getPhotoByteArray());
+		values.put(KEY_NAME_FIRST, contact.getName().getFirstName());
+		values.put(KEY_NAME_LAST, contact.getName().getLastName());
+		values.put(KEY_PHONE_MOBILE, contact.getPhone().getMobilePhone());
+		values.put(KEY_PHONE_HOME, contact.getPhone().getHomePhone());
+		values.put(KEY_PHONE_WORK, contact.getPhone().getWorkPhone());
+		values.put(KEY_EMAIL, contact.getEmail().getEmail());
+		values.put(KEY_BIRTHDAY, contact.getBirthday().getBirthday());
+		values.put(KEY_ADDRESS_LINE1, contact.getAddress().getAddressLine1());
+		values.put(KEY_ADDRESS_LINE2, contact.getAddress().getAddressLine2());
+		values.put(KEY_ADDRESS_LINE3, contact.getAddress().getAddressLine3());
+		values.put(KEY_ADDRESS_LINE4, contact.getAddress().getAddressLine4());
+		values.put(KEY_PHOTO, contact.getPhoto().getPhotoByteArray());
 		
 		// update the contact's row
 		return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?", 
-				new String[] { String.valueOf(contact.getfId()) });
+				new String[] { String.valueOf(contact.getId()) });
 	}
 	
 	/**
