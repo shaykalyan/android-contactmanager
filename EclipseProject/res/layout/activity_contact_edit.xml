@@ -260,7 +260,7 @@
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
 				        android:hint="@string/text_addressline1"
-				        android:inputType="textPostalAddress"
+				        android:inputType="textCapWords"
 				        style="@style/Text_DarkGrey"
 				        />
 				    <EditText 
@@ -268,7 +268,7 @@
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
 				        android:hint="@string/text_addressline2"
-				        android:inputType="textPostalAddress"
+				        android:inputType="textCapWords"
 				        style="@style/Text_DarkGrey"
 				        />
 				    <EditText 
@@ -276,7 +276,7 @@
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
 				        android:hint="@string/text_addressline3"
-				        android:inputType="textPostalAddress"
+				       android:inputType="textCapWords"
 				        style="@style/Text_DarkGrey"
 				        />
 				    <EditText 
@@ -284,7 +284,7 @@
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
 				        android:hint="@string/text_addressline4"
-				        android:inputType="textPostalAddress"
+				        android:inputType="textCapWords"
 				        style="@style/Text_DarkGrey"
 				        />
 			    </LinearLayout>
