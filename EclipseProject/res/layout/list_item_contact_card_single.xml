@@ -40,7 +40,6 @@
 	        android:layout_toRightOf="@+id/list_item_contact_card_imageview"
 	        android:paddingLeft="30dp"
 	        android:paddingBottom="5dp"
-	        android:text="@string/text_fakefullname"
 	        android:textSize="16sp" />
  
 </RelativeLayout>

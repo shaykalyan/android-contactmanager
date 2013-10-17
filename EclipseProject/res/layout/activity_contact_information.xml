@@ -27,7 +27,6 @@
 		    android:layout_height="wrap_content"
 		    android:layout_width="match_parent"
 		    android:layout_gravity="bottom"
-		    android:text="@string/text_fakefullname"
 		    style="@style/TextView_ImageOverlay_OpaqueBg"/>
     </FrameLayout>
 
@@ -81,7 +80,6 @@
 				        android:paddingTop="15dp"
 				        android:paddingBottom="15dp"
 				        android:background="@drawable/bg_card"
-				        android:text="@string/text_fakenumber"
 				        style="@style/Text_DarkGrey"
 				        />
 			    </RelativeLayout>
@@ -231,7 +229,6 @@
 				        android:paddingBottom="15dp"
 				        
 				        android:background="@drawable/bg_card"
-				        android:text="@string/text_fakeemail"
 				        android:gravity="center_vertical"
 
 				        style="@style/Text_DarkGrey"
@@ -313,28 +310,24 @@
 					        android:id="@+id/textview_contactinfo_addressline1"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/text_fakeaddressline1"
 					        style="@style/Text_DarkGrey"
 					        />
 					    <TextView 
 					        android:id="@+id/textview_contactinfo_addressline2"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/text_fakeaddressline2"
 					        style="@style/Text_DarkGrey"
 					        />
 					    <TextView 
 					        android:id="@+id/textview_contactinfo_addressline3"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/text_fakeaddressline3"
 					        style="@style/Text_DarkGrey"
 					        />
 					    <TextView 
 					        android:id="@+id/textview_contactinfo_addressline4"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/emptystring"
 					        style="@style/Text_DarkGrey"
 					        />
 				    </LinearLayout>  

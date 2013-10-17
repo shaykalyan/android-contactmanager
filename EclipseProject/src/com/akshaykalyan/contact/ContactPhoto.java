@@ -13,13 +13,7 @@ import android.os.Parcelable;
  */
 public class ContactPhoto implements Parcelable {
 	private Bitmap fPhotoBitmap;
-	
-//	/**
-//	 * Default constructor initialises photo Bitmap to null
-//	 */
-//	public ContactPhoto() {
-//		this.fPhotoBitmap = null;
-//	}
+
 	/**
 	 * Constructs Contact Photo object with given photo Bitmap
 	 * @param photoBitmap
@@ -28,9 +22,10 @@ public class ContactPhoto implements Parcelable {
 		this.fPhotoBitmap = photoBitmap;
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
+	
 	public Bitmap getPhotoBitmap() {
 		return fPhotoBitmap;
 	}
@@ -50,10 +45,9 @@ public class ContactPhoto implements Parcelable {
 		return photo;
 	}
 	
-
-	/**
-	 * Parcelable Interface Methods
-	 */
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
 	
 	@Override
 	public int describeContents() {

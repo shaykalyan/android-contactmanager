@@ -8,7 +8,6 @@ import com.akshaykalyan.contact.ContactEmail;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -18,8 +17,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,12 +54,11 @@ public class ContactEditActivity extends Activity {
 	private DatabaseHelper db;
 	
 	private Button acceptEditButton, discardEditButton;
-	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
-						etAddressLine2, etAddressLine3, etAddressLine4;
+	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, 
+					 etAddressLine1, etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
 	private ImageView ivPhoto;
-	
-	
+		
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
@@ -70,8 +66,8 @@ public class ContactEditActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_edit);
-		// Show the Up button in the action bar.
 		setupActionBar();
+		// set up underlying database
 		db = new DatabaseHelper(getApplicationContext());
 		
 		etFirstName = (EditText)findViewById(R.id.edittext_contactedit_firstname);
@@ -125,8 +121,7 @@ public class ContactEditActivity extends Activity {
             					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
             					1);
 	            		
-	            		if (fParentClass == ContactInformationActivity.class) {
-	            			// -------------------------------------------------------------------------------------- EDIT CONTACT LOGIC
+	            		if (fParentClass == ContactInformationActivity.class) { // EDIT + UPDATE CONTACT
 	            			// set previous ID to contact
 	            			contact.setId(fContact.getId());
 	
@@ -138,9 +133,7 @@ public class ContactEditActivity extends Activity {
 	            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 	                    	startActivity(intent);
 	            			finish();
-	            		} else { //fParentClass is ContactListActivity
-	            			// ---------------------------------------------------------------------------------------ADD CONTACT LOGIC
-
+	            		} else { // NEW CONTACT
 	            			db.createContact(contact);
 	            			db.close();
 	            			
@@ -178,12 +171,9 @@ public class ContactEditActivity extends Activity {
 		
 		
 		if (fParentClass == ContactListActivity.class) { // new contact
-			
 			getActionBar().setTitle("New Contact");
 			// Do not populate views
-			
 		} else { // fParent is ContactInformationActivity
-			
 			// Populate views
 			fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
 			etFirstName.setText(fContact.getName().getFirstName());
@@ -203,7 +193,8 @@ public class ContactEditActivity extends Activity {
 
 	@Override
 	/**
-	 * Override back press to show toast
+	 * Override back press to dictate which screen the back button returns to.
+	 * Also, shows toast indicating edits were discarded
 	 */
 	public void onBackPressed() {
 		if (fParentClass == ContactListActivity.class) {
@@ -248,7 +239,11 @@ public class ContactEditActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+	// ====================================================================
+    // 			Interactive onClick methods
+    // ====================================================================
+	
 	/**
 	 * onClick method which launches a dialog allowing the user to pick a date for the 
 	 * Contact's birthday text field.
@@ -257,7 +252,29 @@ public class ContactEditActivity extends Activity {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
+	/**
+	 * onClick method which resets the birthday text view field.
+	 */
+	public void onClick_deleteBirthdayText(View v) {
+		tvBirthday.setText("");
+	}
 	
+	/**
+	 * onClick method to enable the user to select a replacement contact photo.
+	 * This method launches a dialog allowing the user to pick a source for the image from either
+	 * 		Camera
+	 * 		Gallery
+	 * and fires an intent depending on the decision made.
+	 */
+	public void onClick_showImageSourceDialog(View v) {
+		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
+		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
+	}
+	
+	// ====================================================================
+    // 			Date Picker Dialog
+    // ====================================================================
+
 	/**
 	 * Inner Class responsible for generating a Date Picker dialog when a request has 
 	 * been placed by the user. 
@@ -302,25 +319,11 @@ public class ContactEditActivity extends Activity {
 						            .append(year).append(" "));			
 		}
 	}
+
 	
-	/**
-	 * onClick method which resets the birthday text view field.
-	 */
-	public void onClick_deleteBirthdayText(View v) {
-		tvBirthday.setText("");
-	}
-	
-	/**
-	 * onClick method to enable the user to select a replacement contact photo.
-	 * This method launches a dialog allowing the user to pick a source for the image from either
-	 * 		Camera
-	 * 		Gallery
-	 * and fires an intent depending on the decision made.
-	 */
-	public void onClick_showImageSourceDialog(View v) {
-		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
-		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
-	}
+	// ====================================================================
+    // 			Image Select Dialog
+    // ====================================================================
 
 	/**
 	 * Inner Class responsible for generating an image source Picker dialog when a request has 
@@ -368,8 +371,7 @@ public class ContactEditActivity extends Activity {
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
-		ImageView contactPhotoImageView = (ImageView)findViewById(R.id.image_contactedit_contact_image);
-
+		
 		switch(requestCode) {
 		case REQUEST_CODE_INTENT_CAMERA:
 		    if(resultCode == RESULT_OK){  
@@ -393,6 +395,10 @@ public class ContactEditActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Given and image Uri, a crop intent is created and fired for the image
+	 * to be cropped.
+	 */
 	private void fireCropIntent(Uri imgUri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(imgUri, "image/*");  
@@ -404,7 +410,11 @@ public class ContactEditActivity extends Activity {
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, REQUEST_CODE_INTENT_CROP);
 	}
-
+	
+	// ====================================================================
+    // 			Custom Toasts
+    // ====================================================================
+	
 	/**
 	 * Inflates a custom toast, Edits Discarded Toast, and shows to the current Application Context
 	 */

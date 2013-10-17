@@ -54,7 +54,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 		} else {
 			view = convertView;
 		}
-		
+		// get contact info and populate list item
 		Contact itemContact = getItem(position);
 		((TextView)view.findViewById(R.id.list_item_contact_card_textview)).setText(itemContact.getName().toString());
 		((ImageView)view.findViewById(R.id.list_item_contact_card_imageview)).setImageBitmap(itemContact.getPhoto().getPhotoBitmap());

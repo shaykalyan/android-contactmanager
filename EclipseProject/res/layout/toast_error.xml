@@ -13,8 +13,7 @@
         android:layout_width="wrap_content"
         android:src="@drawable/ic_error_hexagon"
         android:contentDescription="@string/accessibility_error"
-        android:layout_margin="5dp"
-        android:id="@+id/imageView1">
+        android:layout_margin="5dp">
     </ImageView>
 
     <TextView

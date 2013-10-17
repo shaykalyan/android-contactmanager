@@ -6,21 +6,13 @@ import java.util.List;
 import com.akshaykalyan.contact.Contact;
 import com.akshaykalyan.contact.ContactPhoto;
 
-import android.R.integer;
-import android.R.layout;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract.CommonDataKinds.Photo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-	
-	private static final String LOG = "DatabaseHelper";
-	
-	// db name and version
 	private static final String DATABASE_NAME = "ContactsManagerDatabase";
 	private static final int DATABASE_VERSION = 1;
 	
@@ -59,6 +51,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ KEY_PHOTO + " BLOB"
 			+ ")";
 			
+	// ====================================================================
+    // 		Construction and Upgrading
+    // ====================================================================
 	
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -74,10 +69,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXITS " + TABLE_CONTACTS);
 	}
 	
-	// CREATE | READ | UPDATE | DELETE
+	// ====================================================================
+    // 		CREATE | READ | UPDATE | DELETE
+    // ====================================================================
 	
 	/**
-	 * Creating contact
+	 * This method creates a contact row in the database from a given Contact
+	 * object.
 	 */
 	public long createContact(Contact contact) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -103,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Get single contact
+	 * Returns a Contact object from the database given its ID
 	 */
 	public Contact getContact(long contact_id) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -136,7 +134,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Get all contacts
+	 * Retrieves all contacts from the database and returns a List containing
+	 * Contact objects
 	 */
 	public List<Contact> getAllContacts() {
 		List<Contact> contactsList = new ArrayList<Contact>();
@@ -167,12 +166,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	        	contactsList.add(contact);
 	        } while (cursor.moveToNext());
 	    }
-	 
 	    return contactsList;
 	}
 	
 	/**
-	 * Update a Contact
+	 * Given a Contact object with a valid ID, its row in the database is updated
+	 * with the contents.
 	 */
 	public int updateContact(Contact contact) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -197,7 +196,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Delete Contact
+	 * Given a contact ID, the contact and its corresponding row from the ID 
+	 * is removed from the database.
 	 */
 	public void deleteContact(int contact_id) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -205,9 +205,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
 				new String[] { String.valueOf(contact_id) });
 	}
-	
-	
-	
-	
-	
 }

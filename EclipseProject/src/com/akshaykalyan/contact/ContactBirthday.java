@@ -26,10 +26,10 @@ public class ContactBirthday implements Parcelable {
 		this.fBirthday = birthday;
 	}
 	
-	/**
-	 * Getters and Setters
-	 * @return
-	 */
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
+	
 	public String getBirthday() {
 		return fBirthday;
 	}
@@ -38,14 +38,19 @@ public class ContactBirthday implements Parcelable {
 		this.fBirthday = fBirthday;
 	}
 	
+	// ====================================================================
+    // 		toString
+    // ====================================================================
+	
 	@Override
 	public String toString() {
 		return fBirthday;
 	}
 	
-	/**
-	 * Parcelable Interface Methods
-	 */
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
+	
 	@Override
 	public int describeContents() {
 		return 0;

@@ -14,8 +14,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
 /**
  * Activity class representing the Contact Information screen of a contact. This activity is 
@@ -38,7 +35,7 @@ import android.support.v4.app.NavUtils;
 public class ContactInformationActivity extends Activity {
 
 	private TextView tvName, tvMobile, tvHome, tvWork, tvEmail, tvBirthday, tvAddressLine1,
-						tvAddressLine2, tvAddressLine3, tvAddressLine4;
+					 tvAddressLine2, tvAddressLine3, tvAddressLine4;
 	private ImageView ivPhoto;
 	private static Contact fContact;
 	private List<TextView> labelList = new ArrayList<TextView>();
@@ -71,12 +68,12 @@ public class ContactInformationActivity extends Activity {
 		// Photo
 		ivPhoto.setImageBitmap(fContact.getPhoto().getPhotoBitmap());
 		
-		// for each field in Contact, populate views respectively
+		// for each non-empty field in Contact, populate view
 		// if state exists
 		//			set text
 		//			add respective label to list for typeface change
 		// else
-		//			remove respective view group		
+		//			remove view group		
 		
 		// Name
 		if (fContact.getName().toString().length() > 0) {
@@ -136,13 +133,13 @@ public class ContactInformationActivity extends Activity {
 		}
 		
 		// Address
-		if (fContact.getAddress().getAddressLine1().length() > 0 ||
-				fContact.getAddress().getAddressLine2().length() > 0 ||
-				fContact.getAddress().getAddressLine3().length() > 0 ||
-				fContact.getAddress().getAddressLine4().length() > 0) {
+		if (fContact.getAddress().getAddressLine1().length() > 0
+				|| fContact.getAddress().getAddressLine2().length() > 0
+				|| fContact.getAddress().getAddressLine3().length() > 0
+				||fContact.getAddress().getAddressLine4().length() > 0) {
 
 			labelList.add((TextView)findViewById(R.id.label_contactinfo_address));
-			
+
 			tvAddressLine1.setText(fContact.getAddress().getAddressLine1());
 			tvAddressLine2.setText(fContact.getAddress().getAddressLine2());
 			tvAddressLine3.setText(fContact.getAddress().getAddressLine3());
@@ -172,7 +169,6 @@ public class ContactInformationActivity extends Activity {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_information, menu);
 		return true;
 	}
@@ -196,12 +192,10 @@ public class ContactInformationActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-//			NavUtils.navigateUpFromSameTask(this);
 			Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         	startActivity(intent);
         	finish();
-//			return true;
         	break;
 		case R.id.action_delete_contact:
 			DialogFragment confirmDeleteDialogFragment = new ConfirmDeleteDialog();
@@ -225,79 +219,10 @@ public class ContactInformationActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	/**
-	 * onClick method which extracts the Mobile Phone field, creates call intent and fires.
-	 */
-	public void onClick_makePhoneCallMobile(View v) {
-		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
-		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
-		startActivity(callIntent);
-	}
-	
-	/**
-	 * onClick method which extracts the Home Phone field, creates call intent and fires.
-	 */
-	public void onClick_makePhoneCallHome(View v) {
-		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_home);
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
-		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
-		startActivity(callIntent);
-	}
-	
-	/**
-	 * onClick method which extracts the Work Phone field, creates call intent and fires.
-	 */
-	public void onClick_makePhoneCallWork(View v) {
-		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_work);
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
-		callIntent.setData(Uri.parse("tel:"+numberTextView.getText().toString().trim()));
-		startActivity(callIntent);
-	}
-	
-	/**
-	 * onClick method which extracts the Mobile Phone field, creates SMS intent and fires.
-	 */
-	public void onClick_makeSMSMessage(View v) {
-		TextView numberTextView = (TextView)findViewById(R.id.textview_contactinfo_phone_mobile);
-		Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + numberTextView.getText().toString().trim()));
-		startActivity(smsIntent);
-	}
-	
-	/**
-	 * onClick method which extracts the Email field, creates email intent and fires.
-	 */
-	public void onClick_makeEmail(View v) {
-		TextView emailTextView = (TextView)findViewById(R.id.textview_contactinfo_email);
-		String emailString = emailTextView.getText().toString().trim();
-		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
-		startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
-		
-	}
-	
-	/**
-	 * onClick method which extracts the Address field, creates map intent and fires.
-	 */
-	public void onClick_makeMapSearch(View v) {
-		StringBuilder addressStringBuilder = new StringBuilder();
-		List<TextView> addressList = new ArrayList<TextView>();
-		
-		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline1));
-		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline2));
-		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline3));
-		addressList.add((TextView)findViewById(R.id.textview_contactinfo_addressline4));
-		for (TextView textView : addressList) {
-			String addressLineString = textView.getText().toString().trim();
-			if (!addressLineString.isEmpty()) {
-				addressStringBuilder.append(addressLineString);
-				addressStringBuilder.append("+");
-			}
-		}
-		
-		Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + addressStringBuilder.toString()));
-		startActivity(geoIntent);
-	}
-		
+	// ====================================================================
+    // 			Confirm Delete Dialog
+    // ====================================================================
+			
 	/**
 	 * Inner Class responsible for generating a confirmation dialog when a delete request has 
 	 * been placed by the user. The response will be handled respective to the decision made.
@@ -314,9 +239,7 @@ public class ContactInformationActivity extends Activity {
     			.setPositiveButton(R.string.action_yes, new DialogInterface.OnClickListener() {
 					
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO removes contact and returns to list view	
-						
+					public void onClick(DialogInterface dialog, int which) {						
 						// db remove contact
 						DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
 						db.deleteContact(fContact.getId());
@@ -332,21 +255,87 @@ public class ContactInformationActivity extends Activity {
 				        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     	startActivity(intent);
                     	getActivity().finish();
-				        
-				        
-				        
-				        
 					}
 				})
 				.setNegativeButton(R.string.action_cancel, new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO returns focus to activity
+						// returns focus to activity
 						dismiss();
 					}
 				});
     		return builder.create();
     	}
     }
+    
+    // ====================================================================
+    // 			Interactive onClick methods
+    // ====================================================================
+    
+    /**
+	 * onClick method which extracts the Mobile Phone field, creates call intent and fires.
+	 */
+	public void onClick_makePhoneCallMobile(View v) {
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:"+tvMobile.getText().toString().trim()));
+		startActivity(callIntent);
+	}
+	
+	/**
+	 * onClick method which extracts the Home Phone field, creates call intent and fires.
+	 */
+	public void onClick_makePhoneCallHome(View v) {
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:"+tvHome.getText().toString().trim()));
+		startActivity(callIntent);
+	}
+	
+	/**
+	 * onClick method which extracts the Work Phone field, creates call intent and fires.
+	 */
+	public void onClick_makePhoneCallWork(View v) {
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:"+tvWork.getText().toString().trim()));
+		startActivity(callIntent);
+	}
+	
+	/**
+	 * onClick method which extracts the Mobile Phone field, creates SMS intent and fires.
+	 */
+	public void onClick_makeSMSMessage(View v) {
+		Intent smsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + tvMobile.getText().toString().trim()));
+		startActivity(smsIntent);
+	}
+	
+	/**
+	 * onClick method which extracts the Email field, creates email intent and fires.
+	 */
+	public void onClick_makeEmail(View v) {
+		String emailString = tvEmail.getText().toString().trim();
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
+		startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
+	}
+	
+	/**
+	 * onClick method which extracts the Address field, creates map intent and fires.
+	 */
+	public void onClick_makeMapSearch(View v) {
+		StringBuilder addressStringBuilder = new StringBuilder();
+		List<TextView> addressList = new ArrayList<TextView>();
+		
+		addressList.add(tvAddressLine1);
+		addressList.add(tvAddressLine2);
+		addressList.add(tvAddressLine3);
+		addressList.add(tvAddressLine4);
+		for (TextView textView : addressList) {
+			String addressLineString = textView.getText().toString().trim();
+			if (!addressLineString.isEmpty()) {
+				addressStringBuilder.append(addressLineString);
+				addressStringBuilder.append("+");
+			}
+		}		
+		Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + addressStringBuilder.toString()));
+		startActivity(geoIntent);
+	}
 }

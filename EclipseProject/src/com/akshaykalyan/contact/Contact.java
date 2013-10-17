@@ -23,6 +23,10 @@ public class Contact implements Parcelable {
 	private ContactPhoto fPhoto;
 	private int fId;
 	
+	// ====================================================================
+    // 		SortBy enumeration type
+    // ====================================================================
+	
 	/**
 	 * SortBy enumeration types returns a Comparator object allowing Contact objects to be sorted in various ways.
 	 * 
@@ -40,7 +44,7 @@ public class Contact implements Parcelable {
 		 * Constructor to initialise comparator field.
 		 * Note: If either of the compared fields is an empty string, that contact object is 'pushed back'/
 		 * given lower priority than other. 
-		 * 		e.g: "" compared to "abc" -- "" will be placed after "abc" in the list.
+		 * 		e.g: "" compared to "abc" --> "" will be placed after "abc" in the list.
 		 */
 		private SortBy(int i) {
 			switch (i) {
@@ -49,7 +53,6 @@ public class Contact implements Parcelable {
 						public int compare(Contact lhs, Contact rhs) {
 							if (lhs.fName.getFirstName().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fName.getFirstName().isEmpty()) {
 								return -1;
 							}
@@ -62,7 +65,6 @@ public class Contact implements Parcelable {
 						public int compare(Contact lhs, Contact rhs) {
 							if (lhs.fName.getLastName().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fName.getLastName().isEmpty()) {
 								return -1;
 							}
@@ -75,7 +77,6 @@ public class Contact implements Parcelable {
 						public int compare(Contact lhs, Contact rhs) {
 							if (lhs.fPhone.getMobilePhone().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fPhone.getMobilePhone().isEmpty()) {
 								return -1;
 							}
@@ -89,7 +90,6 @@ public class Contact implements Parcelable {
 							// empty string is lower in order
 							if (lhs.fPhone.getHomePhone().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fPhone.getHomePhone().isEmpty()) {
 								return -1;
 							}
@@ -103,7 +103,6 @@ public class Contact implements Parcelable {
 							// empty string is lower in order
 							if (lhs.fPhone.getWorkPhone().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fPhone.getWorkPhone().isEmpty()) {
 								return -1;
 							}
@@ -115,8 +114,11 @@ public class Contact implements Parcelable {
 					break;
 			}
 		}
-		
 	}
+	
+	// ====================================================================
+    // 		Constructors
+    // ====================================================================
 	
 	/**
 	 * Constructor which creates a new Contact object with respective fields instantiated. 
@@ -171,6 +173,10 @@ public class Contact implements Parcelable {
 		this.fPhoto = photo;
 		this.fId = id;
 	}
+	
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
 	
 	/**
 	 * Name - Setter 
@@ -275,8 +281,9 @@ public class Contact implements Parcelable {
 		this.fId = fId;
 	}
 	
-	
-	/** Parcelable Interface Methods */
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
 	
 	@Override
 	public int describeContents() {
@@ -314,12 +321,16 @@ public class Contact implements Parcelable {
 		}
 	};
 	
+	// ====================================================================
+    // 		toString Override
+    // ====================================================================
+	
 	@Override
 	/**
-	 * Override to String to return contact name in lower-case for a list adapter's filter
-	 * function to work with this Contact implementation.
+	 * Override to String to return contact name in lower-case and numbers for a list adapter's
+	 * filter function to work with this Contact implementation.
 	 */
 	public String toString() {
-		return getName().toString().toLowerCase();
+		return getName().toString().toLowerCase() + " " + fPhone.toString();
 	}
 }
