@@ -64,6 +64,7 @@
 
     <!-- About Dialog -->
     <string name="text_about_by">By Akshay Kalyan</string>
+    <string name="text_about_email">hello@akshaykalyan.com</string>
 
     <!-- Confirm Delete Dialog -->
     <string name="dialog_confirmdelete_title">Comfirm Delete</string>

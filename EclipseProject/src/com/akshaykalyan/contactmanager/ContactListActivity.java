@@ -8,6 +8,7 @@ import java.util.List;
 import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contact.Contact.SortBy;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -426,6 +427,7 @@ public class ContactListActivity extends FragmentActivity {
 	 * been placed by the user. 
 	 * 
 	 * About dialog contains the Application name, version and developer details.
+	 * Also, provides a clickable email address to the developer
 	 */
     public static class AboutDialog extends DialogFragment {
     	@Override
@@ -435,8 +437,22 @@ public class ContactListActivity extends FragmentActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             // get the layout inflater
             LayoutInflater inflater = getActivity().getLayoutInflater();
+            View aboutView = inflater.inflate(R.layout.diaglog_about, null);
             
-            builder.setView(inflater.inflate(R.layout.diaglog_about, null))
+            // email on click logic
+            TextView devEmailTextView = (TextView) aboutView.findViewById(R.id.dialog_about_email);
+            devEmailTextView.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					String emailString = getString(R.string.text_about_email);
+					Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
+					emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contacts Now");
+					startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
+				}
+			});
+            // dialog button
+            builder.setView(aboutView)
                    .setPositiveButton(R.string.action_okay, new DialogInterface.OnClickListener() {
                        public void onClick(DialogInterface dialog, int id) {
                            dismiss();
