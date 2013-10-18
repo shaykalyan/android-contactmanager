@@ -1,5 +1,6 @@
 package com.akshaykalyan.contactmanager;
 
+import java.io.File;
 import java.util.Calendar;
 
 import com.akshaykalyan.contact.Contact;
@@ -7,7 +8,9 @@ import com.akshaykalyan.contact.ContactEmail;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.ContactsContract.Data;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -58,6 +61,8 @@ public class ContactEditActivity extends Activity {
 					 etAddressLine1, etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
 	private ImageView ivPhoto;
+	
+	private static Uri fCameraImageUri;
 		
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -348,12 +353,24 @@ public class ContactEditActivity extends Activity {
 					switch (which) {
 					case 0:
 						Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						getActivity().startActivityForResult(takePicture, REQUEST_CODE_INTENT_GALLERY);
+							
+						File dir = new File( 
+								getActivity().getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+								"contactsNow");
+						if (!dir.exists()) {
+							dir.mkdirs();
+						}
+						
+						File imageFile = new File(dir.getPath() + File.separator + "contacts_now_temp.jpg");
+						fCameraImageUri = Uri.fromFile(imageFile);
+						
+						takePicture.putExtra(MediaStore.EXTRA_OUTPUT, fCameraImageUri);
+						getActivity().startActivityForResult(takePicture, REQUEST_CODE_INTENT_CAMERA);
 						break;
 					case 1:
 						Intent pickPhoto = new Intent(Intent.ACTION_PICK,
 						           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-						getActivity().startActivityForResult(pickPhoto , REQUEST_CODE_INTENT_CAMERA);
+						getActivity().startActivityForResult(pickPhoto , REQUEST_CODE_INTENT_GALLERY);
 						break;
 					default:
 						break;
@@ -375,8 +392,8 @@ public class ContactEditActivity extends Activity {
 		switch(requestCode) {
 		case REQUEST_CODE_INTENT_CAMERA:
 		    if(resultCode == RESULT_OK){  
-		        Uri selectedImage = imageReturnedIntent.getData();
-		        fireCropIntent(selectedImage);
+		    	// fCameraImageUri will have updated with the latest image address
+		        fireCropIntent(fCameraImageUri);
 		    }
 		    break; 
 		case REQUEST_CODE_INTENT_GALLERY:
