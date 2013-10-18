@@ -56,7 +56,7 @@ public class ContactEditActivity extends Activity {
 	private Contact fContact;
 	private DatabaseHelper db;
 	
-	private Button acceptEditButton, discardEditButton;
+	private Button btnSaveEdit, btnCancelEdit;
 	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, 
 					 etAddressLine1, etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
@@ -89,10 +89,41 @@ public class ContactEditActivity extends Activity {
 		ivPhoto = (ImageView)findViewById(R.id.image_contactedit_contact_image);
 
 		// save cancel button and listeners
-		acceptEditButton = (Button)findViewById(R.id.button_editactivity_acceptedit);
-		discardEditButton = (Button)findViewById(R.id.button_editactivity_discardedit);
+		btnSaveEdit = (Button)findViewById(R.id.button_editactivity_acceptedit);
+		btnCancelEdit = (Button)findViewById(R.id.button_editactivity_discardedit);
 		
-		discardEditButton.setOnClickListener(new View.OnClickListener() {
+		setupListeners();
+		
+		Intent intent = getIntent();
+		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
+
+		if (fParentClass == ContactListActivity.class) { // new contact
+			getActionBar().setTitle("New Contact");
+			// Do not populate views
+		} else { // fParent is ContactInformationActivity
+			// Populate views
+			fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
+			etFirstName.setText(fContact.getName().getFirstName());
+			etLastName.setText(fContact.getName().getLastName());
+			etMobile.setText(fContact.getPhone().getMobilePhone());
+			etHome.setText(fContact.getPhone().getHomePhone());
+			etWork.setText(fContact.getPhone().getWorkPhone());
+			etEmail.setText(fContact.getEmail().getEmail());
+			tvBirthday.setText(fContact.getBirthday().getBirthday());
+			etAddressLine1.setText(fContact.getAddress().getAddressLine1());
+			etAddressLine2.setText(fContact.getAddress().getAddressLine2());
+			etAddressLine3.setText(fContact.getAddress().getAddressLine3());
+			etAddressLine4.setText(fContact.getAddress().getAddressLine4());
+			ivPhoto.setImageBitmap(fContact.getPhoto().getPhotoBitmap());
+		}
+	}
+
+	/**
+	 * Method responsible for setting up listeners for 
+	 * Cancel button, Save button and Email validation.
+	 */
+	private void setupListeners() {
+		btnCancelEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	if (fParentClass == ContactListActivity.class) {
             		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
@@ -102,7 +133,7 @@ public class ContactEditActivity extends Activity {
             	finish();
             }
 		});
-		acceptEditButton.setOnClickListener(new View.OnClickListener() {
+		btnSaveEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	// ensure name is given
             	if (etFirstName.getText().length() + etLastName.getText().length() == 0) {
@@ -168,34 +199,8 @@ public class ContactEditActivity extends Activity {
 			@Override
 			public void afterTextChanged(Editable arg0) {}
 		});
-		
-		
-		Intent intent = getIntent();
-		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
-
-		
-		
-		if (fParentClass == ContactListActivity.class) { // new contact
-			getActionBar().setTitle("New Contact");
-			// Do not populate views
-		} else { // fParent is ContactInformationActivity
-			// Populate views
-			fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
-			etFirstName.setText(fContact.getName().getFirstName());
-			etLastName.setText(fContact.getName().getLastName());
-			etMobile.setText(fContact.getPhone().getMobilePhone());
-			etHome.setText(fContact.getPhone().getHomePhone());
-			etWork.setText(fContact.getPhone().getWorkPhone());
-			etEmail.setText(fContact.getEmail().getEmail());
-			tvBirthday.setText(fContact.getBirthday().getBirthday());
-			etAddressLine1.setText(fContact.getAddress().getAddressLine1());
-			etAddressLine2.setText(fContact.getAddress().getAddressLine2());
-			etAddressLine3.setText(fContact.getAddress().getAddressLine3());
-			etAddressLine4.setText(fContact.getAddress().getAddressLine4());
-			ivPhoto.setImageBitmap(fContact.getPhoto().getPhotoBitmap());
-		}
 	}
-
+	
 	@Override
 	/**
 	 * Override back press to dictate which screen the back button returns to.
@@ -319,8 +324,7 @@ public class ContactEditActivity extends Activity {
 			datePickerTextView.setText(new StringBuilder()
 									.append(day).append("-")
 						            // Month is 0 based so add 1
-						            .append(month + 1).append("-")
-						            
+						            .append(month + 1).append("-")       
 						            .append(year).append(" "));			
 		}
 	}
@@ -341,6 +345,9 @@ public class ContactEditActivity extends Activity {
 	 * 
 	 * The option select fires its respective intent and is then presented with the chosen
 	 * activity.
+	 * 
+	 * Camera intent relies on saving the image temporarily as not all phones save and return
+	 * photo automatically. Temp file is created and is where the image is stored intermediately.
 	 */
 	public static class ImageSelectDialogFragment extends DialogFragment {
 		@Override
@@ -377,7 +384,6 @@ public class ContactEditActivity extends Activity {
 					}
 				}
 			});
-			
 			return builder.create();
 		}
 	}
@@ -460,10 +466,8 @@ public class ContactEditActivity extends Activity {
 	private void showErrorToast(String msg) {
 		LayoutInflater inflater = getLayoutInflater();
     	View view = inflater.inflate(R.layout.toast_error, (ViewGroup)findViewById(R.id.toast_error));
-    	
     	TextView tvToast = (TextView)view.findViewById(R.id.textview_toast_error);
     	tvToast.setText(msg);
-    	
         Toast toast = new Toast(getApplicationContext());
         toast.setView(view);
         toast.show();
