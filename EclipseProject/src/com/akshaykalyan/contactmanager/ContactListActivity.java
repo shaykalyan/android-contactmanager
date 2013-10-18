@@ -80,7 +80,6 @@ public class ContactListActivity extends FragmentActivity {
 			
 			/** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-            	// TODO: try to lose focus on search edit text here or onDrawerOpened
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
             
@@ -153,7 +152,6 @@ public class ContactListActivity extends FragmentActivity {
 		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
     		mDrawerLayout.closeDrawer(Gravity.LEFT);
     	} else {
-    		// TODO change this as does not actually close app. Runs in bg
     		finish();
     		super.onBackPressed();
     	}
@@ -449,6 +447,7 @@ public class ContactListActivity extends FragmentActivity {
 					Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
 					emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contacts Now");
 					startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
+					dismiss();
 				}
 			});
             // dialog button
