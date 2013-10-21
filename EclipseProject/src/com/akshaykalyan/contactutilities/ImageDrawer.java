@@ -1,4 +1,4 @@
-package com.akshaykalyan.contactmanager;
+package com.akshaykalyan.contactutilities;
 
 import android.content.Context;
 import android.util.AttributeSet;

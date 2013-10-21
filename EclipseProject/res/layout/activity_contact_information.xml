@@ -14,7 +14,7 @@
     <FrameLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content">
-		<com.akshaykalyan.contactmanager.ImageDrawer 
+		<com.akshaykalyan.contactutilities.ImageDrawer 
 		    android:id="@+id/image_contactinfo_contact_image"
 		    android:src="@drawable/ic_default_contactphoto"
 		    android:layout_width="match_parent"

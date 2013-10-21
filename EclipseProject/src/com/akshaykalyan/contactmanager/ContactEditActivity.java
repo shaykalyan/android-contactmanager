@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import com.akshaykalyan.contact.Contact;
 import com.akshaykalyan.contact.ContactEmail;
+import com.akshaykalyan.contactutilities.*;
 
 import android.net.Uri;
 import android.os.Bundle;

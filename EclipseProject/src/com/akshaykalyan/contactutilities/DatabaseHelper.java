@@ -1,4 +1,4 @@
-package com.akshaykalyan.contactmanager;
+package com.akshaykalyan.contactutilities;
 
 import java.util.ArrayList;
 import java.util.List;

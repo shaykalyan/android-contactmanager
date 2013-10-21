@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contact.Contact.SortBy;
+import com.akshaykalyan.contactutilities.*;
 
 import android.net.Uri;
 import android.os.Bundle;
