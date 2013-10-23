@@ -2,6 +2,7 @@ package com.akshaykalyan.contactmanager;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.akshaykalyan.contact.Contact;
 import com.akshaykalyan.contact.ContactEmail;
@@ -313,7 +314,8 @@ public class ContactEditActivity extends Activity {
 			}
 			
 			// create new instance of DatePickerDialog and return
-			Dialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+			DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+			datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());			
 			return datePickerDialog;
 		}
 		
