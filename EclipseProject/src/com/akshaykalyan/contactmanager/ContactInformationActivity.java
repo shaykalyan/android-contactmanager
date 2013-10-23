@@ -278,7 +278,7 @@ public class ContactInformationActivity extends Activity {
 	 * onClick method which extracts the Mobile Phone field, creates call intent and fires.
 	 */
 	public void onClick_makePhoneCallMobile(View v) {
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		Intent callIntent = new Intent(Intent.ACTION_DIAL);
 		callIntent.setData(Uri.parse("tel:"+tvMobile.getText().toString().trim()));
 		startActivity(callIntent);
 	}
@@ -287,7 +287,7 @@ public class ContactInformationActivity extends Activity {
 	 * onClick method which extracts the Home Phone field, creates call intent and fires.
 	 */
 	public void onClick_makePhoneCallHome(View v) {
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		Intent callIntent = new Intent(Intent.ACTION_DIAL);
 		callIntent.setData(Uri.parse("tel:"+tvHome.getText().toString().trim()));
 		startActivity(callIntent);
 	}
@@ -296,7 +296,7 @@ public class ContactInformationActivity extends Activity {
 	 * onClick method which extracts the Work Phone field, creates call intent and fires.
 	 */
 	public void onClick_makePhoneCallWork(View v) {
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		Intent callIntent = new Intent(Intent.ACTION_DIAL);
 		callIntent.setData(Uri.parse("tel:"+tvWork.getText().toString().trim()));
 		startActivity(callIntent);
 	}
