@@ -19,6 +19,7 @@
     <string name="accessibility_showdatepickerdialog">Show Date Picker Dialog</string>
     <string name="accessibility_searchaddress">Search Address in Maps</string>
     <string name="accessibility_sendemailtocontact">Send Email To Contact</string>
+    <string name="accessibility_addcontactbirthdaytocalendar">Add Contact Birthday to Calendar</string>
     <string name="accessibility_callcontact">Call Contact</string>
     <string name="accessibility_sendmessage">Send Message</string>
     <string name="accessibility_clearbirthday">Clear Birthday</string>

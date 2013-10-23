@@ -1,6 +1,9 @@
 package com.akshaykalyan.contactmanager;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.akshaykalyan.contact.*;
@@ -8,6 +11,8 @@ import com.akshaykalyan.contactutilities.*;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -317,6 +322,28 @@ public class ContactInformationActivity extends Activity {
 		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
 		startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
 	}
+	
+	/**
+	 * onClick method which extracts the Birthday field, and creates calendar intent and fires.
+	 */
+	public void onClick_makeCalendarAppointment(View v) {
+		String[] calendarDates= tvBirthday.getText().toString().split("-");
+
+		int day = Integer.parseInt(calendarDates[0].trim());
+		int month = Integer.parseInt(calendarDates[1].trim())-1;
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		Calendar cal = new GregorianCalendar(year, month, day);
+
+		Intent intent = new Intent(Intent.ACTION_INSERT); 
+		intent.setData(Events.CONTENT_URI); 
+		intent.putExtra(Events.TITLE, "Birthday - " + tvName.getText().toString()); 
+		intent.putExtra(Events.ALL_DAY, true);
+		intent.putExtra("rrule", "FREQ=YEARLY");
+		intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTime().getTime()); 
+		intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTime().getTime() + 600000); 
+		startActivity(intent);
+	}
+	
 	
 	/**
 	 * onClick method which extracts the Address field, creates map intent and fires.

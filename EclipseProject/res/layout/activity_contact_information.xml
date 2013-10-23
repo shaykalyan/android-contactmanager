@@ -248,35 +248,51 @@
 		    </FrameLayout>
 		    
 		    <!-- Birthday -->
-		    <RelativeLayout 
+		    <FrameLayout 
 		        android:id="@+id/viewgroup_contactinfo_birthday"
-		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactinfo_birthday"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_birthday"
-			        style="@style/Label_Blue"/>
-			    
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_birthday"
-			        
+		        android:layout_width="fill_parent">
+		        
+			    <RelativeLayout 
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
-			        android:paddingTop="15dp"
-		       		android:paddingBottom="15dp"
-			        
-			        android:layout_below="@id/label_contactinfo_birthday"
-			        android:background="@drawable/bg_card"
-			        android:text="@string/text_birthday"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactinfo_birthday"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_birthday"
+				        style="@style/Label_Blue"/>
+				    <TextView 
+				        android:id="@+id/textview_contactinfo_birthday"
+				        android:layout_below="@id/label_contactinfo_birthday"
+				        
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:paddingTop="15dp"
+				        android:paddingBottom="15dp"
+				        
+				        android:background="@drawable/bg_card"
+				        android:gravity="center_vertical"
+
+				        style="@style/Text_DarkGrey"
+				        />
+			    </RelativeLayout>
+			    
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_new_event"
+				        android:contentDescription="@string/accessibility_addcontactbirthdaytocalendar"
+				        android:layout_marginTop="40dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="onClick_makeCalendarAppointment"/>
+		    </FrameLayout>
 		    
+
 		    <!-- Address -->
 	        <FrameLayout 
 	            android:id="@+id/viewgroup_contactinfo_address"
