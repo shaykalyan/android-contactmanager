@@ -24,7 +24,7 @@
     </FrameLayout>
 
 	<RelativeLayout
-	    android:layout_marginTop="30dp"
+	    android:layout_marginTop="20dp"
 	    android:layout_marginBottom="30dp"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content">
@@ -41,6 +41,8 @@
 	        android:id="@+id/dialog_about_appversion"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_marginTop="0dp"
+	        android:layout_marginBottom="10dp"
 	        android:gravity="center"
 	        android:layout_below="@id/dialog_about_appname"
 	        android:textSize="15sp"
@@ -54,6 +56,18 @@
 	        android:layout_below="@id/dialog_about_appversion"
 	        android:textSize="18sp"
 	        android:text="@string/text_about_by" />
+	    
+	    <TextView
+	        android:id="@+id/dialog_about_email"
+	        android:layout_marginTop="5dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_below="@id/dialog_about_by"
+	        android:textSize="14sp"
+	        android:textColor="@color/color_font_cyan_med"
+	        android:text="@string/text_about_email"
+	        android:clickable="true" />
 	</RelativeLayout>
 
 </LinearLayout>

@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    
-
-
     android:background="@color/color_background_grey"
     tools:context=".ContactInformationActivity"
     >
@@ -14,7 +11,7 @@
     <FrameLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content">
-		<com.akshaykalyan.contactmanager.ImageDrawer 
+		<com.akshaykalyan.contactutilities.ImageDrawer 
 		    android:id="@+id/image_contactinfo_contact_image"
 		    android:src="@drawable/ic_default_contactphoto"
 		    android:layout_width="match_parent"
@@ -27,21 +24,14 @@
 		    android:layout_height="wrap_content"
 		    android:layout_width="match_parent"
 		    android:layout_gravity="bottom"
-		    android:text="@string/text_fakefullname"
 		    style="@style/TextView_ImageOverlay_OpaqueBg"/>
     </FrameLayout>
 
-
-	        
-    
-    
-    <!-- Scroll view Contact info -->
+    <!-- Scroll view with Contact info -->
     <ScrollView 
         android:layout_height="fill_parent"
         android:layout_width="match_parent">
 		
-        
-    
 	    <LinearLayout 
 	        android:id="@+id/viewgroupparent_contactinfo"
 	        android:layout_width="match_parent"
@@ -51,10 +41,7 @@
 	        android:orientation="vertical"
 	        android:paddingTop="@dimen/activity_vertical_margin"
 	        android:paddingBottom="@dimen/activity_vertical_margin">
-		
-	        
-	        
-	        
+		 
 		    <!-- Mobile -->
 		    <FrameLayout 
 		        android:id="@+id/viewgroup_contactinfo_mobile"
@@ -81,7 +68,6 @@
 				        android:paddingTop="15dp"
 				        android:paddingBottom="15dp"
 				        android:background="@drawable/bg_card"
-				        android:text="@string/text_fakenumber"
 				        style="@style/Text_DarkGrey"
 				        />
 			    </RelativeLayout>
@@ -203,7 +189,6 @@
 			    
 			</FrameLayout>
 		    
-		    
 		    <!-- Email -->
 		    <FrameLayout 
 		        android:id="@+id/viewgroup_contactinfo_email"
@@ -231,7 +216,6 @@
 				        android:paddingBottom="15dp"
 				        
 				        android:background="@drawable/bg_card"
-				        android:text="@string/text_fakeemail"
 				        android:gravity="center_vertical"
 
 				        style="@style/Text_DarkGrey"
@@ -251,34 +235,49 @@
 		    </FrameLayout>
 		    
 		    <!-- Birthday -->
-		    <RelativeLayout 
+		    <FrameLayout 
 		        android:id="@+id/viewgroup_contactinfo_birthday"
-		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactinfo_birthday"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_birthday"
-			        style="@style/Label_Blue"/>
-			    
-			    <TextView 
-			        android:id="@+id/textview_contactinfo_birthday"
-			        
+		        android:layout_width="fill_parent">
+		        
+			    <RelativeLayout 
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
-			        android:paddingTop="15dp"
-		       		android:paddingBottom="15dp"
-			        
-			        android:layout_below="@id/label_contactinfo_birthday"
-			        android:background="@drawable/bg_card"
-			        android:text="@string/text_birthday"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactinfo_birthday"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_birthday"
+				        style="@style/Label_Blue"/>
+				    <TextView 
+				        android:id="@+id/textview_contactinfo_birthday"
+				        android:layout_below="@id/label_contactinfo_birthday"
+				        
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:paddingTop="15dp"
+				        android:paddingBottom="15dp"
+				        
+				        android:background="@drawable/bg_card"
+				        android:gravity="center_vertical"
+
+				        style="@style/Text_DarkGrey"
+				        />
+			    </RelativeLayout>
+			    
+			    <ImageView 
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_new_event"
+				        android:contentDescription="@string/accessibility_addcontactbirthdaytocalendar"
+				        android:layout_marginTop="40dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_gravity="right"
+				        android:clickable="true"
+				        android:onClick="onClick_makeCalendarAppointment"/>
+		    </FrameLayout>
 		    
 		    <!-- Address -->
 	        <FrameLayout 
@@ -300,8 +299,7 @@
 				        
 				        android:text="@string/text_address"
 				        style="@style/Label_Blue"/>
-			        
-			        
+			          
 			        <LinearLayout
 			            android:layout_height="wrap_content"
 			            android:layout_width="fill_parent"
@@ -313,28 +311,24 @@
 					        android:id="@+id/textview_contactinfo_addressline1"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/text_fakeaddressline1"
 					        style="@style/Text_DarkGrey"
 					        />
 					    <TextView 
 					        android:id="@+id/textview_contactinfo_addressline2"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/text_fakeaddressline2"
 					        style="@style/Text_DarkGrey"
 					        />
 					    <TextView 
 					        android:id="@+id/textview_contactinfo_addressline3"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/text_fakeaddressline3"
 					        style="@style/Text_DarkGrey"
 					        />
 					    <TextView 
 					        android:id="@+id/textview_contactinfo_addressline4"
 					        android:layout_width="fill_parent"
 					        android:layout_height="wrap_content"
-					        android:text="@string/emptystring"
 					        style="@style/Text_DarkGrey"
 					        />
 				    </LinearLayout>  

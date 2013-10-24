@@ -1,6 +1,7 @@
 package com.akshaykalyan.contact;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
@@ -21,6 +22,11 @@ public class Contact implements Parcelable {
 	private ContactPhone fPhone;
 	private ContactBirthday fBirthday;
 	private ContactPhoto fPhoto;
+	private int fId;
+	
+	// ====================================================================
+    // 		SortBy enumeration type
+    // ====================================================================
 	
 	/**
 	 * SortBy enumeration types returns a Comparator object allowing Contact objects to be sorted in various ways.
@@ -39,7 +45,7 @@ public class Contact implements Parcelable {
 		 * Constructor to initialise comparator field.
 		 * Note: If either of the compared fields is an empty string, that contact object is 'pushed back'/
 		 * given lower priority than other. 
-		 * 		e.g: "" compared to "abc" -- "" will be placed after "abc" in the list.
+		 * 		e.g: "" compared to "abc" --> "" will be placed after "abc" in the list.
 		 */
 		private SortBy(int i) {
 			switch (i) {
@@ -48,7 +54,6 @@ public class Contact implements Parcelable {
 						public int compare(Contact lhs, Contact rhs) {
 							if (lhs.fName.getFirstName().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fName.getFirstName().isEmpty()) {
 								return -1;
 							}
@@ -61,7 +66,6 @@ public class Contact implements Parcelable {
 						public int compare(Contact lhs, Contact rhs) {
 							if (lhs.fName.getLastName().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fName.getLastName().isEmpty()) {
 								return -1;
 							}
@@ -74,7 +78,6 @@ public class Contact implements Parcelable {
 						public int compare(Contact lhs, Contact rhs) {
 							if (lhs.fPhone.getMobilePhone().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fPhone.getMobilePhone().isEmpty()) {
 								return -1;
 							}
@@ -88,7 +91,6 @@ public class Contact implements Parcelable {
 							// empty string is lower in order
 							if (lhs.fPhone.getHomePhone().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fPhone.getHomePhone().isEmpty()) {
 								return -1;
 							}
@@ -102,7 +104,6 @@ public class Contact implements Parcelable {
 							// empty string is lower in order
 							if (lhs.fPhone.getWorkPhone().isEmpty()) {
 								return 1;
-								
 							} else if (rhs.fPhone.getWorkPhone().isEmpty()) {
 								return -1;
 							}
@@ -114,12 +115,15 @@ public class Contact implements Parcelable {
 					break;
 			}
 		}
-		
 	}
+	
+	// ====================================================================
+    // 		Constructors
+    // ====================================================================
 	
 	/**
 	 * Constructor which creates a new Contact object with respective fields instantiated. 
-	 * Strings and a bitmap object is expected
+	 * Several Strings, a Bitmap object and an Integer is expected
 	 * 
 	 * @param firstName - contact's first name
 	 * @param lastName - contact's last name
@@ -133,19 +137,21 @@ public class Contact implements Parcelable {
 	 * @param contactAddressLine3 - address line three
 	 * @param contactAddressLine4 - address line four
 	 * @param photo - Bitmap object denoting the contact's photo attribute
+	 * @param id - Contact ID used for database
 	 */
 	public Contact(String firstName, String lastName, 
-			String mobilePhone, String workPhone, String homePhone, 
+			String mobilePhone, String homePhone, String workPhone, 
 			String email, 
 			String birthday,
 			String contactAddressLine1, String contactAddressLine2, String contactAddressLine3, String contactAddressLine4,  
-			Bitmap photo) {
+			Bitmap photo, int id) {
 		this.fName = new ContactName(firstName, lastName);
 		this.fAddress = new ContactAddress(contactAddressLine1, contactAddressLine2, contactAddressLine3, contactAddressLine4);
 		this.fEmail = new ContactEmail(email);
 		this.fPhone = new ContactPhone(mobilePhone, homePhone, workPhone);
 		this.fBirthday = new ContactBirthday(birthday);
 		this.fPhoto = new ContactPhoto(photo);
+		this.fId = id;
 	}
 	
 	/**
@@ -156,21 +162,27 @@ public class Contact implements Parcelable {
 	 * @param birthday
 	 * @param address
 	 * @param photo
+	 * @param id
 	 */
 	public Contact(ContactName name, ContactPhone phone, ContactEmail email, ContactBirthday birthday,
-					ContactAddress address, ContactPhoto photo) {
+					ContactAddress address, ContactPhoto photo, int id) {
 		this.fName = name;
 		this.fPhone = phone;
 		this.fEmail = email;
 		this.fBirthday = birthday;
 		this.fAddress = address;
 		this.fPhoto = photo;
+		this.fId = id;
 	}
+	
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
 	
 	/**
 	 * Name - Setter 
 	 */
-	public void setfName(String firstName, String lastName) {
+	public void setName(String firstName, String lastName) {
 		this.fName.setFirstName(firstName);
 		this.fName.setLastName(lastName);
 	}
@@ -178,14 +190,14 @@ public class Contact implements Parcelable {
 	/**
 	 * Name - Getter 
 	 */
-	public ContactName getfName() {
+	public ContactName getName() {
 		return fName;
 	}
 	
 	/**
 	 * Address - Setter
 	 */
-	public void setfAddress(String addressLine1, String addressLine2, String addressLine3, String addressLine4) {
+	public void setAddress(String addressLine1, String addressLine2, String addressLine3, String addressLine4) {
 		this.fAddress.setAddressLine1(addressLine1);
 		this.fAddress.setAddressLine2(addressLine2);
 		this.fAddress.setAddressLine3(addressLine3);
@@ -195,28 +207,28 @@ public class Contact implements Parcelable {
 	/**
 	 * Address - Getter
 	 */
-	public ContactAddress getfAddress() {
+	public ContactAddress getAddress() {
 		return fAddress;
 	}
 	
 	/**
 	 * Email - Setter
 	 */
-	public void setfEmail(String emailString) {
-		this.fEmail.setEmailString(emailString);
+	public void setEmail(String emailString) {
+		this.fEmail.setEmail(emailString);
 	}
 	
 	/**
 	 * Email - Getter
 	 */
-	public ContactEmail getfEmail() {
+	public ContactEmail getEmail() {
 		return fEmail;
 	}
 	
 	/**
 	 * Phone - Setter
 	 */
-	public void setfPhone(String mobilePhone, String homePhone, String workPhone) {
+	public void setPhone(String mobilePhone, String homePhone, String workPhone) {
 		this.fPhone.setMobilePhone(mobilePhone);
 		this.fPhone.setHomePhone(homePhone);
 		this.fPhone.setWorkPhone(workPhone);
@@ -224,41 +236,55 @@ public class Contact implements Parcelable {
 	/**
 	 * Phone - Getter
 	 */
-	public ContactPhone getfPhone() {
+	public ContactPhone getPhone() {
 		return fPhone;
 	}
 	
 	/**
 	 * Birthday - Setter
 	 */
-	public void setfBirthday(String birthday) {
-		this.fBirthday.setfBirthday(birthday);
+	public void setBirthday(String birthday) {
+		this.fBirthday.setBirthday(birthday);
 	}
 	
 	/**
 	 * Birthday - Getter
 	 */
-	public ContactBirthday getfBirthday() {
+	public ContactBirthday getBirthday() {
 		return fBirthday;
 	}
 	
 	/**
 	 * Photo - Setter
 	 */
-	public void setfPhoto(Bitmap photoBitmap) {
+	public void setPhoto(Bitmap photoBitmap) {
 		this.fPhoto.setPhotoBitmap(photoBitmap);
 	}
 	
 	/**
 	 * Photo - Getter
 	 */
-	public ContactPhoto getfPhoto() {
+	public ContactPhoto getPhoto() {
 		return fPhoto;
 	}
 	
+	/**
+	 * ID - Getter
+	 */
+	public int getId() {
+		return fId;
+	}
 	
+	/**
+	 * ID - Setter
+	 */
+	public void setId(int fId) {
+		this.fId = fId;
+	}
 	
-	/** Parcelable Interface Methods */
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
 	
 	@Override
 	public int describeContents() {
@@ -273,6 +299,7 @@ public class Contact implements Parcelable {
 		dest.writeValue(fEmail);
 		dest.writeValue(fBirthday);
 		dest.writeValue(fAddress);
+		dest.writeValue(fId);
 	}
 	
 	public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {
@@ -284,9 +311,9 @@ public class Contact implements Parcelable {
 			ContactEmail email = (ContactEmail)in.readValue(getClass().getClassLoader());
 			ContactBirthday birthday = (ContactBirthday)in.readValue(getClass().getClassLoader());
 			ContactAddress address = (ContactAddress)in.readValue(getClass().getClassLoader());
+			int id = (Integer)in.readValue(getClass().getClassLoader());
 			
-			
-			return new Contact(name, phone, email, birthday, address, photo);
+			return new Contact(name, phone, email, birthday, address, photo, id);
 		}
 		
 		@Override
@@ -295,12 +322,16 @@ public class Contact implements Parcelable {
 		}
 	};
 	
+	// ====================================================================
+    // 		toString Override
+    // ====================================================================
+	
 	@Override
 	/**
-	 * Override to String to return contact name in lower-case for a list adapter's filter
-	 * function to work with this Contact implementation.
+	 * Override to String to return contact name in lower-case and numbers for a list adapter's
+	 * filter function to work with this Contact implementation.
 	 */
 	public String toString() {
-		return getfName().toString().toLowerCase();
+		return getName().toString().toLowerCase(Locale.ENGLISH) + " " + fPhone.toString();
 	}
 }

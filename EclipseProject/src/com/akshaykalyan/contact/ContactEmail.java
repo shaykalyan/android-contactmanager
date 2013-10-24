@@ -28,25 +28,31 @@ public class ContactEmail implements Parcelable {
 		this.fEmail = emailString;
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
-	public String getEmailString() {
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
+	
+	public String getEmail() {
 		return fEmail;
 	}
 	
-	public void setEmailString(String emailString) {
+	public void setEmail(String emailString) {
 		this.fEmail = emailString;
 	}
+	
+	// ====================================================================
+    // 		toString
+    // ====================================================================
 	
 	@Override
 	public String toString() {
 		return fEmail;
 	}
 	
-	/**
-	 * Parcelable Interface Methods
-	 */
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -67,6 +73,10 @@ public class ContactEmail implements Parcelable {
 			return new ContactEmail[size];
 		};
 	};
+	
+	// ====================================================================
+    // 		Email Validation Class
+    // ====================================================================
 	
 	/**
 	 * Inner class used to validate email address strings. 

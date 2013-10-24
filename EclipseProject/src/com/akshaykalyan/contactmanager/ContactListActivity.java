@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contact.Contact.SortBy;
+import com.akshaykalyan.contactutilities.*;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -48,7 +51,7 @@ import android.text.TextWatcher;
  *
  * This activity is based on the navigation drawer layout scheme.
  * 
- * @author Akshay Pravin Kalyan | akal881 | 57886866
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
  */
 public class ContactListActivity extends FragmentActivity {
 
@@ -56,10 +59,10 @@ public class ContactListActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	
-	private static SortBy currentSortBy = SortBy.FirstName;
-	
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ContactListFragment mContactListFragment = new ContactListFragment();
+
+	private static SortBy currentSortBy = SortBy.FirstName;
 
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -73,27 +76,12 @@ public class ContactListActivity extends FragmentActivity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-		// create sort options header
-		View header = View.inflate(this, R.layout.listview_header_sort_options, null);
-		mDrawerList.addHeaderView(header, null, false);
-		
-		// sets header font to roboto
-		TextView tView = (TextView)findViewById(R.id.sort_options_header);
-		Typeface tf = FontRobotoRegular.getTypeface(this);
-    	tView.setTypeface(tf);    
-		
-		// populate sort options list
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.list_item_drawer, mSortOptions));
-		
-		// set sort options list listener
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		setUpSortOptionsDrawerList();
 				
 		mDrawerToggle = new ActionBarDrawerToggle(this,  mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 			
 			/** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-            	// TODO: try to lose focus on search edit text here or onDrawerOpened
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
             
@@ -112,8 +100,29 @@ public class ContactListActivity extends FragmentActivity {
  
         FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction().add(R.id.content_frame, mContactListFragment).commit();
- 		
-
+	}
+	
+	/**
+	 * Method which sets up the Sort Options Drawer List by setting the list contents,
+	 * click logic and current sort type.
+	 */
+	private void setUpSortOptionsDrawerList() {
+		// create sort options header
+		View header = View.inflate(this, R.layout.listview_header_sort_options, null);
+		mDrawerList.addHeaderView(header, null, false);
+		
+		// sets header font to roboto
+		TextView tView = (TextView)findViewById(R.id.sort_options_header);
+		Typeface tf = FontRobotoRegular.getTypeface(this);
+    	tView.setTypeface(tf);    
+		
+		// populate sort options list
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.list_item_drawer, mSortOptions));
+		
+		// set sort options list listener
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
 		// Highlight the selected item and close the drawer
 		// highlight the current sort by type
 		int itemCheckedPosition = 1;
@@ -134,19 +143,17 @@ public class ContactListActivity extends FragmentActivity {
 			itemCheckedPosition = 5;
 			break;
 		}
-		// NOTE: actual sorting of contact list is not done now, as list is not yet populated
 		mDrawerList.setItemChecked(itemCheckedPosition, true);
 	}
 	
 	@Override
 	/**
-	 * If sort options drawer is open, it is closed. Otherwise application exits.
+	 * If sort options drawer is open, it is told to close. Otherwise application exits.
 	 */
 	public void onBackPressed() {
 		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
     		mDrawerLayout.closeDrawer(Gravity.LEFT);
     	} else {
-    		// TODO change this as does not actually close app. Runs in bg
     		finish();
     		super.onBackPressed();
     	}
@@ -154,6 +161,8 @@ public class ContactListActivity extends FragmentActivity {
 
 	/**
 	 * @see android.app.Activity#onCreateOptionsMenu(Menu)
+	 * Also responsible for setting up the dynamic search in the action bar including the
+	 * toggling of the soft keyboard to only when it is required.
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -225,13 +234,13 @@ public class ContactListActivity extends FragmentActivity {
 	 */
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
 		@Override
-		public void onItemClick(AdapterView parent, View view, int position, long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			setListSort(position);
 		}
 	}
 	
 	/**
-	 * Sort items by the options in drawer
+	 * Sort items by the position of the sort option selected in the list. 
 	 */
 	private void setListSort(int position) {		
 		
@@ -263,24 +272,20 @@ public class ContactListActivity extends FragmentActivity {
 	    mDrawerLayout.closeDrawer(mDrawerList);  
 	}	
 	
-	/* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        
-        // to hide the menus items etc
-//        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
-    }
-	
+	/**
+	 * Sort Options Drawer - Syncs the toggle state after 
+	 * onRestoreInstanceState has occurred.
+	 */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
     	super.onPostCreate(savedInstanceState);
-    	// Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
     
+    /**
+	 * Sort Options Drawer - Notifies the drawer toggle of a 
+	 * Configuration change.
+	 */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -289,6 +294,8 @@ public class ContactListActivity extends FragmentActivity {
     
     /**
      * @see android.app.Activity#onOptionsItemSelected(MenuItem)
+     * Sets up the action bar buttons. Toggling of the Sort Options
+     * drawer is also carried out.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -311,6 +318,7 @@ public class ContactListActivity extends FragmentActivity {
         	Intent intent = new Intent(getApplicationContext(), ContactEditActivity.class);
         	intent.putExtra("PARENT_ACTIVITY", ContactListActivity.class);
         	startActivity(intent);
+        	finish();
         	break;
         case R.id.action_sortoptions:
         	if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
@@ -325,33 +333,10 @@ public class ContactListActivity extends FragmentActivity {
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-	 * Inner Class responsible for generating a custom About dialog when a request has 
-	 * been placed by the user. 
-	 * 
-	 * About dialog contains the Application name, version and Author.
-	 */
-    public static class AboutDialog extends DialogFragment {
-    	@Override
-    	public Dialog onCreateDialog(Bundle savedInstanceState) {
-    		
-    		// Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            // get the layout inflater
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            
-            builder.setView(inflater.inflate(R.layout.diaglog_about, null))
-                   .setPositiveButton(R.string.action_okay, new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int id) {
-                           dismiss();
-                       }
-                   });
-            // Create the AlertDialog object and return it
-            return builder.create();
-    		
-    	}
-    }    
+    
+    // ====================================================================
+    // 			Contact List Fragment
+    // ====================================================================
     
     /**
      * A custom List Fragment class responsible for displaying the Contact list.
@@ -373,7 +358,7 @@ public class ContactListActivity extends FragmentActivity {
     	}
     	
     	/**
-    	 * Sorts the underlying Contacts list based on the comparator passed in. 
+    	 * Sorts the underlying Contacts list based on the comparator object passed in. 
     	 */
     	public void sortContactsList(Comparator<Contact> cmp) {
     		fAdapter.sort(cmp);
@@ -385,7 +370,7 @@ public class ContactListActivity extends FragmentActivity {
     	 * to filter contacts. 
     	 */
     	public void filterContacts(CharSequence cs) {
-    		fAdapter.getFilter().filter(cs.toString().toLowerCase());
+    		fAdapter.getFilter().filter(cs.toString().toLowerCase(Locale.ENGLISH));
     	}
     	
     	/**
@@ -401,38 +386,16 @@ public class ContactListActivity extends FragmentActivity {
     		// Set no data text
     		setEmptyText("No Contacts Found");
     		
-    		// TODO remove self print check
-    		System.out.println("ContactListFragment.onActivityCreated");
-    		
     		//Create an adapter with list
     		fAdapter = new CustomArrayAdapter(getActivity(), contactsList);
     		setListAdapter(fAdapter);
     		
-    		// TODO remove hard-coded Contacts!
-    		contactsList.add(new Contact("Target Road", "Tyres", 
-    				"0210210211", "096005000", "095478731", 
-    				"akal881@aucklanduni.co.nz",
-    				"25-12-1993", 
-    				"145 Target Road", "Wairau Valley", "North Shore", "Auckland",
-         		   null));   
-    		contactsList.add(new Contact("Akshay", "Kalyan",
-    				"0277556866", "094445566", "094455466", 
-    				"akal881@aucklanduni.ac.nz",
-    				"25-12-1993",
-    				"70 Symonds Street", "Grafton", "Auckland","New Zealand" ,
-    				null));
-    		contactsList.add(new Contact("Bob", "Quinn", "", "075788675", "", "", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Ewan", "Weber", "", "", "094445566", "", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Matthew", "Chiam", "02102926646", "", "", "matthew.c@gmail.com", "", "", "", "","" , null));
-    		contactsList.add(new Contact("Bert", "Huang", "", "", "", "bert.h@aucklanduni.ac.nz", "", "", "", "","" , null));
-            contactsList.add(new Contact("Tommy", "Zong", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Zack", "Smith", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Steve", "Hunter", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Nota", "Reelperson", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("Ethan", "Inglis", "", "", "", "", "", "", "", "","" , null));
-            contactsList.add(new Contact("James", "Bourne", "", "", "", "", "", "", "", "","" , null));  
-            
-            // TODO find replacement for this quick hack to select first name default
+    		// add database
+    		DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
+    		contactsList.clear();
+    		contactsList.addAll(db.getAllContacts());
+    		db.close();
+
             Collections.sort(contactsList, currentSortBy.fComparator);
             fAdapter.notifyDataSetChanged();
     	}
@@ -447,15 +410,54 @@ public class ContactListActivity extends FragmentActivity {
     		Contact contact = fAdapter.getItem(position);
     		intent.putExtra("CONTACT_OBJECT", contact);
     		startActivity(intent);
-    	}
-    
-    	/**
-    	 * Adds a contact object passed in to the underlying list in the adapter.
-    	 */
-    	public void AddItem (View v, Contact c) {
-    		fAdapter.add(c);
-    		fAdapter.notifyDataSetChanged();
+    		getActivity().finish();
     	}
 	}
+    
+ 	// ====================================================================
+    // 			About 'Contact Now' Dialog
+    // ====================================================================
+    
+    /**
+	 * Inner Class responsible for generating a custom About dialog when a request has 
+	 * been placed by the user. 
+	 * 
+	 * About dialog contains the application name, version and developer details.
+	 * Also, provides a clickable email address to the developer
+	 */
+    public static class AboutDialog extends DialogFragment {
+    	@Override
+    	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    		
+    		// Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            // get the layout inflater
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View aboutView = inflater.inflate(R.layout.diaglog_about, null);
+            
+            // email on click logic
+            TextView devEmailTextView = (TextView) aboutView.findViewById(R.id.dialog_about_email);
+            devEmailTextView.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					String emailString = getString(R.string.text_about_email);
+					Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailString, null));
+					emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contacts Now");
+					startActivity(Intent.createChooser(emailIntent, "Please select Email Client"));
+					dismiss();
+				}
+			});
+            // dialog button
+            builder.setView(aboutView)
+                   .setPositiveButton(R.string.action_okay, new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           dismiss();
+                       }
+                   });
+            // Create the AlertDialog object and return it
+            return builder.create();
+    	}
+    }    
 }
 

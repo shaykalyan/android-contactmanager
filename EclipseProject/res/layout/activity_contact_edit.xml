@@ -7,292 +7,292 @@
 
     android:background="@color/color_background_grey"
     tools:context=".ContactEditActivity">
-	<LinearLayout 
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent"
-	    android:orientation="vertical">
-    <FrameLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content">
-		<ImageView
-		    android:id="@+id/image_contactedit_contact_image"
-		    android:src="@drawable/ic_default_contactphoto"
-		    android:layout_width="match_parent"
-		    android:layout_height="150dp"
-		    android:scaleType="centerCrop"
-		    android:contentDescription="@string/accessibility_contactphoto"/>
-		<ImageView 
-		    android:id="@+id/textview_contactinfo_name"
-		    android:src="@drawable/ic_editpen_light"
-		    android:contentDescription="@string/accessibility_contactphoto"
-		    android:layout_height="wrap_content"
-		    android:layout_width="match_parent"
-		    android:layout_gravity="bottom"
-		    android:background="@color/color_black_transparent"
-		    android:clickable="true"
-		    android:onClick="onClick_showImageSourceDialog"
-		    />
-    </FrameLayout>
     
     <ScrollView 
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="50dp"
-        >
-	    <LinearLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingLeft="@dimen/activity_horizontal_margin"
-    		android:paddingRight="@dimen/activity_horizontal_margin"
-	        android:orientation="vertical"
-	        android:paddingTop="@dimen/activity_vertical_margin"
-	        android:paddingBottom="@dimen/activity_vertical_margin">
-	        
-	        
-		    <!-- Names -->
-		    <!-- To stop auto focus on edit text, parent has been given focus -->
-	        <LinearLayout 
-	            android:layout_height="wrap_content"
-	            android:layout_width="fill_parent"
-	            android:orientation="vertical"
-	            
-	            android:layout_marginTop="10dp"          
-	            android:descendantFocusability="beforeDescendants"
-	   			android:focusableInTouchMode="true"
-	            >
-	            
-	            <TextView
-		            android:id="@+id/label_contactedit_name"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-	
-		            android:text="@string/text_name" 
-		            style="@style/Label_Blue"/>
-	           	 
-		        <EditText
-		            android:id="@+id/edittext_contactedit_firstname"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-	
-		            android:hint="@string/text_firstname" 
-		            android:inputType="textCapWords"
-		            style="@style/Text_DarkGrey"/>
-		        <EditText
-		            android:id="@+id/edittext_contactedit_lastname"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:layout_marginTop="5dp"
-		            android:inputType="textCapWords"
-		            android:hint="@string/text_lastname" 
-		            style="@style/Text_DarkGrey"/>
-	
+        android:layout_marginBottom="50dp">
+        
+        <LinearLayout 
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+            
+            <FrameLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+				<ImageView
+				    android:id="@+id/image_contactedit_contact_image"
+				    android:src="@drawable/ic_default_contactphoto"
+				    android:layout_width="match_parent"
+				    android:layout_height="150dp"
+				    android:scaleType="centerCrop"
+				    android:contentDescription="@string/accessibility_contactphoto"/>
+				<ImageView 
+				    android:id="@+id/textview_contactinfo_name"
+				    android:src="@drawable/ic_editpen_light"
+				    android:contentDescription="@string/accessibility_contactphoto"
+				    android:layout_height="wrap_content"
+				    android:layout_width="match_parent"
+				    android:layout_gravity="bottom"
+				    android:background="@color/color_black_transparent"
+				    android:clickable="true"
+				    android:onClick="onClick_showImageSourceDialog"/>
+	    	</FrameLayout>
+	    	
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="@dimen/activity_horizontal_margin"
+	    		android:paddingRight="@dimen/activity_horizontal_margin"
+		        android:orientation="vertical"
+		        android:paddingTop="@dimen/activity_vertical_margin"
+		        android:paddingBottom="@dimen/activity_vertical_margin">
 		        
-	        
-	        </LinearLayout>
-		
-		    <!-- Mobile -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="20dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactedit_phone_mobile"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_phone_mobile"
-			        style="@style/Label_Blue"/>
-			    <EditText 
-			        android:id="@+id/edittext_contactedit_phone_mobile"
-			        
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactedit_phone_mobile"
-			        android:inputType="phone"
-			        android:hint="@string/text_phone_mobile"
-			        android:textSize="15sp"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
-		    
-		    <!-- Home -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactedit_phone_home"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_phone_home"
-			        style="@style/Label_Blue"/>
-			    <EditText 
-			        android:id="@+id/edittext_contactedit_phone_home"
-			        
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactedit_phone_home"
-			        android:inputType="phone"
-			        android:hint="@string/text_phone_home"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
-		    
-		    <!-- Work -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactedit_phone_work"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_phone_work"
-			        style="@style/Label_Blue"/>
-			    <EditText 
-			        android:id="@+id/edittext_contactedit_phone_work"
-			        
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactedit_phone_work"
-			        android:inputType="phone"
-			        android:hint="@string/text_phone_work"
-			        android:textSize="15sp"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
-		    
-		    <!-- Email -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactedit_email"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_email"
-			        style="@style/Label_Blue"/>
-			    <EditText 
-			        android:id="@+id/edittext_contactedit_email"
-			        
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactedit_email"
-			        android:inputType="textEmailAddress"
-			        android:hint="@string/text_email"
-			        style="@style/Text_DarkGrey"
-			        />
-		    </RelativeLayout>
-		    
-		    <!-- Birthday -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-			    <TextView 
-			        android:id="@+id/label_contactedit_birthday"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="@string/text_birthday"
-			        style="@style/Label_Blue"/>
-			    
-
-			    <TextView
-			        android:id="@+id/textview_contactedit_birthday"
-			        style="@style/Text_DarkGrey"
-			        android:layout_width="150dp"
-			        android:layout_height="wrap_content"
-			        android:layout_below="@id/label_contactedit_birthday"
-			        android:background="@drawable/ninepatch_textfield_default_holo_light"
-			        android:clickable="true"
-			        android:hint="@string/text_birthday"
-			        android:onClick="onClick_showDatePickerDialog"/>
-			    <ImageView 
-			        android:id="@+id/button_editactivity_deletebirthday"
-			        android:layout_marginLeft="10dp"
-			        android:layout_toRightOf="@id/textview_contactedit_birthday"
-			        android:layout_alignBottom="@id/textview_contactedit_birthday"
-			        android:layout_height="wrap_content"
-			        android:layout_width="wrap_content"
-			        android:src="@drawable/ic_cancel_x"
-			        android:contentDescription="@string/accessibility_clearbirthday"
-			        android:scaleX="0.7"
-			        android:scaleY="0.7"
-			        android:clickable="false"
-			        android:onClick="onClick_deleteBirthdayText"/>
-
-		    </RelativeLayout>
-		    
-		    
-		    
-		    <!-- Address -->
-		    <RelativeLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp">
-			    
-		        <TextView 
-			        android:id="@+id/label_contactedit_address"
-			        
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        
-			        android:text="@string/text_address"
-			        style="@style/Label_Blue"/>
 		        
-		        <LinearLayout
+			    <!-- Names -->
+			    <!-- To stop auto focus on edit text, parent has been given focus -->
+		        <LinearLayout 
 		            android:layout_height="wrap_content"
 		            android:layout_width="fill_parent"
+		            android:orientation="vertical"
 		            
-		            android:layout_below="@id/label_contactedit_address"
-		            android:orientation="vertical">
+		            android:layout_marginTop="10dp"          
+		            android:descendantFocusability="beforeDescendants"
+		   			android:focusableInTouchMode="true"
+		            >
+		            
+		            <TextView
+			            android:id="@+id/label_contactedit_name"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+		
+			            android:text="@string/text_name" 
+			            style="@style/Label_Blue"/>
+		           	 
+			        <EditText
+			            android:id="@+id/edittext_contactedit_firstname"
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content"
+		
+			            android:hint="@string/text_firstname" 
+			            android:inputType="textCapWords"
+			            style="@style/Text_DarkGrey"/>
+			        <EditText
+			            android:id="@+id/edittext_contactedit_lastname"
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="5dp"
+			            android:inputType="textCapWords"
+			            android:hint="@string/text_lastname" 
+			            style="@style/Text_DarkGrey"/>
+		
+			        
+		        
+		        </LinearLayout>
+			
+			    <!-- Mobile -->
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="20dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactedit_phone_mobile"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_phone_mobile"
+				        style="@style/Label_Blue"/>
 				    <EditText 
-				        android:id="@+id/edittext_contactedit_addressline1"
+				        android:id="@+id/edittext_contactedit_phone_mobile"
+				        
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
-				        android:hint="@string/text_addressline1"
-				        android:inputType="textPostalAddress"
+				        android:layout_below="@id/label_contactedit_phone_mobile"
+				        android:inputType="phone"
+				        android:hint="@string/text_phone_mobile"
+				        android:textSize="15sp"
 				        style="@style/Text_DarkGrey"
 				        />
+			    </RelativeLayout>
+			    
+			    <!-- Home -->
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactedit_phone_home"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_phone_home"
+				        style="@style/Label_Blue"/>
 				    <EditText 
-				        android:id="@+id/edittext_contactedit_addressline2"
+				        android:id="@+id/edittext_contactedit_phone_home"
+				        
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
-				        android:hint="@string/text_addressline2"
-				        android:inputType="textPostalAddress"
+				        android:layout_below="@id/label_contactedit_phone_home"
+				        android:inputType="phone"
+				        android:hint="@string/text_phone_home"
 				        style="@style/Text_DarkGrey"
 				        />
+			    </RelativeLayout>
+			    
+			    <!-- Work -->
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactedit_phone_work"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_phone_work"
+				        style="@style/Label_Blue"/>
 				    <EditText 
-				        android:id="@+id/edittext_contactedit_addressline3"
+				        android:id="@+id/edittext_contactedit_phone_work"
+				        
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
-				        android:hint="@string/text_addressline3"
-				        android:inputType="textPostalAddress"
+				        android:layout_below="@id/label_contactedit_phone_work"
+				        android:inputType="phone"
+				        android:hint="@string/text_phone_work"
+				        android:textSize="15sp"
 				        style="@style/Text_DarkGrey"
 				        />
+			    </RelativeLayout>
+			    
+			    <!-- Email -->
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactedit_email"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_email"
+				        style="@style/Label_Blue"/>
 				    <EditText 
-				        android:id="@+id/edittext_contactedit_addressline4"
+				        android:id="@+id/edittext_contactedit_email"
+				        
 				        android:layout_width="fill_parent"
 				        android:layout_height="wrap_content"
-				        android:hint="@string/text_addressline4"
-				        android:inputType="textPostalAddress"
+				        android:layout_below="@id/label_contactedit_email"
+				        android:inputType="textEmailAddress"
+				        android:hint="@string/text_email"
 				        style="@style/Text_DarkGrey"
 				        />
-			    </LinearLayout>
-		    </RelativeLayout>
+			    </RelativeLayout>
+			    
+			    <!-- Birthday -->
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp">
+				    
+				    <TextView 
+				        android:id="@+id/label_contactedit_birthday"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="@string/text_birthday"
+				        style="@style/Label_Blue"/>
+				    
+	
+				    <TextView
+				        android:id="@+id/textview_contactedit_birthday"
+				        style="@style/Text_DarkGrey"
+				        android:layout_width="150dp"
+				        android:layout_height="wrap_content"
+				        android:layout_below="@id/label_contactedit_birthday"
+				        android:background="@drawable/ninepatch_textfield_default_holo_light"
+				        android:clickable="true"
+				        android:hint="@string/text_birthday"
+				        android:onClick="onClick_showDatePickerDialog"/>
+				    <ImageView 
+				        android:id="@+id/button_editactivity_deletebirthday"
+				        android:layout_marginLeft="10dp"
+				        android:layout_toRightOf="@id/textview_contactedit_birthday"
+				        android:layout_alignBottom="@id/textview_contactedit_birthday"
+				        android:layout_height="wrap_content"
+				        android:layout_width="wrap_content"
+				        android:src="@drawable/ic_cancel_x"
+				        android:contentDescription="@string/accessibility_clearbirthday"
+				        android:scaleX="0.7"
+				        android:scaleY="0.7"
+				        android:clickable="false"
+				        android:onClick="onClick_deleteBirthdayText"/>
+	
+			    </RelativeLayout>
+			    
+			    
+			    
+			    <!-- Address -->
+			    <RelativeLayout 
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp">
+				    
+			        <TextView 
+				        android:id="@+id/label_contactedit_address"
+				        
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        
+				        android:text="@string/text_address"
+				        style="@style/Label_Blue"/>
+			        
+			        <LinearLayout
+			            android:layout_height="wrap_content"
+			            android:layout_width="fill_parent"
+			            
+			            android:layout_below="@id/label_contactedit_address"
+			            android:orientation="vertical">
+					    <EditText 
+					        android:id="@+id/edittext_contactedit_addressline1"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:hint="@string/text_addressline1"
+					        android:inputType="textCapWords"
+					        style="@style/Text_DarkGrey"
+					        />
+					    <EditText 
+					        android:id="@+id/edittext_contactedit_addressline2"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:hint="@string/text_addressline2"
+					        android:inputType="textCapWords"
+					        style="@style/Text_DarkGrey"
+					        />
+					    <EditText 
+					        android:id="@+id/edittext_contactedit_addressline3"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:hint="@string/text_addressline3"
+					       android:inputType="textCapWords"
+					        style="@style/Text_DarkGrey"
+					        />
+					    <EditText 
+					        android:id="@+id/edittext_contactedit_addressline4"
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content"
+					        android:hint="@string/text_addressline4"
+					        android:inputType="textCapWords"
+					        style="@style/Text_DarkGrey"
+					        />
+				    </LinearLayout>
+			    </RelativeLayout>
+		    </LinearLayout>
 	    </LinearLayout>
-	    
 	</ScrollView>
-	</LinearLayout>
 	
     <RelativeLayout 
     	android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     >
 
     <!--  block descendents to make all children :focusable="false" -->
-<RelativeLayout 
+	<RelativeLayout 
 	android:id="@+id/list_item_contact_card_relative"
 	android:layout_height="wrap_content"
     android:layout_width="fill_parent"
@@ -25,7 +25,7 @@
 	        
 	        android:contentDescription="@string/accessibility_contactphoto"
 	        android:focusable="true"
-	        android:paddingBottom="2dp"
+	        android:paddingBottom="5dp"
 	        android:paddingLeft="0dp"
 	        android:paddingRight="0dp"
 	        android:paddingTop="0dp"
@@ -40,10 +40,9 @@
 	        android:layout_toRightOf="@+id/list_item_contact_card_imageview"
 	        android:paddingLeft="30dp"
 	        android:paddingBottom="5dp"
-	        android:text="@string/text_fakefullname"
 	        android:textSize="16sp" />
  
-</RelativeLayout>
+	</RelativeLayout>
 	<!-- empty view for bottom margin -->
 	<View 
 	    android:layout_below="@id/list_item_contact_card_relative"

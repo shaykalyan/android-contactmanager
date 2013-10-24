@@ -7,8 +7,7 @@
     <string name="title_activity_contact_edit">Contact Edit</string>
     <string name="title_activity_contact_add">New Contact</string>
     <string name="action_settings">Settings</string>
-    
-    <string name="hello_world">Hello world!</string>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
@@ -16,9 +15,11 @@
     <string name="accessibility_contactphoto">Contact Photo</string>
     <string name="accessibility_contactname">Contact Name</string>
     <string name="accessibility_editsdiscarded">Edits Discarded</string>
+    <string name="accessibility_error">Error Occurred</string>
     <string name="accessibility_showdatepickerdialog">Show Date Picker Dialog</string>
     <string name="accessibility_searchaddress">Search Address in Maps</string>
     <string name="accessibility_sendemailtocontact">Send Email To Contact</string>
+    <string name="accessibility_addcontactbirthdaytocalendar">Add Contact Birthday to Calendar</string>
     <string name="accessibility_callcontact">Call Contact</string>
     <string name="accessibility_sendmessage">Send Message</string>
     <string name="accessibility_clearbirthday">Clear Birthday</string>
@@ -61,18 +62,10 @@
     <string name="text_firstname">First Name</string>
     <string name="text_lastname">Last Name</string>
 
-    <!-- Fake info -->
-    <string name="text_fakefullname">John Smith</string>
-    <string name="text_fakenumber">096008333</string>
-    <string name="text_fakeemail">akshaykalyan@outlook.com</string>
-    <string name="text_fakeaddressline1">6 Berkeley Grove</string>
-    <string name="text_fakeaddressline2">Bethlehem</string>
-    <string name="text_fakeaddressline3">Tauranga</string>
-    <string name="text_fakebirthday">25-12-1993</string>
-    <string name="emptystring"></string>
 
     <!-- About Dialog -->
     <string name="text_about_by">By Akshay Kalyan</string>
+    <string name="text_about_email">hello@akshaykalyan.com</string>
 
     <!-- Confirm Delete Dialog -->
     <string name="dialog_confirmdelete_title">Comfirm Delete</string>
@@ -85,6 +78,7 @@
     <string name="toast_editsdiscarded">Edits Discarded</string>
     <string name="toast_contactsaved">Contact Saved</string>
     <string name="toast_contactremoved">Contact Removed</string>
+    <string name="toast_error">Error</string>
     
 
 </resources>

@@ -9,7 +9,7 @@ import android.os.Parcelable;
  */
 public class ContactPhone implements Parcelable {
 	private String fMobilePhone, fHomePhone, fWorkPhone;
-	
+		
 	/**
 	 * Default constructors creates Contact Phone object with empty phone numbers 
 	 */
@@ -28,9 +28,10 @@ public class ContactPhone implements Parcelable {
 		this.fWorkPhone = workPhone;
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
+	
 	public String getHomePhone() {
 		return fHomePhone;
 	}
@@ -51,9 +52,22 @@ public class ContactPhone implements Parcelable {
 		this.fWorkPhone = workPhone;
 	}
 	
+	// ====================================================================
+    // 		toString
+    // ====================================================================
+	
 	/**
-	 * Parcelable Interace Methods
+	 * Concatenates phone numbers and returns String
 	 */
+	@Override
+	public String toString() {
+		return fMobilePhone + " " + fHomePhone + " " + fWorkPhone;
+	}
+	
+	
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
 
 	@Override
 	public int describeContents() {

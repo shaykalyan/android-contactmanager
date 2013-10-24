@@ -27,9 +27,10 @@ public class ContactAddress implements Parcelable {
 		this.fAddressLine4 = addressLine4;
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
+	
 	public String getAddressLine1() {
 		return fAddressLine1;
 	}
@@ -59,10 +60,10 @@ public class ContactAddress implements Parcelable {
 		this.fAddressLine4 = addressLine4;
 	}
 	
-	
-	/**
-	 * Parcelable Interface Methods
-	 */
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
+
 	@Override
 	public int describeContents() {
 		return 0;

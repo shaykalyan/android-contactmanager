@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:id="@+id/toast_contact_saved"
+  android:id="@+id/toast_error"
   android:background="@android:color/white"
   android:orientation="horizontal"
   android:layout_gravity="center_horizontal">
@@ -11,18 +11,18 @@
     <ImageView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_save_floppydisk"
-        android:contentDescription="@string/accessibility_editsdiscarded"
+        android:src="@drawable/ic_error_hexagon"
+        android:contentDescription="@string/accessibility_error"
         android:layout_margin="5dp">
     </ImageView>
 
     <TextView
-        android:id="@+id/textview_toast_contactsaved"
+        android:id="@+id/textview_toast_error"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center_vertical"
         android:paddingRight="15dp"
-        android:text="@string/toast_contactsaved"
+        android:text="@string/toast_error"
         android:textColor="@android:color/black">
     </TextView>
 

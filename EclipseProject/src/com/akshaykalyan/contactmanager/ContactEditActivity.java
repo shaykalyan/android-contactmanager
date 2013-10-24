@@ -1,12 +1,17 @@
 package com.akshaykalyan.contactmanager;
 
+import java.io.File;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import com.akshaykalyan.contact.Contact;
 import com.akshaykalyan.contact.ContactEmail;
+import com.akshaykalyan.contactutilities.*;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +20,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,27 +38,34 @@ import android.text.TextWatcher;
 
 /**
  * Activity class representing the edit screen of a contact. This activity is used for two cases and reacts
- * differently depending on the intent and the parent class (which this activity is requested from)
+ * differently depending on the intent and the parent class (which this activity is requested from).
  * 
  * If parent activity is ContactListActivity, it is treated as a new contact situation
- * and the views are not populated
+ * and the views are not populated.
  * 
  * If parent activity is ContactInformationActivity, it is treated as a contact edit situation 
- * and the views are populated with the contact's respective information
+ * and the views are populated with the contact's respective information.
  * 
- * @author Akshay Pravin Kalyan | akal881 | 57886866
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
  */
 public class ContactEditActivity extends Activity {
 	
-	private Class fParentClass;
 	private static final int REQUEST_CODE_INTENT_CAMERA = 0;
 	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
-	private Button acceptEditButton, discardEditButton;
+	private static final int REQUEST_CODE_INTENT_CROP = 2;
 	
-	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, etAddressLine1,
-						etAddressLine2, etAddressLine3, etAddressLine4;
+	private Class<?> fParentClass;
+	private Contact fContact;
+	private DatabaseHelper db;
+	
+	private Button btnSaveEdit, btnCancelEdit;
+	private EditText etFirstName, etLastName, etMobile, etHome, etWork, etEmail, 
+					 etAddressLine1, etAddressLine2, etAddressLine3, etAddressLine4;
 	private TextView tvBirthday;
+	private ImageView ivPhoto;
 	
+	private static Uri fCameraImageUri;
+		
 	/**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
@@ -59,8 +73,10 @@ public class ContactEditActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_edit);
-		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		// set up underlying database
+		db = new DatabaseHelper(getApplicationContext());
 		
 		etFirstName = (EditText)findViewById(R.id.edittext_contactedit_firstname);
 		etLastName = (EditText)findViewById(R.id.edittext_contactedit_lastname);
@@ -73,35 +89,104 @@ public class ContactEditActivity extends Activity {
 		etAddressLine3 = (EditText)findViewById(R.id.edittext_contactedit_addressline3);
 		etAddressLine4 = (EditText)findViewById(R.id.edittext_contactedit_addressline4);
 		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
+		ivPhoto = (ImageView)findViewById(R.id.image_contactedit_contact_image);
 
-		// save cancel button and listeners
-		acceptEditButton = (Button)findViewById(R.id.button_editactivity_acceptedit);
-		discardEditButton = (Button)findViewById(R.id.button_editactivity_discardedit);
+		// save cancel button
+		btnSaveEdit = (Button)findViewById(R.id.button_editactivity_acceptedit);
+		btnCancelEdit = (Button)findViewById(R.id.button_editactivity_discardedit);
 		
-		discardEditButton.setOnClickListener(new View.OnClickListener() {
+		setupListeners();
+		
+		Intent intent = getIntent();
+		fParentClass = (Class<?>) intent.getExtras().get("PARENT_ACTIVITY");
+
+		if (fParentClass == ContactListActivity.class) { // new contact
+			getActionBar().setTitle("New Contact");
+			// Do not populate views
+		} else { // fParent is ContactInformationActivity
+			// Populate views
+			fContact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
+			etFirstName.setText(fContact.getName().getFirstName());
+			etLastName.setText(fContact.getName().getLastName());
+			etMobile.setText(fContact.getPhone().getMobilePhone());
+			etHome.setText(fContact.getPhone().getHomePhone());
+			etWork.setText(fContact.getPhone().getWorkPhone());
+			etEmail.setText(fContact.getEmail().getEmail());
+			tvBirthday.setText(fContact.getBirthday().getBirthday());
+			etAddressLine1.setText(fContact.getAddress().getAddressLine1());
+			etAddressLine2.setText(fContact.getAddress().getAddressLine2());
+			etAddressLine3.setText(fContact.getAddress().getAddressLine3());
+			etAddressLine4.setText(fContact.getAddress().getAddressLine4());
+			ivPhoto.setImageBitmap(fContact.getPhoto().getPhotoBitmap());
+		}
+	}
+
+	/**
+	 * Method responsible for setting up listeners for 
+	 * Cancel button, Save button and Email validation.
+	 */
+	private void setupListeners() {
+		btnCancelEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	if (fParentClass == ContactListActivity.class) {
+            		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+            		startActivity(intent);
+            	}
             	showEditsDiscardToast();
             	finish();
             }
 		});
-		acceptEditButton.setOnClickListener(new View.OnClickListener() {
+		btnSaveEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	// only if email is validated, further actions can occur
-            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
-            		
-            		if (fParentClass == ContactInformationActivity.class) {
-            			//TODO Logic for updating contact info
-            			finish();
-            		} else { //fParentClass is ContactListActivity
-            			//TODO Logic for adding new contact
-            			finish();
-            		}
-            		showContactSavedToast();
+            	// ensure name is given
+            	if (etFirstName.getText().length() + etLastName.getText().length() == 0) {
+            		showErrorToast("Name Required");
             	} else {
-            		// TODO custom toast?
-            		Toast.makeText(v.getContext(), "Invalid Email!", Toast.LENGTH_SHORT).show();
-            	}  
-            }
+	            	// only if email is validated, further actions can occur
+	            	if (ContactEmail.Validation.isValidEmailAddress(etEmail)) {
+	            		// create contact from fields
+	            		Contact contact = new Contact(
+            					etFirstName.getText().toString(),
+            					etLastName.getText().toString(),
+            					etMobile.getText().toString(),
+            					etHome.getText().toString(),
+            					etWork.getText().toString(),
+            					etEmail.getText().toString().toLowerCase(Locale.ENGLISH),
+            					tvBirthday.getText().toString(),
+            					etAddressLine1.getText().toString(),
+            					etAddressLine2.getText().toString(),
+            					etAddressLine3.getText().toString(),
+            					etAddressLine4.getText().toString(),
+            					((BitmapDrawable)ivPhoto.getDrawable()).getBitmap(),
+            					1);
+	            		
+	            		if (fParentClass == ContactInformationActivity.class) { // EDIT + UPDATE CONTACT
+	            			// set previous ID to contact
+	            			contact.setId(fContact.getId());
+	
+	            			db.updateContact(contact);
+	            			db.close();
+	            			
+	            			Intent intent = new Intent(getApplicationContext(), ContactInformationActivity.class);
+	            			intent.putExtra("CONTACT_OBJECT", contact);
+	            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+	                    	startActivity(intent);
+	            			finish();
+	            		} else { // NEW CONTACT
+	            			db.createContact(contact);
+	            			db.close();
+	            			
+	            			Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+	            			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+	                    	startActivity(intent);		
+	            			finish();
+	            		}
+	            		showContactSavedToast();
+	            	} else {
+	            		showErrorToast("Invalid Email");
+	            	}  
+	            }
+            } 
 		});
 		
 		// email edit text field listener
@@ -117,30 +202,19 @@ public class ContactEditActivity extends Activity {
 			@Override
 			public void afterTextChanged(Editable arg0) {}
 		});
-		
-		// TODO: Populate all fields + Photo field
-		Intent intent = getIntent();
-		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
-
-		
-		
-		if (fParentClass == ContactListActivity.class) { // new contact
-			getActionBar().setTitle("New Contact");
-			// Do not populate views
-		} else { // fParent is ContactInformationActivity
-			// Populate views
-			Contact contact = (Contact) intent.getExtras().get("CONTACT_OBJECT");
-			//TODO populate views
-			etFirstName.setText(contact.getfName().getFirstName());
-		}
 	}
-
+	
 	@Override
 	/**
-	 * Override back press to show toast
+	 * Override back press to dictate which screen the back button returns to.
+	 * Also, shows toast indicating edits were discarded
 	 */
 	public void onBackPressed() {
-		showEditsDiscardToast();
+		if (fParentClass == ContactListActivity.class) {
+    		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+    		startActivity(intent);
+    	}
+    	showEditsDiscardToast();
     	finish();
 		super.onBackPressed();
 	}
@@ -168,17 +242,21 @@ public class ContactEditActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			if (fParentClass == ContactInformationActivity.class){
-				finish();
-			} else { // ListActivity
-				finish();
-			}
+			if (fParentClass == ContactListActivity.class) {
+        		Intent intent = new Intent(getApplicationContext(), ContactListActivity.class);
+        		startActivity(intent);
+        	}
         	showEditsDiscardToast();
+        	finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+	// ====================================================================
+    // 			Interactive onClick methods
+    // ====================================================================
+	
 	/**
 	 * onClick method which launches a dialog allowing the user to pick a date for the 
 	 * Contact's birthday text field.
@@ -187,7 +265,29 @@ public class ContactEditActivity extends Activity {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 	}
+	/**
+	 * onClick method which resets the birthday text view field.
+	 */
+	public void onClick_deleteBirthdayText(View v) {
+		tvBirthday.setText("");
+	}
 	
+	/**
+	 * onClick method to enable the user to select a replacement contact photo.
+	 * This method launches a dialog allowing the user to pick a source for the image from either
+	 * 		Camera
+	 * 		Gallery
+	 * and fires an intent depending on the decision made.
+	 */
+	public void onClick_showImageSourceDialog(View v) {
+		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
+		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
+	}
+	
+	// ====================================================================
+    // 			Date Picker Dialog
+    // ====================================================================
+
 	/**
 	 * Inner Class responsible for generating a Date Picker dialog when a request has 
 	 * been placed by the user. 
@@ -215,7 +315,8 @@ public class ContactEditActivity extends Activity {
 			}
 			
 			// create new instance of DatePickerDialog and return
-			Dialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+			DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+			datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());			
 			return datePickerDialog;
 		}
 		
@@ -227,30 +328,15 @@ public class ContactEditActivity extends Activity {
 			datePickerTextView.setText(new StringBuilder()
 									.append(day).append("-")
 						            // Month is 0 based so add 1
-						            .append(month + 1).append("-")
-						            
+						            .append(month + 1).append("-")       
 						            .append(year).append(" "));			
 		}
 	}
+
 	
-	/**
-	 * onClick method which resets the birthday text view field.
-	 */
-	public void onClick_deleteBirthdayText(View v) {
-		tvBirthday.setText("");
-	}
-	
-	/**
-	 * onClick method to enable the user to select a replacement contact photo.
-	 * This method launches a dialog allowing the user to pick a source for the image from either
-	 * 		Camera
-	 * 		Gallery
-	 * and fires an intent depending on the decision made.
-	 */
-	public void onClick_showImageSourceDialog(View v) {
-		DialogFragment selectImageSourceDialogFragment = new ImageSelectDialogFragment();
-		selectImageSourceDialogFragment.show(getFragmentManager(), "image_source");
-	}
+	// ====================================================================
+    // 			Image Select Dialog
+    // ====================================================================
 
 	/**
 	 * Inner Class responsible for generating an image source Picker dialog when a request has 
@@ -263,6 +349,9 @@ public class ContactEditActivity extends Activity {
 	 * 
 	 * The option select fires its respective intent and is then presented with the chosen
 	 * activity.
+	 * 
+	 * Camera intent relies on saving the image temporarily as not all phones save and return
+	 * photo automatically. A temporary file is created and is where the image is stored intermediately.
 	 */
 	public static class ImageSelectDialogFragment extends DialogFragment {
 		@Override
@@ -275,19 +364,30 @@ public class ContactEditActivity extends Activity {
 					switch (which) {
 					case 0:
 						Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						getActivity().startActivityForResult(takePicture, REQUEST_CODE_INTENT_GALLERY);
+							
+						File dir = new File( 
+								getActivity().getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+								"contactsNow");
+						if (!dir.exists()) {
+							dir.mkdirs();
+						}
+						
+						File imageFile = new File(dir.getPath() + File.separator + "contacts_now_temp.jpg");
+						fCameraImageUri = Uri.fromFile(imageFile);
+						
+						takePicture.putExtra(MediaStore.EXTRA_OUTPUT, fCameraImageUri);
+						getActivity().startActivityForResult(takePicture, REQUEST_CODE_INTENT_CAMERA);
 						break;
 					case 1:
 						Intent pickPhoto = new Intent(Intent.ACTION_PICK,
 						           android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-						getActivity().startActivityForResult(pickPhoto , REQUEST_CODE_INTENT_CAMERA);
+						getActivity().startActivityForResult(pickPhoto , REQUEST_CODE_INTENT_GALLERY);
 						break;
 					default:
 						break;
 					}
 				}
 			});
-			
 			return builder.create();
 		}
 	}
@@ -298,27 +398,52 @@ public class ContactEditActivity extends Activity {
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
-		ImageView contactPhotoImageView = (ImageView)findViewById(R.id.image_contactedit_contact_image);
-
+		
 		switch(requestCode) {
 		case REQUEST_CODE_INTENT_CAMERA:
 		    if(resultCode == RESULT_OK){  
-		        Uri selectedImage = imageReturnedIntent.getData();
-		        contactPhotoImageView.setImageURI(selectedImage);
+		    	// fCameraImageUri will have updated with the latest image address
+		        fireCropIntent(fCameraImageUri);
 		    }
 		    break; 
 		case REQUEST_CODE_INTENT_GALLERY:
 		    if(resultCode == RESULT_OK){  
 		        Uri selectedImage = imageReturnedIntent.getData();
-		        contactPhotoImageView.setImageURI(selectedImage);
+		        fireCropIntent(selectedImage);
 		    }
 		    break;
+		case REQUEST_CODE_INTENT_CROP:
+			Bundle extras = imageReturnedIntent.getExtras();
+			if (extras != null) {
+				Bitmap photo = extras.getParcelable("data");
+				ivPhoto.setImageBitmap(photo);
+			}
+			break;
 		}
 	}
 
-
 	/**
-	 * Inflates a custom toast, Edits Discarded Toast, and shows to the currect Application Context
+	 * Given an image Uri, a crop intent is created and fired for the image
+	 * to be cropped.
+	 */
+	private void fireCropIntent(Uri imgUri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(imgUri, "image/*");  
+		intent.putExtra("crop", "true");  
+		intent.putExtra("aspectX", 1);  		// aspect ration 1:1
+		intent.putExtra("aspectY", 1);  
+		intent.putExtra("outputX", 300);  		// size of image 300x300
+		intent.putExtra("outputY", 300);  
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, REQUEST_CODE_INTENT_CROP);
+	}
+	
+	// ====================================================================
+    // 			Custom Toasts
+    // ====================================================================
+	
+	/**
+	 * Inflates a custom toast, Edits Discarded Toast, and shows to the current Application Context
 	 */
 	private void showEditsDiscardToast() {
 		LayoutInflater inflater = getLayoutInflater();
@@ -329,11 +454,24 @@ public class ContactEditActivity extends Activity {
 	}
 	
 	/**
-	 * Inflates a custom toast, Contact Saved Toast, and shows to the currect Application Context
+	 * Inflates a custom toast, Contact Saved Toast, and shows to the current Application Context
 	 */
 	private void showContactSavedToast() {
 		LayoutInflater inflater = getLayoutInflater();
     	View view = inflater.inflate(R.layout.toast_contact_saved, (ViewGroup)findViewById(R.id.toast_contact_saved));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(view);
+        toast.show();
+	}
+	
+	/**
+	 * Inflates a custom toast, Error Toast, with the provided String and shows to the current Application Context
+	 */
+	private void showErrorToast(String msg) {
+		LayoutInflater inflater = getLayoutInflater();
+    	View view = inflater.inflate(R.layout.toast_error, (ViewGroup)findViewById(R.id.toast_error));
+    	TextView tvToast = (TextView)view.findViewById(R.id.textview_toast_error);
+    	tvToast.setText(msg);
         Toast toast = new Toast(getApplicationContext());
         toast.setView(view);
         toast.show();

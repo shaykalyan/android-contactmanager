@@ -25,18 +25,10 @@ public class ContactName implements Parcelable {
 		this.fLastName = lastName;
 	}
 	
-	@Override
-	/**
-	 * Formats first and last name fields delimited with a space
-	 */
-	public String toString() {
-		String fullNameString = fFirstName + " " + fLastName;
-		return fullNameString;
-	}
+	// ====================================================================
+    // 		Getters and Setters 
+    // ====================================================================
 	
-	/**
-	 * Getters and Setters
-	 */
 	public String getFirstName() {
 		return fFirstName;
 	}
@@ -53,10 +45,22 @@ public class ContactName implements Parcelable {
 		this.fLastName = lastName;
 	}
 	
+	// ====================================================================
+    // 		toString
+    // ====================================================================
 	
+	@Override
 	/**
-	 * Parcelable Interface Methods
+	 * Formats first and last name fields delimited with a space
 	 */
+	public String toString() {
+		String fullNameString = fFirstName + " " + fLastName;
+		return fullNameString;
+	}
+	
+	// ====================================================================
+    // 		Parcelable Interface Methods
+    // ====================================================================
 	
 	@Override
 	public int describeContents() {
