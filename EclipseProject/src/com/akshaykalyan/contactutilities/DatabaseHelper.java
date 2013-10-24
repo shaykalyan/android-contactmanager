@@ -12,6 +12,27 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * This class is dedicated in creating and managing a database of Contacts.
+ * The table contains the following columns:
+ * 		- ID
+ * 		- FIRST NAME
+ * 		- LAST NAME
+ * 		- MOBILE PHONE
+ * 		- HOME PHONE
+ * 		- WORK PHONE
+ * 		- EMAIL
+ * 		- BIRTHDAY
+ * 		- ADDRESSLINE1
+ * 		- ADDRESSLINE2
+ * 		- ADDRESSLINE3
+ * 		- ADDRESSLINE4
+ * 		- PHOTO
+ * 
+ * This class allows rows of the database to be created, read, modified and deleted. 
+ * 
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "ContactsManagerDatabase";
 	private static final int DATABASE_VERSION = 1;
@@ -141,7 +162,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		List<Contact> contactsList = new ArrayList<Contact>();
 	    String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
 
-	 
 	    SQLiteDatabase db = this.getReadableDatabase();
 	    Cursor cursor = db.rawQuery(selectQuery, null);
 	 

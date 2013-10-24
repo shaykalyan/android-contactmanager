@@ -3,6 +3,7 @@ package com.akshaykalyan.contactmanager;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import com.akshaykalyan.contact.Contact;
 import com.akshaykalyan.contact.ContactEmail;
@@ -12,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.ContactsContract.Data;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -38,15 +38,15 @@ import android.text.TextWatcher;
 
 /**
  * Activity class representing the edit screen of a contact. This activity is used for two cases and reacts
- * differently depending on the intent and the parent class (which this activity is requested from)
+ * differently depending on the intent and the parent class (which this activity is requested from).
  * 
  * If parent activity is ContactListActivity, it is treated as a new contact situation
- * and the views are not populated
+ * and the views are not populated.
  * 
  * If parent activity is ContactInformationActivity, it is treated as a contact edit situation 
- * and the views are populated with the contact's respective information
+ * and the views are populated with the contact's respective information.
  * 
- * @author Akshay Pravin Kalyan | akal881 | 57886866
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
  */
 public class ContactEditActivity extends Activity {
 	
@@ -54,7 +54,7 @@ public class ContactEditActivity extends Activity {
 	private static final int REQUEST_CODE_INTENT_GALLERY = 1;
 	private static final int REQUEST_CODE_INTENT_CROP = 2;
 	
-	private Class fParentClass;
+	private Class<?> fParentClass;
 	private Contact fContact;
 	private DatabaseHelper db;
 	
@@ -74,6 +74,7 @@ public class ContactEditActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_edit);
 		setupActionBar();
+		
 		// set up underlying database
 		db = new DatabaseHelper(getApplicationContext());
 		
@@ -90,14 +91,14 @@ public class ContactEditActivity extends Activity {
 		tvBirthday = (TextView)findViewById(R.id.textview_contactedit_birthday); 
 		ivPhoto = (ImageView)findViewById(R.id.image_contactedit_contact_image);
 
-		// save cancel button and listeners
+		// save cancel button
 		btnSaveEdit = (Button)findViewById(R.id.button_editactivity_acceptedit);
 		btnCancelEdit = (Button)findViewById(R.id.button_editactivity_discardedit);
 		
 		setupListeners();
 		
 		Intent intent = getIntent();
-		fParentClass = (Class) intent.getExtras().get("PARENT_ACTIVITY");
+		fParentClass = (Class<?>) intent.getExtras().get("PARENT_ACTIVITY");
 
 		if (fParentClass == ContactListActivity.class) { // new contact
 			getActionBar().setTitle("New Contact");
@@ -150,7 +151,7 @@ public class ContactEditActivity extends Activity {
             					etMobile.getText().toString(),
             					etHome.getText().toString(),
             					etWork.getText().toString(),
-            					etEmail.getText().toString().toLowerCase(),
+            					etEmail.getText().toString().toLowerCase(Locale.ENGLISH),
             					tvBirthday.getText().toString(),
             					etAddressLine1.getText().toString(),
             					etAddressLine2.getText().toString(),
@@ -350,7 +351,7 @@ public class ContactEditActivity extends Activity {
 	 * activity.
 	 * 
 	 * Camera intent relies on saving the image temporarily as not all phones save and return
-	 * photo automatically. Temp file is created and is where the image is stored intermediately.
+	 * photo automatically. A temporary file is created and is where the image is stored intermediately.
 	 */
 	public static class ImageSelectDialogFragment extends DialogFragment {
 		@Override
@@ -422,16 +423,16 @@ public class ContactEditActivity extends Activity {
 	}
 
 	/**
-	 * Given and image Uri, a crop intent is created and fired for the image
+	 * Given an image Uri, a crop intent is created and fired for the image
 	 * to be cropped.
 	 */
 	private void fireCropIntent(Uri imgUri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(imgUri, "image/*");  
 		intent.putExtra("crop", "true");  
-		intent.putExtra("aspectX", 1);  
+		intent.putExtra("aspectX", 1);  		// aspect ration 1:1
 		intent.putExtra("aspectY", 1);  
-		intent.putExtra("outputX", 300);  
+		intent.putExtra("outputX", 300);  		// size of image 300x300
 		intent.putExtra("outputY", 300);  
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, REQUEST_CODE_INTENT_CROP);
@@ -464,7 +465,7 @@ public class ContactEditActivity extends Activity {
 	}
 	
 	/**
-	 * Inflates a custom toast, Error Toast, with the provided String
+	 * Inflates a custom toast, Error Toast, with the provided String and shows to the current Application Context
 	 */
 	private void showErrorToast(String msg) {
 		LayoutInflater inflater = getLayoutInflater();

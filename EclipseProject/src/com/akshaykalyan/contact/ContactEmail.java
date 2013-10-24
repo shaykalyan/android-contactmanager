@@ -40,6 +40,10 @@ public class ContactEmail implements Parcelable {
 		this.fEmail = emailString;
 	}
 	
+	// ====================================================================
+    // 		toString
+    // ====================================================================
+	
 	@Override
 	public String toString() {
 		return fEmail;

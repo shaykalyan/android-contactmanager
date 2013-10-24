@@ -1,6 +1,5 @@
 package com.akshaykalyan.contactmanager;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,9 +33,9 @@ import android.widget.Toast;
  * Activity class representing the Contact Information screen of a contact. This activity is 
  * focused after selecting a contact item from the ContactListActivity activity. The 
  * corresponding Contact object is passed through an intent, unpacked and its content 
- * displayed to the respective views.
+ * displayed within the respective views.
  * 
- * @author Akshay Pravin Kalyan | akal881 | 57886866
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
  */
 public class ContactInformationActivity extends Activity {
 
@@ -77,7 +76,7 @@ public class ContactInformationActivity extends Activity {
 		// for each non-empty field in Contact, populate view
 		// if state exists
 		//			set text
-		//			add respective label to list for typeface change
+		//			add respective label to list for typeface change (later)
 		// else
 		//			remove view group		
 		

@@ -40,6 +40,10 @@ public class ContactPhoto implements Parcelable {
 		return stream.toByteArray();
 	}
 	
+	// ====================================================================
+    // 		Conversion - ByteArray to Bitmap
+    // ====================================================================
+	
 	public static Bitmap getPhotoBitmap(byte[] byteArray) {
 		Bitmap photo = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 		return photo;

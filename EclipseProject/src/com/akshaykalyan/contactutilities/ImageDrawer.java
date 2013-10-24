@@ -11,13 +11,12 @@ import android.view.animation.Transformation;
 import android.widget.ImageView;
 
 /**
- * Class extending ImageView to provide custom actions.
- * Allows user to expand and collapse an ImageView.
+ * Class extending ImageView to provide custom image view animations. This view 
+ * allows the user to expand and collapse an ImageView.
  * 
  * Adapted from :
  * http://im-dexter.blogspot.co.nz/2013/01/android-expandable-collapsible-image.html
  * by @author Sreejith B Naick
- * 
  */
 public class ImageDrawer extends ImageView {
 	private final static int STATE_CLOSED = 0;

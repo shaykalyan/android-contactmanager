@@ -43,7 +43,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Contact> {
 	}
 	
 	/**
-	 * Populate new items in the list with the following method.
+	 * Populate new items in the list with the following method. Inflates custom card layout and populates
+	 * the name and image views. 
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

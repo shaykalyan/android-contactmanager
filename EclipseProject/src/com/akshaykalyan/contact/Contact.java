@@ -1,6 +1,7 @@
 package com.akshaykalyan.contact;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
@@ -122,7 +123,7 @@ public class Contact implements Parcelable {
 	
 	/**
 	 * Constructor which creates a new Contact object with respective fields instantiated. 
-	 * Strings and a bitmap object is expected
+	 * Several Strings, a Bitmap object and an Integer is expected
 	 * 
 	 * @param firstName - contact's first name
 	 * @param lastName - contact's last name
@@ -331,6 +332,6 @@ public class Contact implements Parcelable {
 	 * filter function to work with this Contact implementation.
 	 */
 	public String toString() {
-		return getName().toString().toLowerCase() + " " + fPhone.toString();
+		return getName().toString().toLowerCase(Locale.ENGLISH) + " " + fPhone.toString();
 	}
 }

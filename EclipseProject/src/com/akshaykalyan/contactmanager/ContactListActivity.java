@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import com.akshaykalyan.contact.*;
 import com.akshaykalyan.contact.Contact.SortBy;
@@ -50,7 +51,7 @@ import android.text.TextWatcher;
  *
  * This activity is based on the navigation drawer layout scheme.
  * 
- * @author Akshay Pravin Kalyan | akal881 | 57886866
+ * @author Akshay Pravin Kalyan | akal881 | 5786866
  */
 public class ContactListActivity extends FragmentActivity {
 
@@ -160,6 +161,8 @@ public class ContactListActivity extends FragmentActivity {
 
 	/**
 	 * @see android.app.Activity#onCreateOptionsMenu(Menu)
+	 * Also responsible for setting up the dynamic search in the action bar including the
+	 * toggling of the soft keyboard to only when it is required.
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -231,7 +234,7 @@ public class ContactListActivity extends FragmentActivity {
 	 */
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {		
 		@Override
-		public void onItemClick(AdapterView parent, View view, int position, long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			setListSort(position);
 		}
 	}
@@ -291,6 +294,8 @@ public class ContactListActivity extends FragmentActivity {
     
     /**
      * @see android.app.Activity#onOptionsItemSelected(MenuItem)
+     * Sets up the action bar buttons. Toggling of the Sort Options
+     * drawer is also carried out.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -353,7 +358,7 @@ public class ContactListActivity extends FragmentActivity {
     	}
     	
     	/**
-    	 * Sorts the underlying Contacts list based on the comparator passed in. 
+    	 * Sorts the underlying Contacts list based on the comparator object passed in. 
     	 */
     	public void sortContactsList(Comparator<Contact> cmp) {
     		fAdapter.sort(cmp);
@@ -365,7 +370,7 @@ public class ContactListActivity extends FragmentActivity {
     	 * to filter contacts. 
     	 */
     	public void filterContacts(CharSequence cs) {
-    		fAdapter.getFilter().filter(cs.toString().toLowerCase());
+    		fAdapter.getFilter().filter(cs.toString().toLowerCase(Locale.ENGLISH));
     	}
     	
     	/**
@@ -407,14 +412,6 @@ public class ContactListActivity extends FragmentActivity {
     		startActivity(intent);
     		getActivity().finish();
     	}
-    
-    	/**
-    	 * Adds a contact object passed in to the underlying list in the adapter.
-    	 */
-    	public void AddItem (View v, Contact c) {
-    		fAdapter.add(c);
-    		fAdapter.notifyDataSetChanged();
-    	}
 	}
     
  	// ====================================================================
@@ -425,7 +422,7 @@ public class ContactListActivity extends FragmentActivity {
 	 * Inner Class responsible for generating a custom About dialog when a request has 
 	 * been placed by the user. 
 	 * 
-	 * About dialog contains the Application name, version and developer details.
+	 * About dialog contains the application name, version and developer details.
 	 * Also, provides a clickable email address to the developer
 	 */
     public static class AboutDialog extends DialogFragment {
