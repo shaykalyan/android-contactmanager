@@ -1,4 +1,5 @@
-android-contactmanager
+Contacts Now
 ======================
+_A Simple Contacts Manager for Android_
 
-SOFTENG206 Project
+-- Read me coming soon.
