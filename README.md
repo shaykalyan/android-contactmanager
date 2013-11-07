@@ -2,4 +2,4 @@ Contacts Now
 ======================
 _A Simple Contacts Manager for Android_
 
--- Read me coming soon.
+Check out the Wiki for a quick preview!
