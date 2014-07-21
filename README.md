@@ -1,4 +1,10 @@
-android-contactmanager
+# Contacts Now - A Contacts Manager
 ======================
 
-SOFTENG206 Project
+Proof of concept design and developement of a simple contacts manager application for the Android platform as part of a Software Engineering Design course (SE306).
+
+## Preview
+
+## Licence
+This projected is licensed under the terms of the Apache License.
+
