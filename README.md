@@ -4,6 +4,8 @@ Proof of concept design and developement of a simple contacts manager applicatio
 
 ## Preview
 
+![Photo](screenshots/preview.jpg)
+
 ## Licence
 This projected is licensed under the terms of the Apache License.
 
